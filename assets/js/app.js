@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ✅ تحقق من وجود مستخدم محفوظ - تخطي صفحة الاسم
     const savedUsername = Storage.getUsername();
     if (savedUsername && savedUsername !== 'مستخدم') {
-        console.log('👋 مرحباً مجدداً:', savedUsername);
+        console.log('🔄 تم اكتشاف تسجيل دخول سابق:', savedUsername);
         // الانتقال مباشرة لصفحة الفصول
         UI.showPage('chapters-page');
     }
