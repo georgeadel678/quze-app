@@ -82,13 +82,13 @@ class EssayQuizApp {
                 type="range" 
                 id="countRange"
                 min="1" 
-                max="${QUESTIONS_DB.length}" 
+                max="${window.essayQuestions ? window.essayQuestions.length : 0}" 
                 value="${this.state.questionCount}"
                 class="range-slider"
             />
             <div class="range-info">
                 <span>1</span>
-                <span>${QUESTIONS_DB.length}</span>
+                <span>${window.essayQuestions ? window.essayQuestions.length : 0}</span>
             </div>
         `; const errorBox = this.state.errorMsg ?
             this.createErrorBox(this.state.errorMsg) :
