@@ -69,53 +69,113 @@ class EssayQuizApp {
     createSetupView() {
         const container = document.createElement('div');
         container.className = 'setup-content';
+        container.style.display = 'flex';
+        container.style.flexDirection = 'column';
+        container.style.alignItems = 'center';
+        container.style.justifyContent = 'center';
+        container.style.minHeight = '60vh';
 
-        const infoBox = document.createElement('div');
-        infoBox.className = 'info-box';
-        infoBox.textContent = 'تم تفعيل Gemini AI بنجاح. اختر عدد الأسئلة وابدأ الاختبار!';
+        // إنشاء بطاقة منسقة
+        const card = document.createElement('div');
+        card.className = 'setup-card';
+        card.style.background = 'rgba(255, 255, 255, 0.95)';
+        card.style.padding = '2.5rem';
+        card.style.borderRadius = '24px';
+        card.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.1)';
+        card.style.width = '100%';
+        card.style.maxWidth = '480px';
+        card.style.textAlign = 'center';
+
+        // العنوان
+        const title = document.createElement('h3');
+        title.textContent = 'إعدادات الاختبار';
+        title.style.color = '#1f2937';
+        title.style.fontSize = '1.5rem';
+        title.style.fontWeight = '700';
+        title.style.marginBottom = '2rem';
 
         const countGroup = document.createElement('div');
         countGroup.className = 'input-group';
+        countGroup.style.marginBottom = '2rem';
+
+        // تحسين العداد
+        const maxQuestions = window.essayQuestions ? window.essayQuestions.length : 0;
+
         countGroup.innerHTML = `
-            <label for="countRange">عدد الأسئلة (${this.state.questionCount})</label>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <label for="countRange" style="font-size: 1.1rem; color: #4b5563; font-weight: 500;">عدد الأسئلة</label>
+                <span class="count-badge" style="background: #4f46e5; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">${this.state.questionCount}</span>
+            </div>
             <input 
                 type="range" 
                 id="countRange"
                 min="1" 
-                max="${window.essayQuestions ? window.essayQuestions.length : 0}" 
+                max="${maxQuestions}" 
                 value="${this.state.questionCount}"
                 class="range-slider"
+                style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 5px; outline: none; -webkit-appearance: none; cursor: pointer;"
             />
-            <div class="range-info">
+            <div class="range-info" style="display: flex; justify-content: space-between; color: #9ca3af; font-size: 0.85rem; margin-top: 0.5rem;">
                 <span>1</span>
-                <span>${window.essayQuestions ? window.essayQuestions.length : 0}</span>
+                <span>${maxQuestions}</span>
             </div>
-        `; const errorBox = this.state.errorMsg ?
+        `;
+
+        const errorBox = this.state.errorMsg ?
             this.createErrorBox(this.state.errorMsg) :
             document.createElement('div');
 
         const startBtn = document.createElement('button');
         startBtn.className = 'btn btn-primary';
         startBtn.textContent = 'بدء الامتحان';
+        startBtn.style.width = '100%';
+        startBtn.style.padding = '1rem';
+        startBtn.style.fontSize = '1.1rem';
+        startBtn.style.borderRadius = '12px';
+        startBtn.style.marginTop = '1rem';
+        startBtn.style.background = 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)';
+        startBtn.style.border = 'none';
+        startBtn.style.color = 'white';
+        startBtn.style.cursor = 'pointer';
+        startBtn.style.transition = 'transform 0.2s, box-shadow 0.2s';
+
+        // تأثير الهوفر
+        startBtn.onmouseover = () => {
+            startBtn.style.transform = 'translateY(-2px)';
+            startBtn.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.3)';
+        };
+        startBtn.onmouseout = () => {
+            startBtn.style.transform = 'translateY(0)';
+            startBtn.style.boxShadow = 'none';
+        };
 
         // Event listeners
         document.addEventListener('change', (e) => {
-            if (e.target.id === 'apiKeyInput') {
-                this.state.apiKey = e.target.value;
-            }
             if (e.target.id === 'countRange') {
                 this.state.questionCount = parseInt(e.target.value);
-                countGroup.querySelector('label').textContent = `عدد الأسئلة (${this.state.questionCount})`;
-                this.render();
+                // تحديث الرقم المعروض
+                const badge = countGroup.querySelector('.count-badge');
+                if (badge) badge.textContent = this.state.questionCount;
+            }
+        });
+
+        // تحديث القيمة مباشرة أثناء التحريك
+        document.addEventListener('input', (e) => {
+            if (e.target.id === 'countRange') {
+                const val = parseInt(e.target.value);
+                const badge = countGroup.querySelector('.count-badge');
+                if (badge) badge.textContent = val;
             }
         });
 
         startBtn.addEventListener('click', () => this.startQuiz());
 
-        container.appendChild(infoBox);
-        container.appendChild(countGroup);
-        if (this.state.errorMsg) container.appendChild(errorBox);
-        container.appendChild(startBtn);
+        card.appendChild(title);
+        card.appendChild(countGroup);
+        if (this.state.errorMsg) card.appendChild(errorBox);
+        card.appendChild(startBtn);
+
+        container.appendChild(card);
 
         return container;
     }

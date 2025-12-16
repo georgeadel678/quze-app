@@ -227,9 +227,92 @@ function prevQuestion() {
 }
 
 function submitQuiz() {
-    if (confirm('هل أنت متأكد من إنهاء الاختبار؟')) {
-        Quiz.submitQuiz();
+    // إنشاء النافذة إذا لم تكن موجودة
+    let modal = document.getElementById('custom-submit-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'custom-submit-modal';
+        modal.style.display = 'none';
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        modal.style.zIndex = '9999';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.backdropFilter = 'blur(4px)';
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        modalContent.style.background = 'var(--bg-card, #ffffff)';
+        modalContent.style.padding = '2rem';
+        modalContent.style.borderRadius = '24px';
+        modalContent.style.maxWidth = '400px';
+        modalContent.style.width = '90%';
+        modalContent.style.textAlign = 'center';
+        modalContent.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        modalContent.style.border = '1px solid var(--border-color, rgba(0,0,0,0.1))';
+
+        // التعامل مع الوضع الليلي يدوياً إذا لم تكن المتغيرات موجودة
+        if (document.body.classList.contains('dark-mode')) {
+            modalContent.style.background = '#1f2937';
+            modalContent.style.color = '#ffffff';
+        }
+
+        modalContent.innerHTML = `
+            <div style="font-size: 3.5rem; margin-bottom: 1rem; animation: bounce 1s infinite;">🤔</div>
+            <h3 style="margin-bottom: 0.5rem; font-weight: 800; font-size: 1.5rem; color: var(--text-primary, inherit);">هل أنت متأكد؟</h3>
+            <p style="color: var(--text-secondary, #6b7280); margin-bottom: 2rem; line-height: 1.6;">هل تريد حقاً إنهاء الاختبار وتسليم الإجابات؟<br>لا يمكن التراجع عن هذه الخطوة.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button id="modal-submit-confirm" class="btn" style="flex: 1; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border: none; padding: 0.75rem; border-radius: 12px; font-weight: bold; cursor: pointer; transition: transform 0.2s;">نعم، سلم</button>
+                <button id="modal-submit-cancel" class="btn" style="flex: 1; background: #e5e7eb; color: #374151; border: none; padding: 0.75rem; border-radius: 12px; font-weight: bold; cursor: pointer; transition: background 0.2s;">تراجع</button>
+            </div>
+        `;
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        // Event Listeners
+        const confirmBtn = document.getElementById('modal-submit-confirm');
+        const cancelBtn = document.getElementById('modal-submit-cancel');
+
+        confirmBtn.onclick = () => {
+            modal.style.display = 'none';
+            Quiz.submitQuiz();
+        };
+
+        cancelBtn.onclick = () => {
+            modal.style.display = 'none';
+        };
+
+        // Hover effects
+        confirmBtn.onmouseover = () => confirmBtn.style.transform = 'scale(1.02)';
+        confirmBtn.onmouseout = () => confirmBtn.style.transform = 'scale(1)';
+
+        cancelBtn.onmouseover = () => cancelBtn.style.backgroundColor = '#d1d5db';
+        cancelBtn.onmouseout = () => cancelBtn.style.backgroundColor = '#e5e7eb';
+
+        // Close on outside click
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    } else {
+        // تحديث الألوان في حالة تغيير الوضع (فاتح/غامق)
+        const content = modal.querySelector('.modal-content');
+        if (document.body.classList.contains('dark-mode')) {
+            content.style.background = '#1f2937';
+            content.style.color = '#ffffff';
+        } else {
+            content.style.background = '#ffffff';
+            content.style.color = 'inherit';
+        }
     }
+
+    modal.style.display = 'flex';
 }
 
 // اختيار نوع الاختبار
