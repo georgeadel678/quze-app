@@ -1,93 +1,114 @@
-// Serverless Function للتعامل مع Gemini API بشكل آمن
-// هذا الملف يعمل على السيرفر ويخفي API key
+// Serverless Function for Groq API
+import Groq from 'groq-sdk';
 
 export default async function handler(req, res) {
-    // السماح فقط بـ POST requests
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    // استخراج البيانات من الطلب
     const { question, modelAnswer, userAnswer } = req.body;
 
-    // التحقق من وجود جميع البيانات المطلوبة
+    // التحقق من المفتاح
+    const apiKey = process.env.GROQ_API_KEY;
+
+    if (!apiKey) {
+        return res.status(500).json({
+            error: 'API key not configured. Please set GROQ_API_KEY in environment variables.'
+        });
+    }
+
+    // التحقق من الإدخال
     if (!question || !modelAnswer || !userAnswer) {
         return res.status(400).json({
             error: 'Missing required fields: question, modelAnswer, userAnswer'
         });
     }
 
-    // الحصول على API key من متغيرات البيئة (محمي ومخفي)
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-        return res.status(500).json({
-            error: 'API key not configured. Please set GEMINI_API_KEY in environment variables.'
-        });
-    }
-
     try {
-        // إنشاء الـ prompt للذكاء الاصطناعي
-        const prompt = `
-            Role: You are a strict but fair academic grader.
-            Task: Compare the Student Answer to the Model Answer for the given Question.
-            Language: Output logic in English, but the "feedback" field MUST be in ARABIC.
+        // إعداد Groq client
+        const groq = new Groq({ apiKey: apiKey });
 
-            Question: ${question}
-            Model Answer: ${modelAnswer}
-            Student Answer: ${userAnswer}
+        // بناء الـ Prompt
+        const prompt = `أنت مدقق أكاديمي متخصص في تقييم الإجابات المقالية. قيّم الإجابة التالية بناءً على الإجابة النموذجية واعطِ:
+1. درجة من 10
+2. تقييم عام (صحيحة/ناقصة/خاطئة)
+3. ملاحظات محددة وتوجيهات للتحسين
 
-            Instructions:
-            1. If the Student Answer is completely wrong or irrelevant, status is "incorrect".
-            2. If the Student Answer matches the key concepts of Model Answer, status is "correct".
-            3. If the Student Answer is correct but misses key details mentioned in Model Answer, status is "partial".
-            4. "feedback" should explain WHY it is correct, partial, or wrong in Arabic. If partial, explicitly state what is missing.
-            5. "score" is 0-10.
+السؤال: ${question}
 
-            Output Format: Provide ONLY a valid JSON object. Do not wrap in markdown code blocks.
-            {
-                "status": "correct" | "incorrect" | "partial",
-                "feedback": "Arabic explanation here...",
-                "score": number
-            }
-        `;
+الإجابة النموذجية:
+${modelAnswer}
 
-        // الاتصال بـ Gemini API - استخدام gemini-2.5-flash (تم التحقق من عمله)
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+إجابة الطالب:
+${userAnswer}
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
+أعطِ ردك بصيغة JSON فقط (بدون أي نص إضافي) بالشكل التالي:
+{
+  "score": رقم من 0 إلى 10,
+  "status": "correct" أو "partial" أو "incorrect",
+  "feedback": "ملاحظاتك وتوجيهاتك هنا"
+}`;
+
+        // استدعاء Groq API
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: 'system',
+                    content: 'You are a helpful academic evaluator. Always respond in valid JSON format.'
+                },
+                {
+                    role: 'user',
+                    content: prompt
+                }
+            ],
+            model: 'llama-3.1-8b-instant',
+            temperature: 0.7,
+            max_tokens: 1024,
+            top_p: 1,
+            stream: false
         });
 
-        if (!response.ok) {
-            let errorDetails = 'API Error';
-            try {
-                const errData = await response.json();
-                errorDetails = errData.error?.message || errorDetails;
-            } catch (e) {
-                // ignore JSON parse error
-            }
-            throw new Error(errorDetails);
+        const responseText = chatCompletion.choices[0]?.message?.content || '';
+
+        // محاولة استخراج JSON
+        let cleanJson = responseText.trim();
+
+        // إزالة أي نص قبل/بعد JSON إذا وجد
+        const jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            cleanJson = jsonMatch[0];
         }
 
-        const data = await response.json();
-        const text = data.candidates[0].content.parts[0].text;
+        const result = JSON.parse(cleanJson);
 
-        // تنظيف النص من أي markdown إذا كان موجوداً
-        const jsonStr = text.replace(/```json|```/g, '').trim();
-        const result = JSON.parse(jsonStr);
+        // التحقق من صحة البيانات
+        if (typeof result.score !== 'number' || !result.status || !result.feedback) {
+            throw new Error('Invalid AI response format');
+        }
 
-        // إرجاع النتيجة
-        return res.status(200).json(result);
+        return res.status(200).json({
+            success: true,
+            evaluation: {
+                score: Math.min(10, Math.max(0, result.score)),
+                status: result.status,
+                feedback: result.feedback
+            }
+        });
 
     } catch (error) {
-        console.error('Gemini API Error:', error);
+        console.error('Groq API Error:', error);
         return res.status(500).json({
-            error: error.message || 'Failed to evaluate answer'
+            error: 'Failed to evaluate answer',
+            details: error.message
         });
     }
 }
