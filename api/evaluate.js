@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         const groq = new Groq({ apiKey: apiKey });
 
         // بناء الـ Prompt
-         const prompt = `أنت مدقق أكاديمي متخصص في تقييم الإجابات المقالية.
+        const prompt = `أنت مدقق أكاديمي متخصص في تقييم الإجابات المقالية.
 المهمة: تقييم إجابة الطالب مقارنة بالإجابة النموذجية.
 
 القواعد الصارمة للتقييم:
@@ -59,7 +59,7 @@ ${userAnswer}
 {
   "score": رقم من 0 إلى 10,
   "status": "correct" أو "partial" أو "incorrect",
-  "feedback": "ملاحظاتك وتوجيهاتك هنا"
+  "feedback": "ملاحظاتك المختصرة هنا"
 }`;
 
         // استدعاء Groq API

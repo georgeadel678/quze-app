@@ -122,7 +122,7 @@ const Quiz = {
         });
 
         // إضافة النقاط
-        const points = score * 2; // نقطتان لكل سؤال صح
+        const points = score * 1; // نقطة واحدة لكل سؤال صح
         Storage.addPoints(points);
 
         // حفظ في قاعدة البيانات
