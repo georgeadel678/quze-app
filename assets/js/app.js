@@ -67,6 +67,69 @@ async function submitUsername() {
     }
 }
 
+// دالة تغيير اسم المستخدم
+async function changeUsername() {
+    const currentUsername = Storage.getUsername();
+
+    if (!currentUsername || currentUsername === 'مستخدم') {
+        alert('لم يتم العثور على مستخدم مسجل');
+        return;
+    }
+
+    const newUsername = prompt(`اسمك الحالي: ${currentUsername}\n\nأدخل الاسم الجديد:`);
+
+    if (!newUsername) {
+        return; // المستخدم ألغى العملية
+    }
+
+    const cleanNewUsername = newUsername.trim();
+
+    if (cleanNewUsername.length < 2) {
+        alert('الاسم يجب أن يكون حرفين على الأقل');
+        return;
+    }
+
+    if (cleanNewUsername.length > 20) {
+        alert('الاسم يجب ألا يتجاوز 20 حرف');
+        return;
+    }
+
+    if (cleanNewUsername === currentUsername) {
+        alert('الاسم الجديد مطابق للاسم الحالي');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/users/update-username', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                currentUsername: currentUsername,
+                newUsername: cleanNewUsername
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'حدث خطأ');
+        }
+
+        // تحديث localStorage
+        Storage.setUsername(data.user.username);
+        Storage.set('userId', data.user.id);
+        Storage.set('userPoints', data.user.points);
+
+        alert(`✅ تم تحديث الاسم بنجاح!\nالاسم الجديد: ${data.user.username}`);
+
+        // إعادة تحميل الصفحة لتحديث كل شيء
+        window.location.reload();
+    } catch (error) {
+        console.error('Error updating username:', error);
+        alert(error.message || 'حدث خطأ، حاول مرة أخرى');
+    }
+}
+
 // تهيئة التطبيق عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function () {
     console.log('🎓 تطبيق الاختبارات جاهز!');
@@ -77,12 +140,36 @@ document.addEventListener('DOMContentLoaded', function () {
         Storage.updateDarkModeToggle();
     }
 
-    // ✅ تحقق من وجود مستخدم محفوظ - تخطي صفحة الاسم
+    // ✅ تحقق من وجود مستخدم محفوظ في قاعدة البيانات
     const savedUsername = Storage.getUsername();
     if (savedUsername && savedUsername !== 'مستخدم') {
-        console.log('🔄 تم اكتشاف تسجيل دخول سابق:', savedUsername);
-        // الانتقال مباشرة لصفحة الفصول
+        console.log('🔄 التحقق من صلاحية الجلسة للمستخدم:', savedUsername);
+
+        // ⚡ واجهة متفائلة: عرض الفصول فوراً بناءً على التخزين المحلي
+        // هذا يمنع ظهور صفحة الترحيب أثناء انتظار السيرفر
         UI.showPage('chapters-page');
+
+        // التحقق من السيرفر في الخلفية
+        fetch(`/api/users/${encodeURIComponent(savedUsername)}`)
+            .then(response => {
+                if (response.status === 404) {
+                    console.warn('⚠️ المستخدم غير موجود في قاعدة البيانات - تسجيل خروج تلقائي');
+                    Storage.clear();
+                    window.location.reload();
+                    return null;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.success) {
+                    console.log('✅ الجلسة صالحة ومؤكدة من السيرفر');
+                    // لا نحتاج لإعادة توجيه لأننا عرضنا الفصول بالفعل
+                }
+            })
+            .catch(err => {
+                console.error('خطأ في التحقق من الجلسة (قد يكون انترنت):', err);
+                // السيرفر لا يرد، لكننا سمحنا بالدخول مسبقاً (Offline First)
+            });
     }
 
     // ربط زر الوضع الداكن
