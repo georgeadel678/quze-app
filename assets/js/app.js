@@ -76,58 +76,109 @@ async function changeUsername() {
         return;
     }
 
-    const newUsername = prompt(`اسمك الحالي: ${currentUsername}\n\nأدخل الاسم الجديد:`);
+    // عرض المودال
+    const modal = document.getElementById('change-username-modal');
+    const currentUsernameDisplay = document.getElementById('current-username-display');
+    const newUsernameInput = document.getElementById('new-username-input');
+    const confirmBtn = document.getElementById('confirm-username-change');
+    const cancelBtn = document.getElementById('cancel-username-change');
 
-    if (!newUsername) {
-        return; // المستخدم ألغى العملية
-    }
+    // تعيين الاسم الحالي
+    currentUsernameDisplay.value = currentUsername;
+    newUsernameInput.value = '';
+    modal.classList.add('visible');
 
-    const cleanNewUsername = newUsername.trim();
+    // التركيز على حقل الاسم الجديد
+    setTimeout(() => newUsernameInput.focus(), 100);
 
-    if (cleanNewUsername.length < 2) {
-        alert('الاسم يجب أن يكون حرفين على الأقل');
-        return;
-    }
+    // إزالة المستمعين القدامى
+    const newConfirmBtn = confirmBtn.cloneNode(true);
+    const newCancelBtn = cancelBtn.cloneNode(true);
+    confirmBtn.replaceWith(newConfirmBtn);
+    cancelBtn.replaceWith(newCancelBtn);
 
-    if (cleanNewUsername.length > 20) {
-        alert('الاسم يجب ألا يتجاوز 20 حرف');
-        return;
-    }
+    // زر الإلغاء
+    newCancelBtn.addEventListener('click', () => {
+        modal.classList.remove('visible');
+    });
 
-    if (cleanNewUsername === currentUsername) {
-        alert('الاسم الجديد مطابق للاسم الحالي');
-        return;
-    }
+    // زر التأكيد
+    newConfirmBtn.addEventListener('click', async () => {
+        const cleanNewUsername = newUsernameInput.value.trim();
 
-    try {
-        const response = await fetch('/api/users/update-username', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                currentUsername: currentUsername,
-                newUsername: cleanNewUsername
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'حدث خطأ');
+        if (!cleanNewUsername) {
+            alert('من فضلك أدخل اسماً جديداً');
+            newUsernameInput.focus();
+            return;
         }
 
-        // تحديث localStorage
-        Storage.setUsername(data.user.username);
-        Storage.set('userId', data.user.id);
-        Storage.set('userPoints', data.user.points);
+        if (cleanNewUsername.length < 2) {
+            alert('الاسم يجب أن يكون حرفين على الأقل');
+            newUsernameInput.focus();
+            return;
+        }
 
-        alert(`✅ تم تحديث الاسم بنجاح!\nالاسم الجديد: ${data.user.username}`);
+        if (cleanNewUsername.length > 20) {
+            alert('الاسم يجب ألا يتجاوز 20 حرف');
+            newUsernameInput.focus();
+            return;
+        }
 
-        // إعادة تحميل الصفحة لتحديث كل شيء
-        window.location.reload();
-    } catch (error) {
-        console.error('Error updating username:', error);
-        alert(error.message || 'حدث خطأ، حاول مرة أخرى');
-    }
+        if (cleanNewUsername === currentUsername) {
+            alert('الاسم الجديد مطابق للاسم الحالي');
+            newUsernameInput.focus();
+            return;
+        }
+
+        // تعطيل الزر أثناء الإرسال
+        newConfirmBtn.disabled = true;
+        newConfirmBtn.textContent = 'جاري التحديث...';
+
+        try {
+            const response = await fetch('/api/users/update-username', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    currentUsername: currentUsername,
+                    newUsername: cleanNewUsername
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'حدث خطأ');
+            }
+
+            // تحديث localStorage
+            Storage.setUsername(data.user.username);
+            Storage.set('userId', data.user.id);
+            Storage.set('userPoints', data.user.points);
+
+            // إخفاء المودال
+            modal.classList.remove('visible');
+
+            alert(`✅ تم تحديث الاسم بنجاح!\nالاسم الجديد: ${data.user.username}`);
+
+            // إعادة تحميل الصفحة لتحديث كل شيء
+            window.location.reload();
+        } catch (error) {
+            console.error('Error updating username:', error);
+            alert(error.message || 'حدث خطأ، حاول مرة أخرى');
+
+            // إعادة تفعيل الزر
+            newConfirmBtn.disabled = false;
+            newConfirmBtn.textContent = 'تأكيد';
+            newUsernameInput.focus();
+        }
+    });
+
+    // دعم Enter للتأكيد
+    newUsernameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            newConfirmBtn.click();
+        }
+    });
 }
 
 // تهيئة التطبيق عند تحميل الصفحة

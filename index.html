@@ -232,6 +232,31 @@
         </div>
     </div>
 
+    <!-- نافذة تغيير الاسم -->
+    <div id="change-username-modal" class="modal">
+        <div class="modal-content">
+            <h3>تغيير اسم المستخدم</h3>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">قم بتحديث اسمك</p>
+
+            <div class="input-group" style="margin-bottom: 1rem;">
+                <label for="current-username-display">الاسم الحالي</label>
+                <input type="text" id="current-username-display" readonly
+                    style="background-color: #f3f4f6; cursor: not-allowed;" />
+            </div>
+
+            <div class="input-group" style="margin-bottom: 1.5rem;">
+                <label for="new-username-input">الاسم الجديد</label>
+                <input type="text" id="new-username-input" placeholder="أدخل الاسم الجديد..." maxlength="20"
+                    autocomplete="off" />
+            </div>
+
+            <div style="display: flex; gap: 0.75rem;">
+                <button id="confirm-username-change" class="btn btn-primary" style="flex: 1;">تأكيد</button>
+                <button id="cancel-username-change" class="btn" style="flex: 1;">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Essay Quiz Container -->
     <div id="essay-app"></div>
 
