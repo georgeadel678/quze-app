@@ -96,12 +96,9 @@ ${userAnswer}
         }
 
         return res.status(200).json({
-            success: true,
-            evaluation: {
-                score: Math.min(10, Math.max(0, result.score)),
-                status: result.status,
-                feedback: result.feedback
-            }
+            score: Math.min(10, Math.max(0, result.score)),
+            status: result.status,
+            feedback: result.feedback
         });
 
     } catch (error) {
