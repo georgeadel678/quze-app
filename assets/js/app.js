@@ -2,6 +2,29 @@
    app.js - التطبيق الرئيسي
    ==================================== */
 
+// دالة عرض إشعار Toast
+function showToast(message, type = 'success', duration = 3000) {
+    const toast = document.getElementById('toast-notification');
+
+    // إضافة الأيقونة المناسبة
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️'
+    };
+
+    toast.textContent = `${icons[type]} ${message}`;
+    toast.className = `toast-notification ${type}`;
+
+    // عرض Toast
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // إخفاء Toast بعد المدة المحددة
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duration);
+}
+
 // دالة تقديم اسم المستخدم - يجب أن تكون في النطاق العام
 async function submitUsername() {
     const input = document.getElementById('username-input');
@@ -158,10 +181,10 @@ async function changeUsername() {
             // إخفاء المودال
             modal.classList.remove('visible');
 
-            alert(`✅ تم تحديث الاسم بنجاح!\nالاسم الجديد: ${data.user.username}`);
+            showToast(`تم تحديث الاسم بنجاح! الاسم الجديد: ${data.user.username}`, 'success');
 
-            // إعادة تحميل الصفحة لتحديث كل شيء
-            window.location.reload();
+            // إعادة تحميل الصفحة after a small delay to show toast
+            setTimeout(() => window.location.reload(), 1500);
         } catch (error) {
             console.error('Error updating username:', error);
             alert(error.message || 'حدث خطأ، حاول مرة أخرى');
