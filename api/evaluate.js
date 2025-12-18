@@ -102,17 +102,21 @@ ${userAnswer}
             result = JSON.parse(cleanJson);
         } catch (e) {
             console.error('JSON Parse Error:', e, 'Content:', cleanJson);
-            throw new Error('Failed to parse AI response as JSON');
+            throw new Error(`Failed to parse AI response as JSON. Raw: ${responseText.substring(0, 200)}`);
         }
 
         // التحقق من صحة البيانات
-        if (typeof result.score !== 'number' || !result.status || !result.feedback) {
+        if (typeof result.score === 'undefined' || !result.status || !result.feedback) {
             console.error('Invalid Data Structure:', result);
-            throw new Error('AI response is missing required fields (score, status, or feedback)');
+            throw new Error(`AI response is missing required fields. Got: ${JSON.stringify(result).substring(0, 200)}`);
         }
 
+        // تحويل الدرجة لرقم إذا جاءت كـ string
+        let numericScore = Number(result.score);
+        if (isNaN(numericScore)) numericScore = 0;
+
         return res.status(200).json({
-            score: Math.min(10, Math.max(0, result.score)),
+            score: Math.min(10, Math.max(0, numericScore)),
             status: result.status,
             feedback: result.feedback
         });
