@@ -667,6 +667,10 @@ class EssayQuizApp {
             try {
                 const errData = await response.json();
                 errorDetails = errData.error || errorDetails;
+                if (errData.details) {
+                    console.error('Detailed Error:', errData.details);
+                    errorDetails += ` (${errData.details.substring(0, 100)}...)`;
+                }
             } catch (e) {
                 // ignore JSON parse error
             }

@@ -85,21 +85,30 @@ ${userAnswer}
         });
 
         const responseText = chatCompletion.choices[0]?.message?.content || '';
+        console.log('Groq Response:', responseText);
 
         // محاولة استخراج JSON
         let cleanJson = responseText.trim();
-
-        // إزالة أي نص قبل/بعد JSON إذا وجد
         const jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            cleanJson = jsonMatch[0];
+
+        if (!jsonMatch) {
+            console.error('Failed to find JSON in response:', responseText);
+            throw new Error('AI response did not contain a valid JSON object');
         }
 
-        const result = JSON.parse(cleanJson);
+        cleanJson = jsonMatch[0];
+        let result;
+        try {
+            result = JSON.parse(cleanJson);
+        } catch (e) {
+            console.error('JSON Parse Error:', e, 'Content:', cleanJson);
+            throw new Error('Failed to parse AI response as JSON');
+        }
 
         // التحقق من صحة البيانات
         if (typeof result.score !== 'number' || !result.status || !result.feedback) {
-            throw new Error('Invalid AI response format');
+            console.error('Invalid Data Structure:', result);
+            throw new Error('AI response is missing required fields (score, status, or feedback)');
         }
 
         return res.status(200).json({
@@ -109,10 +118,10 @@ ${userAnswer}
         });
 
     } catch (error) {
-        console.error('Groq API Error:', error);
+        console.error('Evaluation Logic Error:', error);
         return res.status(500).json({
-            error: 'Failed to evaluate answer',
-            details: error.message
+            error: error.message || 'Failed to evaluate answer',
+            details: error.stack
         });
     }
 }
