@@ -106,9 +106,9 @@ ${userAnswer}
         }
 
         // التحقق من صحة البيانات
-        if (typeof result.score === 'undefined' || !result.status || !result.feedback) {
+        if (typeof result.score === 'undefined' || !result.status || typeof result.feedback !== 'string') {
             console.error('Invalid Data Structure:', result);
-            throw new Error(`AI response is missing required fields. Got: ${JSON.stringify(result).substring(0, 200)}`);
+            throw new Error('AI response is missing required fields (score, status, or feedback)');
         }
 
         // تحويل الدرجة لرقم إذا جاءت كـ string
