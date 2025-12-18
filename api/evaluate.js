@@ -58,9 +58,9 @@ ${modelAnswer}
 إجابة الطالب:
 ${userAnswer}
 
-أعطِ ردك بصيغة JSON فقط:
+أعطِ ردك بصيغة JSON فقط واستخدم اللغة العربية الفصيحة في الملاحظات:
 {
-  "score": رقم من 0 إلى 10,
+  "score": عدد فقط من 0 إلى 10 (مثال: 9 وليس 9/10),
   "status": "correct" أو "partial" أو "incorrect",
   "feedback": "ملاحظاتك التفصيلية هنا (اذكر الناقص واعرض الإجابة النموذجية عند الضرورة)"
 }`;
@@ -93,10 +93,14 @@ ${userAnswer}
 
         if (!jsonMatch) {
             console.error('Failed to find JSON in response:', responseText);
-            throw new Error('AI response did not contain a valid JSON object');
+            throw new Error(`AI response did not contain a valid JSON object. Raw: ${responseText.substring(0, 200)}`);
         }
 
         cleanJson = jsonMatch[0];
+
+        // معالجة الأخطاء الشائعة في JSON من قبل AI (مثل 9/10 بدون كوتس)
+        cleanJson = cleanJson.replace(/:\s*(\d+)\/10/g, ': $1'); // تحويل 9/10 إلى 9
+
         let result;
         try {
             result = JSON.parse(cleanJson);
