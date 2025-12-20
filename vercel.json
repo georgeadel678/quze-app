@@ -2,7 +2,6 @@
     "buildCommand": "prisma generate",
     "framework": null,
     "installCommand": "npm install",
-    "installCommand": "npm install",
     "devCommand": "python3 -m http.server 8080",
     "crons": [
         {
