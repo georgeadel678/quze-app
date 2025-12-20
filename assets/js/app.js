@@ -292,7 +292,121 @@ document.addEventListener('DOMContentLoaded', function () {
     ║   🎯 تابع تقدمك وإنجازاتك           ║
     ╚══════════════════════════════════════╝
     `);
+
+    // ✅ بدء تتبع الوقت للمستخدم
+    startTimeTracking();
 });
+
+// ====================================
+// نظام تتبع الوقت
+// ====================================
+let timeTrackingInterval = null;
+let sessionStartTime = null;
+let accumulatedTime = 0; // الوقت المتراكم في هذه الجلسة (بالثواني)
+let lastUpdateTime = null;
+
+function startTimeTracking() {
+    const username = Storage.getUsername();
+    
+    // إذا لم يكن هناك مستخدم، لا نتابع
+    if (!username || username === 'مستخدم') {
+        return;
+    }
+
+    // بدء الجلسة
+    sessionStartTime = Date.now();
+    lastUpdateTime = Date.now();
+
+    // إرسال تحديث كل 30 ثانية
+    timeTrackingInterval = setInterval(() => {
+        updateUserActivity();
+    }, 30000); // كل 30 ثانية
+
+    // تحديث عند إغلاق الصفحة
+    window.addEventListener('beforeunload', () => {
+        updateUserActivity(true); // إرسال فوري قبل الإغلاق
+    });
+
+    // تحديث عند فقدان التركيز (تبديل التبويب)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            // الصفحة مخفية - حفظ الوقت حتى الآن
+            updateUserActivity(true);
+        } else {
+            // الصفحة ظاهرة - إعادة بدء التتبع
+            lastUpdateTime = Date.now();
+        }
+    });
+
+    console.log('⏱️ تم تفعيل تتبع الوقت للمستخدم:', username);
+}
+
+function updateUserActivity(immediate = false) {
+    const username = Storage.getUsername();
+    
+    if (!username || username === 'مستخدم') {
+        return;
+    }
+
+    // إذا كانت الصفحة مخفية، لا نضيف وقت
+    if (document.hidden && !immediate) {
+        return;
+    }
+
+    const now = Date.now();
+    
+    // حساب الوقت المنقضي منذ آخر تحديث
+    if (lastUpdateTime) {
+        const timeDiff = Math.floor((now - lastUpdateTime) / 1000); // بالثواني
+        
+        // فقط إذا كان الفرق أقل من 5 دقائق (300 ثانية) - لتجنب إضافة وقت عند إعادة فتح التبويب بعد فترة طويلة
+        if (timeDiff <= 300) {
+            accumulatedTime += timeDiff;
+        }
+    }
+
+    lastUpdateTime = now;
+
+    // إرسال التحديث للخادم كل 30 ثانية أو عند الطلب الفوري
+    if (accumulatedTime >= 30 || immediate) {
+        const timeToSend = accumulatedTime;
+        accumulatedTime = 0; // إعادة تعيين
+
+        fetch('/api/users/update-activity', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+                timeSpent: timeToSend
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log(`✅ تم تحديث نشاط المستخدم: +${timeToSend} ثانية`);
+            } else {
+                console.warn('⚠️ فشل تحديث نشاط المستخدم');
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في تحديث النشاط:', error);
+        });
+    }
+}
+
+// إيقاف تتبع الوقت
+function stopTimeTracking() {
+    if (timeTrackingInterval) {
+        clearInterval(timeTrackingInterval);
+        timeTrackingInterval = null;
+    }
+    
+    // إرسال آخر تحديث
+    updateUserActivity(true);
+    
+    sessionStartTime = null;
+    lastUpdateTime = null;
+    accumulatedTime = 0;
+}
 
 // إنشاء تأثير الجسيمات
 function createParticles() {

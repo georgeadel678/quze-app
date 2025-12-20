@@ -69,17 +69,10 @@ export default async function handler(req, res) {
 
         // إرسال إشعار تيليجرام
         try {
-            const token = '5789183030:AAElmk-M-SL2BtV4UFXp5A_yslcTG3Q4cxo';
-            const chatId = '1350722553';
-            const message = `تم تحديث الاسم من "${cleanCurrentUsername}" إلى "${cleanNewUsername}"`;
-
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
+            const { notifyUserStatus } = await import('../utils/telegram-utils.js');
+            await notifyUserStatus(cleanNewUsername, 'name_change', {
+                oldName: cleanCurrentUsername,
+                newName: cleanNewUsername
             });
         } catch (telegramError) {
             console.error('Telegram notification failed:', telegramError);

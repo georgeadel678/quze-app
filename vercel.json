@@ -4,6 +4,12 @@
     "installCommand": "npm install",
     "outputDirectory": ".",
     "devCommand": "python3 -m http.server 8080",
+    "crons": [
+        {
+            "path": "/api/cron/send-activity-report",
+            "schedule": "0 */12 * * *"
+        }
+    ],
     "rewrites": [
         {
             "source": "/api/(.*)",

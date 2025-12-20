@@ -11,12 +11,16 @@ generator client {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  username  String   @unique
-  points    Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(cuid())
+  username        String   @unique
+  points          Int      @default(0)
+  totalTimeSpent  Int      @default(0) // الوقت الإجمالي بالثواني
+  lastActiveAt    DateTime? // آخر مرة كان المستخدم نشطاً
+  sessionStartAt  DateTime? // وقت بداية الجلسة الحالية
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   
   @@index([points(sort: Desc)])
   @@index([username])
+  @@index([lastActiveAt])
 }
