@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // استيراد الدوال المشتركة
-import { sendTelegramMessage, generateActivityReport } from '../utils/telegram-utils.js';
+import { sendTelegramMessage, generateActivityReport } from './utils/telegram-utils.js';
 
 export default async function handler(req, res) {
     // Set CORS headers
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     try {
         const update = req.body;
-        
+
         // التحقق من أن الرسالة من تيليجرام
         if (!update.message || !update.message.chat) {
             return res.status(400).json({ error: 'Invalid Telegram update' });
@@ -42,12 +42,12 @@ export default async function handler(req, res) {
 
         if (command === '/start' || command === '/help') {
             const helpMessage = `👋 <b>مرحباً!</b>\n\n` +
-                              `يمكنك استخدام الأوامر التالية:\n\n` +
-                              `📊 <code>/report</code> - تقرير آخر 12 ساعة\n` +
-                              `📊 <code>/report 24</code> - تقرير آخر 24 ساعة\n` +
-                              `📊 <code>/report 6</code> - تقرير آخر 6 ساعات\n\n` +
-                              `أو فقط اكتب أي رسالة وسأرسل لك التقرير!`;
-            
+                `يمكنك استخدام الأوامر التالية:\n\n` +
+                `📊 <code>/report</code> - تقرير آخر 12 ساعة\n` +
+                `📊 <code>/report 24</code> - تقرير آخر 24 ساعة\n` +
+                `📊 <code>/report 6</code> - تقرير آخر 6 ساعات\n\n` +
+                `أو فقط اكتب أي رسالة وسأرسل لك التقرير!`;
+
             await sendTelegramMessage(chatId, helpMessage);
             return res.status(200).json({ ok: true });
         }
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
 
     } catch (error) {
         console.error('Error processing Telegram webhook:', error);
-        
+
         // محاولة إرسال رسالة خطأ
         try {
             const chatId = req.body?.message?.chat?.id;

@@ -1,6 +1,7 @@
 {
     "name": "quiz-system",
     "version": "1.0.0",
+    "type": "module",
     "description": "نظام اختبارات ذكي مع تتبع النقاط",
     "scripts": {
         "postinstall": "prisma generate",
