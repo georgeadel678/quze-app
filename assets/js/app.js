@@ -466,3 +466,53 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+// Like System
+window.toggleLike = async function(targetUsername, btnElement) {
+    const currentUser = Storage.getUsername();
+    
+    if (!currentUser || currentUser === 'مستخدم') {
+        showToast('يجب تسجيل الدخول للإعجاب', 'warning');
+        return;
+    }
+
+    if (currentUser === targetUsername) {
+        showToast('لا يمكنك الإعجاب بنفسك', 'warning');
+        return;
+    }
+
+    // Local storage check
+    const storageKey = 'liked_' + currentUser;
+    const likedUsers = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    
+    if (likedUsers.includes(targetUsername)) {
+        showToast('لقد قمت بالإعجاب مسبقاً', 'warning');
+        return;
+    }
+
+    // Optimistic Update
+    const countSpan = btnElement.parentElement.querySelector('.like-count');
+    let currentCount = parseInt(countSpan.textContent) || 0;
+    countSpan.textContent = currentCount + 1;
+    
+    btnElement.classList.add('liked');
+    btnElement.disabled = true;
+    
+    // Save locally
+    likedUsers.push(targetUsername);
+    localStorage.setItem(storageKey, JSON.stringify(likedUsers));
+
+    try {
+        await fetch('/api/users/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'toggle-like',
+                targetUsername: targetUsername
+            })
+        });
+    } catch (error) {
+        console.error('Like error:', error);
+    }
+};
+

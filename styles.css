@@ -1069,4 +1069,48 @@ body.dark-mode .whatsapp-benefits {
         padding: 1rem 2rem;
         font-size: 1.1rem;
     }
+}/* Like System Styles */
+.like-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 5px;
+    line-height: 1;
+    color: #ccc;
+    /* Default (unliked) */
+}
+
+.like-btn.liked {
+    color: #e74c3c;
+    /* Red (liked) */
+    transform: scale(1.1);
+}
+
+.like-btn:active {
+    transform: scale(0.9);
+}
+
+.like-count {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Add to existing leaderboard item layout if needed */
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* ... existing styles ... */
 }

@@ -249,7 +249,17 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             html += `
                 <div class="leaderboard-row ${rankClass} ${isCurrentUser ? 'current-user' : ''}">
                     <div class="leaderboard-rank">${rankIcon}</div>
-                    <div class="leaderboard-username">${user.username}</div>
+                    <div class="leaderboard-info" style="display: flex; align-items: center; flex: 1;">
+                         <div class="like-container">
+                            <button class="like-btn ${isCurrentUser ? 'disabled' : ''}" 
+                                    onclick="event.stopPropagation(); window.toggleLike('${user.username}', this)" 
+                                    ${isCurrentUser ? 'disabled' : ''}>
+                                <span class="like-icon">❤️</span>
+                            </button>
+                            <span class="like-count">${user.likes || 0}</span>
+                        </div>
+                        <div class="leaderboard-username" style="margin-right: 10px;">${user.username}</div>
+                    </div>
                     <div class="leaderboard-points">${user.points} نقطة</div>
                 </div>
             `;
