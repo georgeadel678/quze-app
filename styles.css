@@ -762,3 +762,166 @@ body.dark-mode input, body.dark-mode textarea {
 body.dark-mode .modal {
     background: rgba(0,0,0,0.7) !important;
 }
+/* WhatsApp Verification Modal */
+.whatsapp-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInModal 0.3s ease-out;
+}
+
+.whatsapp-modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: slideUpModal 0.4s ease-out;
+    border: 3px solid #25D366;
+}
+
+.whatsapp-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: bounceModal 1s infinite;
+}
+
+.whatsapp-modal-content h2 {
+    color: #25D366;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.whatsapp-modal-content p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.whatsapp-benefits {
+    background: #f0f9ff;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 2px solid #25D366;
+    color: #333;
+    font-size: 1rem;
+    line-height: 2;
+    margin: 1.5rem 0;
+}
+
+.whatsapp-verify-btn {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.whatsapp-verify-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+    background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+}
+
+.whatsapp-verify-btn:active {
+    transform: translateY(-1px);
+}
+
+.whatsapp-verify-btn span {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+}
+
+/* Blocked state for site content */
+body.verification-blocked .container,
+body.verification-blocked .page,
+body.verification-blocked button:not(#verify-whatsapp-btn),
+body.verification-blocked a:not(.whatsapp-verify-btn),
+body.verification-blocked input,
+body.verification-blocked .chapter-card {
+    pointer-events: none;
+    opacity: 0.4;
+    filter: blur(2px);
+}
+
+/* Animations */
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpModal {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceModal {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Dark mode support for WhatsApp modal */
+body.dark-mode .whatsapp-modal-content {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border-color: #25D366;
+}
+
+body.dark-mode .whatsapp-modal-content h2 {
+    color: #25D366;
+}
+
+body.dark-mode .whatsapp-modal-content p {
+    color: #e5e7eb;
+}
+
+body.dark-mode .whatsapp-benefits {
+    background: rgba(37, 211, 102, 0.1);
+    border-color: #25D366;
+    color: #e5e7eb;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .whatsapp-modal-content {
+        padding: 2rem 1.5rem;
+        width: 95%;
+    }
+    .whatsapp-icon {
+        font-size: 3.5rem;
+    }
+    .whatsapp-modal-content h2 {
+        font-size: 1.4rem;
+    }
+    .whatsapp-modal-content p {
+        font-size: 1rem;
+    }
+    .whatsapp-verify-btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+}
