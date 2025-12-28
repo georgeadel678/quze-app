@@ -206,6 +206,18 @@
             </p>
             <div id="result-message" style="margin: 2rem 0; font-size: 1.3rem;"></div>
 
+            <!-- Review Mistakes Button (Results Page) -->
+            <div style="margin: 1.5rem 0; display: flex; justify-content: center;">
+                <button class="review-mistakes-btn review-mistakes-result-btn"
+                    onclick="startReviewModeFromQuestionCount()" disabled>
+                    <span class="review-icon">📝</span>
+                    <div class="review-text">
+                        <div class="review-title">مراجعة الأخطاء</div>
+                        <div class="review-count">لا توجد أخطاء</div>
+                    </div>
+                </button>
+            </div>
+
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <button class="btn btn-info" onclick="showReviewPage()">راجع إجاباتك</button>
                 <button class="btn btn-warning" onclick="showPointsPage()">النقاط والرتب</button>
