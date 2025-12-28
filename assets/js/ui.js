@@ -114,6 +114,13 @@ const UI = {
         }
 
         this.showPage('results-page');
+
+        // Update review button for results page
+        if (typeof updateReviewButtonForResultsPage === 'function') {
+            setTimeout(() => {
+                updateReviewButtonForResultsPage();
+            }, 100);
+        }
     },
 
     // عرض مراجعة الإجابات
