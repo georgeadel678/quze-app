@@ -171,6 +171,11 @@ const Quiz = {
 
         // عرض النتيجة
         UI.showResults(score, this.currentQuestions.length);
+
+        // Update review button for current chapter
+        if (typeof updateReviewButtonForCurrentChapter === 'function') {
+            updateReviewButtonForCurrentChapter();
+        }
     },
 
     // تحديث نقاط المستخدم في قاعدة البيانات
