@@ -8,18 +8,28 @@
     // Check verification status on page load
     function checkVerificationStatus() {
         const isVerified = localStorage.getItem(STORAGE_KEY) === 'true';
+        console.log('[WhatsApp] Verification status:', isVerified);
 
         if (!isVerified) {
+            console.log('[WhatsApp] User not verified, showing modal...');
             showVerificationModal();
             blockSiteInteractions();
+        } else {
+            console.log('[WhatsApp] User already verified');
         }
     }
 
     // Show verification modal
     function showVerificationModal() {
         const modal = document.getElementById('whatsapp-verification-modal');
+        console.log('[WhatsApp] Modal element:', modal);
         if (modal) {
             modal.style.display = 'flex';
+            console.log('[WhatsApp] Modal display set to flex, computed style:', window.getComputedStyle(modal).display);
+            console.log('[WhatsApp] Modal z-index:', window.getComputedStyle(modal).zIndex);
+            console.log('[WhatsApp] Modal position:', window.getComputedStyle(modal).position);
+        } else {
+            console.error('[WhatsApp] Modal element not found!');
         }
     }
 
