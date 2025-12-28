@@ -209,7 +209,7 @@ const Quiz = {
         }, 1000);
     },
 
-},
+
 
     // --- Mastery Mode Logic ---
 
@@ -227,36 +227,36 @@ const Quiz = {
         }
     },
 
-        // Get list of mastered question IDs
-        getMasteredQuestions() {
-    const username = Storage.getUsername();
-    if (!username || !this.selectedChapter) return [];
+    // Get list of mastered question IDs
+    getMasteredQuestions() {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return [];
 
-    const key = `mastered_${username}_ch${this.selectedChapter}`;
-    return JSON.parse(localStorage.getItem(key) || '[]');
-},
+        const key = `mastered_${username}_ch${this.selectedChapter}`;
+        return JSON.parse(localStorage.getItem(key) || '[]');
+    },
 
-// Reset mastery for a specific chapter
-resetMasteredQuestions() {
-    const username = Storage.getUsername();
-    if (!username || !this.selectedChapter) return;
+    // Reset mastery for a specific chapter
+    resetMasteredQuestions() {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
 
-    const key = `mastered_${username}_ch${this.selectedChapter}`;
-    localStorage.removeItem(key);
-},
+        const key = `mastered_${username}_ch${this.selectedChapter}`;
+        localStorage.removeItem(key);
+    },
 
-// Stop Timer
-stopTimer() {
-    if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
+    // Stop Timer
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+
+        const timerDisplay = document.getElementById('timer');
+        if (timerDisplay) {
+            timerDisplay.style.display = 'none';
+        }
     }
-
-    const timerDisplay = document.getElementById('timer');
-    if (timerDisplay) {
-        timerDisplay.style.display = 'none';
-    }
-}
 };
 
 // تصدير للاستخدام العام
