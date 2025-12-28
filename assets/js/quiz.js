@@ -49,6 +49,24 @@ const Quiz = {
             filtered = allQuestions.filter(q => q.chapter == this.selectedChapter);
         }
 
+        // --- Mastery Filter ---
+        if (this.selectedChapter !== 'full') {
+            const masteredIds = this.getMasteredQuestions();
+            const originalCount = filtered.length;
+
+            // Filter out mastered questions
+            // Use ID if available, otherwise fallback to question text (hashed or direct)
+            // Assuming questions have 'id' property from data files
+            filtered = filtered.filter(q => !masteredIds.includes(q.id));
+
+            // If all questions mastered, reset and restart
+            if (filtered.length === 0 && originalCount > 0) {
+                alert('🎉 مبروك! لقد أتقنت جميع أسئلة هذا الفصل.\nسيتم إعادة تعيين الأسئلة لتبدأ من جديد.');
+                this.resetMasteredQuestions();
+                filtered = allQuestions.filter(q => q.chapter == this.selectedChapter);
+            }
+        }
+
         if (filtered.length === 0) {
             alert('لا توجد أسئلة لهذا الفصل!');
             return;
@@ -118,6 +136,8 @@ const Quiz = {
         this.currentQuestions.forEach((q, i) => {
             if (this.userAnswers[i] === q.correctAnswer) {
                 score++;
+                // Save as mastered if answered correctly
+                this.saveMasteredQuestion(q.id);
             }
         });
 
@@ -189,18 +209,54 @@ const Quiz = {
         }, 1000);
     },
 
-    // إيقاف المؤقت
-    stopTimer() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
-        }
+},
 
-        const timerDisplay = document.getElementById('timer');
-        if (timerDisplay) {
-            timerDisplay.style.display = 'none';
+    // --- Mastery Mode Logic ---
+
+    // Save correct answer to mastered list
+    saveMasteredQuestion(questionId) {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
+
+        const key = `mastered_${username}_ch${this.selectedChapter}`;
+        let mastered = JSON.parse(localStorage.getItem(key) || '[]');
+
+        if (!mastered.includes(questionId)) {
+            mastered.push(questionId);
+            localStorage.setItem(key, JSON.stringify(mastered));
         }
+    },
+
+        // Get list of mastered question IDs
+        getMasteredQuestions() {
+    const username = Storage.getUsername();
+    if (!username || !this.selectedChapter) return [];
+
+    const key = `mastered_${username}_ch${this.selectedChapter}`;
+    return JSON.parse(localStorage.getItem(key) || '[]');
+},
+
+// Reset mastery for a specific chapter
+resetMasteredQuestions() {
+    const username = Storage.getUsername();
+    if (!username || !this.selectedChapter) return;
+
+    const key = `mastered_${username}_ch${this.selectedChapter}`;
+    localStorage.removeItem(key);
+},
+
+// Stop Timer
+stopTimer() {
+    if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
     }
+
+    const timerDisplay = document.getElementById('timer');
+    if (timerDisplay) {
+        timerDisplay.style.display = 'none';
+    }
+}
 };
 
 // تصدير للاستخدام العام
