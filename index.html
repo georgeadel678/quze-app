@@ -260,14 +260,17 @@
 
     <!-- WhatsApp Verification Modal -->
     <div id="whatsapp-verification-modal" class="whatsapp-modal"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 999999; justify-content: center; align-items: center;">
-        <div class="whatsapp-modal-content">
-            <div class="whatsapp-icon">📱</div>
-            <h2>انضم لقناتنا على الواتساب</h2>
-            <p>للوصول لجميع مميزات الموقع، يجب الانضمام لقناتنا على الواتساب أولاً</p>
-            <p class="whatsapp-benefits">✅ تحديثات فورية<br>✅ أسئلة حصرية<br>✅ دعم فني</p>
-            <button id="verify-whatsapp-btn" class="whatsapp-verify-btn">
-                <span>📲</span> انضم الآن للقناة
+        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.96); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 9999999 !important; justify-content: center; align-items: center; font-family: 'Cairo', sans-serif;">
+        <div class="whatsapp-modal-content"
+            style="background: #111b21; padding: 40px 30px; border-radius: 20px; box-shadow: 0 0 50px rgba(37, 211, 102, 0.2); max-width: 450px; width: 90%; text-align: center; border: 1px solid #333;">
+            <div style="font-size: 60px; margin-bottom: 20px;">🔒</div>
+            <h2 style="color: #fff; font-size: 24px; font-weight: 700; margin-bottom: 15px; line-height: 1.5;">تنبيه هام
+            </h2>
+            <p style="color: #ccc; font-size: 18px; margin-bottom: 30px; line-height: 1.6;">لاستخدام الموقع يجب عليك
+                الانضمام<br>لقناة الواتساب أولاً</p>
+            <button id="verify-whatsapp-btn"
+                style="background: #25D366; color: #fff; border: none; padding: 15px 35px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); transition: transform 0.2s;">
+                انضم الآن ✅
             </button>
         </div>
     </div>
