@@ -21,8 +21,19 @@ function updateReviewButtonForCurrentChapter() {
 function startReviewModeFromQuestionCount() {
     if (!window.Quiz || !Quiz.selectedChapter) return;
 
+    const wrongCount = Quiz.getWrongAnswersCount(Quiz.selectedChapter);
+
+    if (wrongCount === 0) {
+        alert('لا توجد أخطاء للمراجعة!');
+        return;
+    }
+
+    // Set review mode and question count to ALL wrong questions
     Quiz.isReviewMode = true;
-    showTimerModal(10); // Default to 10 questions for review
+    Quiz.questionCount = 'all'; // Show all wrong questions
+
+    // Start quiz directly without timer modal
+    Quiz.startQuiz(false);
 }
 
 // Export for use in other modules

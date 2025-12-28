@@ -461,6 +461,11 @@ function selectQuizType(type) {
     if (type === 'mcq') {
         // الذهاب لصفحة اختيار عدد الأسئلة (MCQ)
         UI.showPage('question-count-page');
+
+        // Update review button when showing question count page
+        if (typeof updateReviewButtonForCurrentChapter === 'function') {
+            setTimeout(updateReviewButtonForCurrentChapter, 100);
+        }
     } else if (type === 'essay') {
         // تفعيل وضع Essay وإخفاء الحاوية الرئيسية
         document.body.classList.add('essay-mode');
