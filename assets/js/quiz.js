@@ -142,10 +142,11 @@ const Quiz = {
         }
 
         try {
-            const response = await fetch('/api/users/update-points', {
+            const response = await fetch('/api/users/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    action: 'update-points',
                     username,
                     pointsToAdd: points
                 })
