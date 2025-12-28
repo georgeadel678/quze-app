@@ -1,27 +1,30 @@
-// Update review button states based on wrong answer counts
-function updateReviewButtons() {
-    if (!window.Quiz) return;
+// Update review button state for current chapter
+function updateReviewButtonForCurrentChapter() {
+    if (!window.Quiz || !Quiz.selectedChapter) return;
 
-    for (let ch = 1; ch <= 6; ch++) {
-        const wrongCount = Quiz.getWrongAnswersCount(ch);
-        const btn = document.getElementById(`review-ch${ch}-btn`);
+    const wrongCount = Quiz.getWrongAnswersCount(Quiz.selectedChapter);
+    const btn = document.getElementById('review-mistakes-btn');
+    const countText = document.getElementById('review-count-text');
 
-        if (!btn) continue;
+    if (!btn || !countText) return;
 
-        if (wrongCount === 0) {
-            btn.disabled = true;
-            btn.textContent = '📝 مراجعة الأخطاء';
-        } else {
-            btn.disabled = false;
-            btn.textContent = `📝 مراجعة الأخطاء (${wrongCount})`;
-        }
+    if (wrongCount === 0) {
+        btn.disabled = true;
+        countText.textContent = 'لا توجد أخطاء';
+    } else {
+        btn.disabled = false;
+        countText.textContent = `${wrongCount} سؤال تحتاج مراجعة`;
     }
 }
 
-// Call on page load and when returning to chapter selection
-document.addEventListener('DOMContentLoaded', () => {
-    updateReviewButtons();
-});
+// Start review mode from question count page
+function startReviewModeFromQuestionCount() {
+    if (!window.Quiz || !Quiz.selectedChapter) return;
+
+    Quiz.isReviewMode = true;
+    showTimerModal(10); // Default to 10 questions for review
+}
 
 // Export for use in other modules
-window.updateReviewButtons = updateReviewButtons;
+window.updateReviewButtonForCurrentChapter = updateReviewButtonForCurrentChapter;
+window.startReviewModeFromQuestionCount = startReviewModeFromQuestionCount;
