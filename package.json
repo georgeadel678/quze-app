@@ -4,7 +4,7 @@
     "type": "module",
     "description": "نظام اختبارات ذكي مع تتبع النقاط",
     "scripts": {
-        "postinstall": "prisma generate",
+        "postinstall": "prisma generate && prisma db push",
         "dev": "python3 -m http.server 8080",
         "prisma:generate": "prisma generate",
         "prisma:migrate": "prisma migrate deploy"
