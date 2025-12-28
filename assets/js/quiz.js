@@ -10,6 +10,7 @@ const Quiz = {
     questionCount: 0,
     timerInterval: null,
     timerSeconds: 0,
+    isReviewMode: false,
 
     // اختيار فصل
     selectChapter(chapter) {
@@ -65,6 +66,21 @@ const Quiz = {
                 this.resetMasteredQuestions();
                 filtered = allQuestions.filter(q => q.chapter == this.selectedChapter);
             }
+        }
+
+        // --- Review Mode Filter ---
+        if (this.isReviewMode && this.selectedChapter !== 'full') {
+            const wrongIds = this.getWrongAnswers();
+
+            if (wrongIds.length === 0) {
+                alert('🎉 لا توجد أخطاء في هذا الفصل!');
+                this.isReviewMode = false;
+                UI.showPage('chapter-select-page');
+                return;
+            }
+
+            // Filter to only show wrong questions
+            filtered = filtered.filter(q => wrongIds.includes(q.id));
         }
 
         if (filtered.length === 0) {
@@ -138,6 +154,11 @@ const Quiz = {
                 score++;
                 // Save as mastered if answered correctly
                 this.saveMasteredQuestion(q.id);
+                // Remove from wrong list if it was there
+                this.removeWrongAnswer(q.id);
+            } else {
+                // Add to wrong list if answered incorrectly
+                this.saveWrongAnswer(q.id);
             }
         });
 
@@ -243,6 +264,60 @@ const Quiz = {
 
         const key = `mastered_${username}_ch${this.selectedChapter}`;
         localStorage.removeItem(key);
+    },
+
+    // --- Wrong Answer Tracking ---
+
+    // Save wrong answer to list
+    saveWrongAnswer(questionId) {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
+
+        const key = `wrong_${username}_ch${this.selectedChapter}`;
+        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
+
+        if (!wrong.includes(questionId)) {
+            wrong.push(questionId);
+            localStorage.setItem(key, JSON.stringify(wrong));
+        }
+    },
+
+    // Remove from wrong answer list
+    removeWrongAnswer(questionId) {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
+
+        const key = `wrong_${username}_ch${this.selectedChapter}`;
+        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
+
+        wrong = wrong.filter(id => id !== questionId);
+        localStorage.setItem(key, JSON.stringify(wrong));
+    },
+
+    // Get wrong answers for current chapter
+    getWrongAnswers() {
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return [];
+
+        const key = `wrong_${username}_ch${this.selectedChapter}`;
+        return JSON.parse(localStorage.getItem(key) || '[]');
+    },
+
+    // Get wrong answer count for any chapter
+    getWrongAnswersCount(chapter) {
+        const username = Storage.getUsername();
+        if (!username) return 0;
+
+        const key = `wrong_${username}_ch${chapter}`;
+        const wrong = JSON.parse(localStorage.getItem(key) || '[]');
+        return wrong.length;
+    },
+
+    // Start review mode for a specific chapter
+    startReviewMode(chapter) {
+        this.selectedChapter = chapter;
+        this.isReviewMode = true;
+        UI.showPage('quiz-type-select-page');
     },
 
     // Stop Timer
@@ -370,6 +445,10 @@ function submitQuiz() {
     }
 
     modal.style.display = 'flex';
+}
+
+function startReviewMode(chapter) {
+    Quiz.startReviewMode(chapter);
 }
 
 // اختيار نوع الاختبار

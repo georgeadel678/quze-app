@@ -48,44 +48,74 @@
 
             <div class="chapters-grid">
                 <!-- الفصل الأول -->
-                <div class="chapter-card" onclick="selectChapter(1)">
-                    <span class="chapter-icon">📚</span>
-                    <div class="chapter-title">الفصل الأول</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(1)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">📚</span>
+                        <div class="chapter-title">الفصل الأول</div>
+                    </div>
+                    <button class="review-btn" id="review-ch1-btn"
+                        onclick="event.stopPropagation(); startReviewMode(1)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
                 <!-- الفصل الثاني -->
-                <div class="chapter-card" onclick="selectChapter(2)">
-                    <span class="chapter-icon">📖</span>
-                    <div class="chapter-title">الفصل الثاني</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(2)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">📖</span>
+                        <div class="chapter-title">الفصل الثاني</div>
+                    </div>
+                    <button class="review-btn" id="review-ch2-btn"
+                        onclick="event.stopPropagation(); startReviewMode(2)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
                 <!-- الفصل الثالث -->
-                <div class="chapter-card" onclick="selectChapter(3)">
-                    <span class="chapter-icon">📝</span>
-                    <div class="chapter-title">الفصل الثالث</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(3)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">📝</span>
+                        <div class="chapter-title">الفصل الثالث</div>
+                    </div>
+                    <button class="review-btn" id="review-ch3-btn"
+                        onclick="event.stopPropagation(); startReviewMode(3)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
                 <!-- الفصل الرابع -->
-                <div class="chapter-card" onclick="selectChapter(4)">
-                    <span class="chapter-icon">🎤</span>
-                    <div class="chapter-title">الفصل الرابع</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(4)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">🎤</span>
+                        <div class="chapter-title">الفصل الرابع</div>
+                    </div>
+                    <button class="review-btn" id="review-ch4-btn"
+                        onclick="event.stopPropagation(); startReviewMode(4)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
                 <!-- الفصل الخامس -->
-                <div class="chapter-card" onclick="selectChapter(5)">
-                    <span class="chapter-icon">📻</span>
-                    <div class="chapter-title">الفصل الخامس</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(5)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">📻</span>
+                        <div class="chapter-title">الفصل الخامس</div>
+                    </div>
+                    <button class="review-btn" id="review-ch5-btn"
+                        onclick="event.stopPropagation(); startReviewMode(5)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
-                <div class="chapter-card" onclick="selectChapter(6)">
-                    <span class="chapter-icon">🎚️</span>
-                    <div class="chapter-title">الفصل السادس</div>
-
+                <div class="chapter-card">
+                    <div onclick="selectChapter(6)" style="flex: 1; cursor: pointer;">
+                        <span class="chapter-icon">🎚️</span>
+                        <div class="chapter-title">الفصل السادس</div>
+                    </div>
+                    <button class="review-btn" id="review-ch6-btn"
+                        onclick="event.stopPropagation(); startReviewMode(6)">
+                        📝 مراجعة الأخطاء
+                    </button>
                 </div>
 
                 <!-- المنهج كامل -->
@@ -338,7 +368,8 @@
     <script src="assets/data/questions/essay/chapter5.js"></script>
     <script src="assets/data/questions/essay/chapter6.js"></script>
     <script src="assets/js/storage.js"></script>
-    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/review-buttons.js?v=2"></script>
+    <script src="assets/js/ui.js?v=2"></script>
     <script src="assets/js/quiz.js"></script>
     <script src="assets/js/essay-quiz.js"></script>
     <script src="assets/js/app.js"></script>
