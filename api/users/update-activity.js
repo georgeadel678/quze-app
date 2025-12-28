@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         // إرسال إشعار إذا كانت جلسة جديدة
         if (isNewSession) {
             try {
-                const { notifyUserStatus } = await import('../utils/telegram-utils.js');
+                const { notifyUserStatus } = await import('../../utils/telegram-utils.js');
                 await notifyUserStatus(username.trim(), 'online');
             } catch (telegramError) {
                 console.error('Telegram notification failed:', telegramError);

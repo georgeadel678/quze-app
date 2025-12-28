@@ -61,7 +61,7 @@ export default async function handler(req, res) {
 
         // إرسال إشعار تيليجرام
         try {
-            const { notifyUserStatus } = await import('../utils/telegram-utils.js');
+            const { notifyUserStatus } = await import('../../utils/telegram-utils.js');
             await notifyUserStatus(cleanUsername, 'new_user');
         } catch (telegramError) {
             console.error('Telegram notification failed:', telegramError);

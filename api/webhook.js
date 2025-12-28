@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // استيراد الدوال المشتركة
-import { sendTelegramMessage, generateActivityReport } from './utils/telegram-utils.js';
+import { sendTelegramMessage, generateActivityReport } from '../utils/telegram-utils.js';
 
 export default async function handler(req, res) {
     // Set CORS headers

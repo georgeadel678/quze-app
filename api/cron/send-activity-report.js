@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const CHAT_ID = '1350722553';
 
 // استيراد الدوال المشتركة
-import { sendTelegramMessage, generateActivityReport } from '../utils/telegram-utils.js';
+import { sendTelegramMessage, generateActivityReport } from '../../utils/telegram-utils.js';
 
 export default async function handler(req, res) {
     // Vercel Cron يرسل header خاص

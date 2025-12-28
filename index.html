@@ -117,6 +117,14 @@
                     <div class="chapter-title" style="color: white;">تغيير الاسم</div>
                     <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">تحديث اسم المستخدم</div>
                 </div>
+
+                <!-- الدعم والمقترحات -->
+                <div class="chapter-card" onclick="openFeedbackModal()"
+                    style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                    <span class="chapter-icon">💬</span>
+                    <div class="chapter-title" style="color: white;">الدعم والمقترحات</div>
+                    <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">رأيك يهمنا</div>
+                </div>
             </div>
         </div>
 
@@ -275,6 +283,34 @@
         </div>
     </div>
 
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="feedback-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999999 !important; justify-content: center; align-items: center; font-family: 'Cairo', sans-serif;">
+        <div class="feedback-modal-content"
+            style="background: #111b21; padding: 30px; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); max-width: 450px; width: 90%; text-align: center; border: 1px solid #333; position: relative;">
+            <div style="position: absolute; top: 15px; left: 15px; cursor: pointer; font-size: 24px; color: #888;"
+                onclick="closeFeedbackModal()">✕</div>
+            <div style="font-size: 50px; margin-bottom: 20px;">📝</div>
+            <h2 style="color: #fff; font-size: 24px; font-weight: 700; margin-bottom: 20px;">اكتب مشكلتك أو رأيك</h2>
+
+            <select id="feedback-type"
+                style="width: 100%; padding: 12px; margin-bottom: 15px; background: #2a3942; border: 1px solid #333; color: white; border-radius: 10px; font-size: 16px; font-family: inherit; -webkit-appearance: none; appearance: none; cursor: pointer;">
+                <option value="problem">مشكلة تقنية</option>
+                <option value="rating">تقييم الموقع</option>
+                <option value="advice">نصيحة / اقتراح</option>
+                <option value="other">أخرى</option>
+            </select>
+
+            <textarea id="feedback-message" placeholder="اكتب رسالتك هنا..." rows="5"
+                style="width: 100%; padding: 15px; margin-bottom: 20px; background: #2a3942; border: 1px solid #333; color: white; border-radius: 10px; font-size: 16px; font-family: inherit; resize: none;"></textarea>
+
+            <button id="submit-feedback-btn" onclick="submitFeedback()"
+                style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: #fff; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 5px 15px rgba(56, 239, 125, 0.3); transition: transform 0.2s;">
+                إرسال الرسالة 🚀
+            </button>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
 
@@ -299,6 +335,7 @@
     <script src="assets/js/essay-quiz.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/whatsapp-verification.js"></script>
+    <script src="assets/js/feedback.js"></script>
 </body>
 
 </html>

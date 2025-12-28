@@ -69,7 +69,7 @@ export default async function handler(req, res) {
 
         // إرسال إشعار تيليجرام
         try {
-            const { notifyUserStatus } = await import('../utils/telegram-utils.js');
+            const { notifyUserStatus } = await import('../../utils/telegram-utils.js');
             await notifyUserStatus(cleanNewUsername, 'name_change', {
                 oldName: cleanCurrentUsername,
                 newName: cleanNewUsername
