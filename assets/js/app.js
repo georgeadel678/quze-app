@@ -158,10 +158,11 @@ async function changeUsername() {
         newConfirmBtn.textContent = 'جاري التحديث...';
 
         try {
-            const response = await fetch('/api/users/update-username', {
+            const response = await fetch('/api/users/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    action: 'update-username',
                     currentUsername: currentUsername,
                     newUsername: cleanNewUsername
                 })
@@ -307,7 +308,7 @@ let lastUpdateTime = null;
 
 function startTimeTracking() {
     const username = Storage.getUsername();
-    
+
     // إذا لم يكن هناك مستخدم، لا نتابع
     if (!username || username === 'مستخدم') {
         return;
@@ -343,7 +344,7 @@ function startTimeTracking() {
 
 function updateUserActivity(immediate = false) {
     const username = Storage.getUsername();
-    
+
     if (!username || username === 'مستخدم') {
         return;
     }
@@ -354,11 +355,11 @@ function updateUserActivity(immediate = false) {
     }
 
     const now = Date.now();
-    
+
     // حساب الوقت المنقضي منذ آخر تحديث
     if (lastUpdateTime) {
         const timeDiff = Math.floor((now - lastUpdateTime) / 1000); // بالثواني
-        
+
         // فقط إذا كان الفرق أقل من 5 دقائق (300 ثانية) - لتجنب إضافة وقت عند إعادة فتح التبويب بعد فترة طويلة
         if (timeDiff <= 300) {
             accumulatedTime += timeDiff;
@@ -372,24 +373,25 @@ function updateUserActivity(immediate = false) {
         const timeToSend = accumulatedTime;
         accumulatedTime = 0; // إعادة تعيين
 
-        fetch('/api/users/update-activity', {
+        fetch('/api/users/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                action: 'update-activity',
                 username: username,
                 timeSpent: timeToSend
             })
         })
-        .then(response => {
-            if (response.ok) {
-                console.log(`✅ تم تحديث نشاط المستخدم: +${timeToSend} ثانية`);
-            } else {
-                console.warn('⚠️ فشل تحديث نشاط المستخدم');
-            }
-        })
-        .catch(error => {
-            console.error('❌ خطأ في تحديث النشاط:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    console.log(`✅ تم تحديث نشاط المستخدم: +${timeToSend} ثانية`);
+                } else {
+                    console.warn('⚠️ فشل تحديث نشاط المستخدم');
+                }
+            })
+            .catch(error => {
+                console.error('❌ خطأ في تحديث النشاط:', error);
+            });
     }
 }
 
@@ -399,10 +401,10 @@ function stopTimeTracking() {
         clearInterval(timeTrackingInterval);
         timeTrackingInterval = null;
     }
-    
+
     // إرسال آخر تحديث
     updateUserActivity(true);
-    
+
     sessionStartTime = null;
     lastUpdateTime = null;
     accumulatedTime = 0;
