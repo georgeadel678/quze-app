@@ -194,10 +194,22 @@ const Storage = {
         const notes = this.getNotes();
         const searchId = String(questionId).trim();
         
-        return notes.some(note => {
-            const noteId = String(note.id || note.question || '').trim();
-            return noteId === searchId;
+        // البحث في الملاحظات
+        const exists = notes.some(note => {
+            // التحقق من id أولاً
+            if (note.id) {
+                const noteId = String(note.id).trim();
+                if (noteId === searchId) return true;
+            }
+            // التحقق من question text كبديل
+            if (note.question) {
+                const noteQuestion = String(note.question).trim();
+                if (noteQuestion === searchId) return true;
+            }
+            return false;
         });
+        
+        return exists;
     }
 };
 

@@ -145,26 +145,42 @@ const UI = {
 
             const isCorrect = userAnswers[index] === q.correctAnswer;
             // توليد questionId موحد - استخدام id إذا كان موجوداً، وإلا استخدام نص السؤال
-            const questionId = q.id ? String(q.id) : (q.question ? String(q.question).trim() : `question_${index}`);
-            const isNoteExists = Storage.isNoteExists(questionId);
+            // لا نستخدم index أبداً لأنه يتغير حسب ترتيب الأسئلة
+            const questionId = q.id ? String(q.id) : (q.question ? String(q.question).trim() : null);
+            
+            // إذا لم يكن هناك id أو question، نتخطى إضافة زر الملاحظات
+            if (!questionId) {
+                console.warn('Question missing id and question text:', q);
+            }
+            
+            const isNoteExists = questionId ? Storage.isNoteExists(questionId) : false;
 
-            // إنشاء زر إضافة للملاحظات
+            // إنشاء زر إضافة للملاحظات (فقط إذا كان questionId موجود)
             const addButton = document.createElement('button');
-            addButton.setAttribute('data-question-id', questionId);
-            addButton.setAttribute('data-question-index', index);
+            if (questionId) {
+                addButton.setAttribute('data-question-id', questionId);
+                addButton.setAttribute('data-question-index', index);
+            }
             addButton.style.cssText = `
                 background: ${isNoteExists ? '#28a745' : '#007bff'};
                 color: white;
                 border: none;
                 padding: 0.5rem 1rem;
                 border-radius: 8px;
-                cursor: pointer;
+                cursor: ${questionId ? 'pointer' : 'not-allowed'};
                 font-size: 0.9rem;
                 white-space: nowrap;
+                opacity: ${questionId ? '1' : '0.6'};
             `;
             addButton.textContent = isNoteExists ? '✅ تم الإضافة' : '📌 أضف للملاحظات';
-            addButton.disabled = isNoteExists;
-            addButton.onclick = () => handleAddToNotes(questionId, index);
+            addButton.disabled = isNoteExists || !questionId;
+            if (questionId) {
+                addButton.onclick = () => handleAddToNotes(questionId, index);
+            } else {
+                addButton.onclick = () => {
+                    showToast('لا يمكن إضافة هذا السؤال: السؤال لا يحتوي على معرف', 'warning');
+                };
+            }
 
             // إنشاء العنوان مع الزر
             const headerDiv = document.createElement('div');
@@ -340,7 +356,18 @@ function handleAddToNotes(questionId, questionIndex) {
     if (!question) return;
 
     // توليد questionId موحد - نفس الطريقة المستخدمة في showReview
-    const finalQuestionId = question.id ? String(question.id) : (question.question ? String(question.question).trim() : questionId);
+    // لا نستخدم index أبداً لأنه يتغير
+    const finalQuestionId = question.id ? String(question.id) : (question.question ? String(question.question).trim() : null);
+
+    if (!finalQuestionId) {
+        showToast('لا يمكن إضافة هذا السؤال: السؤال لا يحتوي على معرف', 'warning');
+        return;
+    }
+
+    // التحقق من أن questionId الممرر يطابق finalQuestionId
+    if (questionId !== finalQuestionId) {
+        console.warn('QuestionId mismatch:', questionId, 'vs', finalQuestionId);
+    }
 
     addQuestionToNotes(
         question.question,
