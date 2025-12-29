@@ -189,6 +189,11 @@ const Quiz = {
         if (typeof updateReviewButtonForCurrentChapter === 'function') {
             updateReviewButtonForCurrentChapter();
         }
+
+        // Update chapter progress after submitting quiz
+        if (typeof updateChapterProgress === 'function') {
+            updateChapterProgress();
+        }
     },
 
     // تحديث نقاط المستخدم في قاعدة البيانات
@@ -484,6 +489,11 @@ function selectQuizType(type) {
         // Update review button when showing question count page
         if (typeof updateReviewButtonForCurrentChapter === 'function') {
             setTimeout(updateReviewButtonForCurrentChapter, 100);
+        }
+
+        // Update chapter progress bar
+        if (typeof updateChapterProgress === 'function') {
+            setTimeout(updateChapterProgress, 100);
         }
     } else if (type === 'essay') {
         // تفعيل وضع Essay وإخفاء الحاوية الرئيسية
