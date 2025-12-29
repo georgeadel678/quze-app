@@ -113,14 +113,15 @@ function displayNotes() {
 }
 
 // إضافة سؤال للملاحظات
-function addQuestionToNotes(question, userAnswer, correctAnswer, answers, explanation, questionId) {
+function addQuestionToNotes(question, userAnswer, correctAnswer, answers, explanation, questionId, chapter = null) {
     const questionData = {
         id: questionId || question,
         question: question,
         userAnswer: userAnswer,
         correctAnswer: correctAnswer,
         answers: answers,
-        explanation: explanation || ''
+        explanation: explanation || '',
+        chapter: chapter
     };
 
     const added = Storage.addNote(questionData);

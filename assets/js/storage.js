@@ -114,10 +114,16 @@ const Storage = {
         let notes = this.get(key, []);
 
         // التحقق من عدم وجود السؤال مسبقاً (باستخدام ID)
-        const questionId = String(questionData.id || questionData.question || '').trim();
+        let questionId = String(questionData.id || questionData.question || '').trim();
         if (!questionId) {
             console.error('Cannot add note: questionId is empty');
             return false;
+        }
+
+        // إضافة chapter إلى questionId إذا كان موجوداً ولم يكن موجوداً بالفعل
+        const chapter = questionData.chapter || null;
+        if (chapter && !questionId.startsWith(`ch${chapter}_`)) {
+            questionId = `ch${chapter}_${questionId}`;
         }
 
         // التحقق من وجود السؤال باستخدام مقارنة موحدة
@@ -131,11 +137,11 @@ const Storage = {
         }
 
         // التأكد من وجود id في questionData - هذا مهم جداً للمقارنة
-        if (!questionData.id) {
-            questionData.id = questionId;
-        } else {
-            // التأكد من أن id محفوظ كـ string
-            questionData.id = String(questionData.id).trim();
+        questionData.id = questionId;
+        
+        // حفظ chapter أيضاً في questionData
+        if (chapter) {
+            questionData.chapter = chapter;
         }
 
         // إضافة تاريخ الإضافة
@@ -154,17 +160,36 @@ const Storage = {
         const key = `notes_${username}`;
         let notes = this.get(key, []);
         
-        // تنظيف الملاحظات القديمة - التأكد من وجود id لكل ملاحظة
+        // تنظيف الملاحظات القديمة - التأكد من وجود id لكل ملاحظة وإضافة chapter إذا لم يكن موجوداً
         let needsUpdate = false;
         notes = notes.map(note => {
+            let updated = false;
+            
             if (!note.id && note.question) {
                 // إذا لم يكن هناك id، نستخدم question كـ id
-                note.id = String(note.question).trim();
-                needsUpdate = true;
+                // إضافة chapter إذا كان موجوداً
+                if (note.chapter && !String(note.question).trim().startsWith(`ch${note.chapter}_`)) {
+                    note.id = `ch${note.chapter}_${String(note.question).trim()}`;
+                } else {
+                    note.id = String(note.question).trim();
+                }
+                updated = true;
             } else if (note.id) {
                 // التأكد من أن id هو string
-                note.id = String(note.id).trim();
+                const oldId = String(note.id).trim();
+                // إذا كان هناك chapter ولم يكن موجوداً في id، نضيفه
+                if (note.chapter && !oldId.startsWith(`ch${note.chapter}_`)) {
+                    note.id = `ch${note.chapter}_${oldId}`;
+                    updated = true;
+                } else {
+                    note.id = oldId;
+                }
             }
+            
+            if (updated) {
+                needsUpdate = true;
+            }
+            
             return note;
         });
         
@@ -212,7 +237,7 @@ const Storage = {
     },
 
     // التحقق من وجود سؤال في الملاحظات
-    isNoteExists(questionId) {
+    isNoteExists(questionId, chapter = null) {
         if (!questionId) {
             return false;
         }
@@ -222,9 +247,14 @@ const Storage = {
             return false;
         }
         
-        const searchId = String(questionId).trim();
+        let searchId = String(questionId).trim();
         if (!searchId || searchId === 'null' || searchId === 'undefined') {
             return false;
+        }
+        
+        // إذا كان questionId لا يحتوي على chapter prefix وكان chapter موجود، نضيفه
+        if (chapter && !searchId.startsWith(`ch${chapter}_`)) {
+            searchId = `ch${chapter}_${searchId}`;
         }
         
         // البحث في الملاحظات - نعتمد فقط على id للمقارنة الدقيقة
@@ -244,7 +274,7 @@ const Storage = {
             if (!note.id && note.question) {
                 const noteQuestion = String(note.question).trim();
                 // فقط إذا كان searchId هو نص السؤال (ليس رقم)
-                if (isNaN(searchId) && noteQuestion === searchId && noteQuestion.length > 0) {
+                if (isNaN(searchId.replace(/^ch\d+_/, '')) && noteQuestion === searchId && noteQuestion.length > 0) {
                     return true;
                 }
             }

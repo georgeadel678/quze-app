@@ -146,12 +146,16 @@ const UI = {
             const isCorrect = userAnswers[index] === q.correctAnswer;
             // توليد questionId موحد - استخدام id إذا كان موجوداً، وإلا استخدام نص السؤال
             // لا نستخدم index أبداً لأنه يتغير حسب ترتيب الأسئلة
+            // إضافة رقم الفصل لضمان التفرقة بين الفصول
             let questionId = null;
+            const chapter = q.chapter || (window.Quiz && window.Quiz.selectedChapter) || null;
             
             if (q.id) {
-                questionId = String(q.id).trim();
+                // إضافة رقم الفصل إلى المعرف
+                questionId = chapter ? `ch${chapter}_${String(q.id).trim()}` : String(q.id).trim();
             } else if (q.question) {
-                questionId = String(q.question).trim();
+                // إضافة رقم الفصل إلى نص السؤال
+                questionId = chapter ? `ch${chapter}_${String(q.question).trim()}` : String(q.question).trim();
             }
             
             // إذا لم يكن هناك id أو question، نتخطى إضافة زر الملاحظات
@@ -162,11 +166,7 @@ const UI = {
             // التحقق من وجود السؤال في الملاحظات - فقط إذا كان questionId موجود
             let isNoteExists = false;
             if (questionId) {
-                isNoteExists = Storage.isNoteExists(questionId);
-                // Debug logging
-                if (isNoteExists) {
-                    console.log('Note exists for questionId:', questionId, 'Question:', q.question?.substring(0, 50));
-                }
+                isNoteExists = Storage.isNoteExists(questionId, chapter);
             }
 
             // إنشاء زر إضافة للملاحظات (فقط إذا كان questionId موجود)
@@ -371,7 +371,15 @@ function handleAddToNotes(questionId, questionIndex) {
 
     // توليد questionId موحد - نفس الطريقة المستخدمة في showReview
     // لا نستخدم index أبداً لأنه يتغير
-    const finalQuestionId = question.id ? String(question.id) : (question.question ? String(question.question).trim() : null);
+    // إضافة رقم الفصل لضمان التفرقة بين الفصول
+    const chapter = question.chapter || (window.Quiz && window.Quiz.selectedChapter) || null;
+    let finalQuestionId = null;
+    
+    if (question.id) {
+        finalQuestionId = chapter ? `ch${chapter}_${String(question.id).trim()}` : String(question.id).trim();
+    } else if (question.question) {
+        finalQuestionId = chapter ? `ch${chapter}_${String(question.question).trim()}` : String(question.question).trim();
+    }
 
     if (!finalQuestionId) {
         showToast('لا يمكن إضافة هذا السؤال: السؤال لا يحتوي على معرف', 'warning');
@@ -381,6 +389,8 @@ function handleAddToNotes(questionId, questionIndex) {
     // التحقق من أن questionId الممرر يطابق finalQuestionId
     if (questionId !== finalQuestionId) {
         console.warn('QuestionId mismatch:', questionId, 'vs', finalQuestionId);
+        // استخدام finalQuestionId الصحيح
+        questionId = finalQuestionId;
     }
 
     addQuestionToNotes(
@@ -389,7 +399,8 @@ function handleAddToNotes(questionId, questionIndex) {
         question.correctAnswer,
         question.answers,
         question.explanation,
-        finalQuestionId
+        finalQuestionId,
+        chapter
     );
 
     // تحديث حالة الزر بعد الإضافة
