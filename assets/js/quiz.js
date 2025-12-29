@@ -56,15 +56,28 @@ const Quiz = {
             const originalCount = filtered.length;
 
             // Filter out mastered questions
-            // Use ID if available, otherwise fallback to question text (hashed or direct)
-            // Assuming questions have 'id' property from data files
-            filtered = filtered.filter(q => !masteredIds.includes(q.id));
+            // Convert all IDs to strings for consistent comparison
+            const masteredIdsStr = masteredIds.map(id => String(id));
+            
+            filtered = filtered.filter(q => {
+                const qId = q.id ? String(q.id) : null;
+                // Only filter if question has an ID and it's in mastered list
+                return !qId || !masteredIdsStr.includes(qId);
+            });
 
-            // If all questions mastered, reset and restart
+            // Only show reset message if ALL questions are mastered (not just filtered ones)
+            // Check if we have enough questions for the requested count
+            const requestedCount = this.questionCount === 'all' ? filtered.length : Number(this.questionCount);
+            
             if (filtered.length === 0 && originalCount > 0) {
+                // All questions in this chapter are mastered
                 alert('🎉 مبروك! لقد أتقنت جميع أسئلة هذا الفصل.\nسيتم إعادة تعيين الأسئلة لتبدأ من جديد.');
                 this.resetMasteredQuestions();
                 filtered = allQuestions.filter(q => q.chapter == this.selectedChapter);
+            } else if (filtered.length > 0 && filtered.length < requestedCount && requestedCount !== filtered.length) {
+                // Not enough unmastered questions, but we have some
+                // This is normal - just use what's available
+                // No alert needed, just continue with available questions
             }
         }
 
@@ -242,13 +255,17 @@ const Quiz = {
     // Save correct answer to mastered list
     saveMasteredQuestion(questionId) {
         const username = Storage.getUsername();
-        if (!username || !this.selectedChapter) return;
+        if (!username || !this.selectedChapter || !questionId) return;
 
         const key = `mastered_${username}_ch${this.selectedChapter}`;
         let mastered = JSON.parse(localStorage.getItem(key) || '[]');
 
-        if (!mastered.includes(questionId)) {
-            mastered.push(questionId);
+        // Convert to string for consistent storage
+        const questionIdStr = String(questionId);
+        const masteredStr = mastered.map(id => String(id));
+
+        if (!masteredStr.includes(questionIdStr)) {
+            mastered.push(questionIdStr);
             localStorage.setItem(key, JSON.stringify(mastered));
         }
     },
@@ -259,7 +276,9 @@ const Quiz = {
         if (!username || !this.selectedChapter) return [];
 
         const key = `mastered_${username}_ch${this.selectedChapter}`;
-        return JSON.parse(localStorage.getItem(key) || '[]');
+        const mastered = JSON.parse(localStorage.getItem(key) || '[]');
+        // Return as strings for consistent comparison
+        return mastered.map(id => String(id));
     },
 
     // Reset mastery for a specific chapter
