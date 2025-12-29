@@ -144,7 +144,8 @@ const UI = {
             `;
 
             const isCorrect = userAnswers[index] === q.correctAnswer;
-            const questionId = q.id || q.question || `question_${index}`;
+            // توليد questionId موحد - استخدام id إذا كان موجوداً، وإلا استخدام نص السؤال
+            const questionId = q.id ? String(q.id) : (q.question ? String(q.question).trim() : `question_${index}`);
             const isNoteExists = Storage.isNoteExists(questionId);
 
             // إنشاء زر إضافة للملاحظات
@@ -338,8 +339,8 @@ function handleAddToNotes(questionId, questionIndex) {
 
     if (!question) return;
 
-    // استخدام ID إذا كان موجوداً، وإلا استخدام نص السؤال
-    const finalQuestionId = question.id || question.question || questionId;
+    // توليد questionId موحد - نفس الطريقة المستخدمة في showReview
+    const finalQuestionId = question.id ? String(question.id) : (question.question ? String(question.question).trim() : questionId);
 
     addQuestionToNotes(
         question.question,

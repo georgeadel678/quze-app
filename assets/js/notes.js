@@ -154,7 +154,20 @@ function removeNoteFromList(questionId) {
 
 // تحديث حالة زر "أضف للملاحظات"
 function updateNoteButtonState(questionId) {
-    const btn = document.querySelector(`[data-question-id="${questionId}"]`);
+    if (!questionId) return;
+    
+    // البحث عن الزر باستخدام data-question-id
+    const allButtons = document.querySelectorAll('[data-question-id]');
+    let btn = null;
+    
+    const searchId = String(questionId).trim();
+    allButtons.forEach(button => {
+        const btnId = String(button.getAttribute('data-question-id') || '').trim();
+        if (btnId === searchId) {
+            btn = button;
+        }
+    });
+    
     if (!btn) return;
 
     const exists = Storage.isNoteExists(questionId);

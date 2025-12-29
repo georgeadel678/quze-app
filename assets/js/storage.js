@@ -114,9 +114,25 @@ const Storage = {
         let notes = this.get(key, []);
 
         // التحقق من عدم وجود السؤال مسبقاً (باستخدام ID)
-        const questionId = questionData.id || questionData.question;
-        if (notes.some(note => (note.id || note.question) === questionId)) {
+        const questionId = String(questionData.id || questionData.question || '').trim();
+        if (!questionId) {
+            console.error('Cannot add note: questionId is empty');
+            return false;
+        }
+
+        // التحقق من وجود السؤال باستخدام مقارنة موحدة
+        const exists = notes.some(note => {
+            const noteId = String(note.id || note.question || '').trim();
+            return noteId === questionId;
+        });
+
+        if (exists) {
             return false; // السؤال موجود بالفعل
+        }
+
+        // التأكد من وجود id في questionData
+        if (!questionData.id) {
+            questionData.id = questionId;
         }
 
         // إضافة تاريخ الإضافة
@@ -173,8 +189,15 @@ const Storage = {
 
     // التحقق من وجود سؤال في الملاحظات
     isNoteExists(questionId) {
+        if (!questionId) return false;
+        
         const notes = this.getNotes();
-        return notes.some(note => (note.id || note.question) === questionId);
+        const searchId = String(questionId).trim();
+        
+        return notes.some(note => {
+            const noteId = String(note.id || note.question || '').trim();
+            return noteId === searchId;
+        });
     }
 };
 
