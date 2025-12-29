@@ -130,9 +130,12 @@ const Storage = {
             return false; // السؤال موجود بالفعل
         }
 
-        // التأكد من وجود id في questionData
+        // التأكد من وجود id في questionData - هذا مهم جداً للمقارنة
         if (!questionData.id) {
             questionData.id = questionId;
+        } else {
+            // التأكد من أن id محفوظ كـ string
+            questionData.id = String(questionData.id).trim();
         }
 
         // إضافة تاريخ الإضافة
@@ -149,7 +152,28 @@ const Storage = {
         if (!username || username === 'مستخدم') return [];
 
         const key = `notes_${username}`;
-        return this.get(key, []);
+        let notes = this.get(key, []);
+        
+        // تنظيف الملاحظات القديمة - التأكد من وجود id لكل ملاحظة
+        let needsUpdate = false;
+        notes = notes.map(note => {
+            if (!note.id && note.question) {
+                // إذا لم يكن هناك id، نستخدم question كـ id
+                note.id = String(note.question).trim();
+                needsUpdate = true;
+            } else if (note.id) {
+                // التأكد من أن id هو string
+                note.id = String(note.id).trim();
+            }
+            return note;
+        });
+        
+        // حفظ الملاحظات المحدثة إذا تم التعديل
+        if (needsUpdate) {
+            this.set(key, notes);
+        }
+        
+        return notes;
     },
 
     // حذف سؤال من الملاحظات
@@ -189,27 +213,44 @@ const Storage = {
 
     // التحقق من وجود سؤال في الملاحظات
     isNoteExists(questionId) {
-        if (!questionId) return false;
+        if (!questionId) {
+            return false;
+        }
         
         const notes = this.getNotes();
-        const searchId = String(questionId).trim();
+        if (!notes || notes.length === 0) {
+            return false;
+        }
         
-        // البحث في الملاحظات
-        const exists = notes.some(note => {
-            // التحقق من id أولاً
+        const searchId = String(questionId).trim();
+        if (!searchId || searchId === 'null' || searchId === 'undefined') {
+            return false;
+        }
+        
+        // البحث في الملاحظات - نعتمد فقط على id للمقارنة الدقيقة
+        for (let i = 0; i < notes.length; i++) {
+            const note = notes[i];
+            
+            // التحقق من id أولاً - هذا هو المعرف الموثوق
             if (note.id) {
                 const noteId = String(note.id).trim();
-                if (noteId === searchId) return true;
+                if (noteId === searchId) {
+                    return true;
+                }
             }
-            // التحقق من question text كبديل
-            if (note.question) {
+            
+            // إذا لم يكن هناك id في الملاحظة، نتحقق من question text فقط
+            // لكن فقط إذا كان searchId هو نص السؤال (ليس رقم) و note.id غير موجود
+            if (!note.id && note.question) {
                 const noteQuestion = String(note.question).trim();
-                if (noteQuestion === searchId) return true;
+                // فقط إذا كان searchId هو نص السؤال (ليس رقم)
+                if (isNaN(searchId) && noteQuestion === searchId && noteQuestion.length > 0) {
+                    return true;
+                }
             }
-            return false;
-        });
+        }
         
-        return exists;
+        return false;
     }
 };
 

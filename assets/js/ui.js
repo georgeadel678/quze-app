@@ -146,14 +146,28 @@ const UI = {
             const isCorrect = userAnswers[index] === q.correctAnswer;
             // توليد questionId موحد - استخدام id إذا كان موجوداً، وإلا استخدام نص السؤال
             // لا نستخدم index أبداً لأنه يتغير حسب ترتيب الأسئلة
-            const questionId = q.id ? String(q.id) : (q.question ? String(q.question).trim() : null);
+            let questionId = null;
+            
+            if (q.id) {
+                questionId = String(q.id).trim();
+            } else if (q.question) {
+                questionId = String(q.question).trim();
+            }
             
             // إذا لم يكن هناك id أو question، نتخطى إضافة زر الملاحظات
             if (!questionId) {
                 console.warn('Question missing id and question text:', q);
             }
             
-            const isNoteExists = questionId ? Storage.isNoteExists(questionId) : false;
+            // التحقق من وجود السؤال في الملاحظات - فقط إذا كان questionId موجود
+            let isNoteExists = false;
+            if (questionId) {
+                isNoteExists = Storage.isNoteExists(questionId);
+                // Debug logging
+                if (isNoteExists) {
+                    console.log('Note exists for questionId:', questionId, 'Question:', q.question?.substring(0, 50));
+                }
+            }
 
             // إنشاء زر إضافة للملاحظات (فقط إذا كان questionId موجود)
             const addButton = document.createElement('button');
