@@ -140,33 +140,71 @@ const UI = {
                 border-radius: 12px;
                 text-align: right;
                 border: 2px solid ${userAnswers[index] === q.correctAnswer ? '#28a745' : '#dc3545'};
+                position: relative;
             `;
 
             const isCorrect = userAnswers[index] === q.correctAnswer;
+            const questionId = q.id || q.question || `question_${index}`;
+            const isNoteExists = Storage.isNoteExists(questionId);
 
-            div.innerHTML = `
-                <h3 style="color: ${isCorrect ? '#28a745' : '#dc3545'}; margin-bottom: 1rem;">
-                    ${isCorrect ? '✅' : '❌'} السؤال ${index + 1}
-                </h3>
-                <p style="font-weight: 600; margin-bottom: 1rem; color: #2c3e50;">
-                    ${q.question}
-                </p>
-                <div style="background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;">
-                    <strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong>
-                    ${q.answers[userAnswers[index]] || 'لم تجب'}
-                </div>
-                ${!isCorrect ? `
-                    <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;">
-                        <strong style="color: #28a745;">الإجابة الصحيحة:</strong>
-                        ${q.answers[q.correctAnswer]}
-                    </div>
-                ` : ''}
-                ${q.explanation ? `
-                    <div style="background: #e7f3ff; padding: 1rem; border-radius: 8px; border-right: 4px solid #007bff;">
-                        <strong>💡 توضيح:</strong> ${q.explanation}
-                    </div>
-                ` : ''}
+            // إنشاء زر إضافة للملاحظات
+            const addButton = document.createElement('button');
+            addButton.setAttribute('data-question-id', questionId);
+            addButton.setAttribute('data-question-index', index);
+            addButton.style.cssText = `
+                background: ${isNoteExists ? '#28a745' : '#007bff'};
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                white-space: nowrap;
             `;
+            addButton.textContent = isNoteExists ? '✅ تم الإضافة' : '📌 أضف للملاحظات';
+            addButton.disabled = isNoteExists;
+            addButton.onclick = () => handleAddToNotes(questionId, index);
+
+            // إنشاء العنوان مع الزر
+            const headerDiv = document.createElement('div');
+            headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;';
+            
+            const titleH3 = document.createElement('h3');
+            titleH3.style.cssText = `color: ${isCorrect ? '#28a745' : '#dc3545'}; margin: 0;`;
+            titleH3.textContent = `${isCorrect ? '✅' : '❌'} السؤال ${index + 1}`;
+            
+            headerDiv.appendChild(titleH3);
+            headerDiv.appendChild(addButton);
+
+            // إنشاء محتوى السؤال
+            const questionP = document.createElement('p');
+            questionP.style.cssText = 'font-weight: 600; margin-bottom: 1rem; color: #2c3e50;';
+            questionP.textContent = q.question;
+
+            // إجابتك
+            const userAnswerDiv = document.createElement('div');
+            userAnswerDiv.style.cssText = 'background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
+            userAnswerDiv.innerHTML = `<strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong> ${q.answers[userAnswers[index]] || 'لم تجب'}`;
+
+            div.appendChild(headerDiv);
+            div.appendChild(questionP);
+            div.appendChild(userAnswerDiv);
+
+            // الإجابة الصحيحة (إذا كانت خاطئة)
+            if (!isCorrect) {
+                const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.style.cssText = 'background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
+                correctAnswerDiv.innerHTML = `<strong style="color: #28a745;">الإجابة الصحيحة:</strong> ${q.answers[q.correctAnswer]}`;
+                div.appendChild(correctAnswerDiv);
+            }
+
+            // التوضيح (إذا كان موجوداً)
+            if (q.explanation) {
+                const explanationDiv = document.createElement('div');
+                explanationDiv.style.cssText = 'background: #e7f3ff; padding: 1rem; border-radius: 8px; border-right: 4px solid #007bff;';
+                explanationDiv.innerHTML = `<strong>💡 توضيح:</strong> ${q.explanation}`;
+                div.appendChild(explanationDiv);
+            }
 
             container.appendChild(div);
         });
@@ -287,4 +325,33 @@ function goBackFromLeaderboard() {
 
 function startNewExam() {
     UI.showPage('chapters-page');
+}
+
+// معالج إضافة سؤال للملاحظات من صفحة المراجعة
+function handleAddToNotes(questionId, questionIndex) {
+    if (!window.Quiz || !window.Quiz.currentQuestions || !window.Quiz.userAnswers) {
+        return;
+    }
+
+    const question = window.Quiz.currentQuestions[questionIndex];
+    const userAnswer = window.Quiz.userAnswers[questionIndex];
+
+    if (!question) return;
+
+    // استخدام ID إذا كان موجوداً، وإلا استخدام نص السؤال
+    const finalQuestionId = question.id || question.question || questionId;
+
+    addQuestionToNotes(
+        question.question,
+        userAnswer,
+        question.correctAnswer,
+        question.answers,
+        question.explanation,
+        finalQuestionId
+    );
+
+    // تحديث حالة الزر بعد الإضافة
+    setTimeout(() => {
+        updateNoteButtonState(finalQuestionId);
+    }, 100);
 }

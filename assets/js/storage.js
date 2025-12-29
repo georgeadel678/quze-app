@@ -102,6 +102,57 @@ const Storage = {
 
     clearQuizProgress() {
         this.remove('quizProgress');
+    },
+
+    // الملاحظات (Notes)
+    // حفظ سؤال في الملاحظات
+    addNote(questionData) {
+        const username = this.getUsername();
+        if (!username || username === 'مستخدم') return false;
+
+        const key = `notes_${username}`;
+        let notes = this.get(key, []);
+
+        // التحقق من عدم وجود السؤال مسبقاً (باستخدام ID)
+        const questionId = questionData.id || questionData.question;
+        if (notes.some(note => (note.id || note.question) === questionId)) {
+            return false; // السؤال موجود بالفعل
+        }
+
+        // إضافة تاريخ الإضافة
+        questionData.addedAt = new Date().toISOString();
+        notes.push(questionData);
+
+        this.set(key, notes);
+        return true;
+    },
+
+    // جلب جميع الملاحظات
+    getNotes() {
+        const username = this.getUsername();
+        if (!username || username === 'مستخدم') return [];
+
+        const key = `notes_${username}`;
+        return this.get(key, []);
+    },
+
+    // حذف سؤال من الملاحظات
+    removeNote(questionId) {
+        const username = this.getUsername();
+        if (!username || username === 'مستخدم') return false;
+
+        const key = `notes_${username}`;
+        let notes = this.get(key, []);
+
+        notes = notes.filter(note => (note.id || note.question) !== questionId);
+        this.set(key, notes);
+        return true;
+    },
+
+    // التحقق من وجود سؤال في الملاحظات
+    isNoteExists(questionId) {
+        const notes = this.getNotes();
+        return notes.some(note => (note.id || note.question) === questionId);
     }
 };
 

@@ -119,6 +119,14 @@
                     <div class="chapter-title" style="color: white;">الدعم والمقترحات</div>
                     <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">رأيك يهمنا</div>
                 </div>
+
+                <!-- الملاحظات -->
+                <div class="chapter-card" onclick="showNotesPage()"
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <span class="chapter-icon">📌</span>
+                    <div class="chapter-title" style="color: white;">الملاحظات</div>
+                    <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">الأسئلة المحفوظة</div>
+                </div>
             </div>
         </div>
 
@@ -243,6 +251,18 @@
 
             <button class="btn" onclick="goBackFromLeaderboard()">رجوع</button>
         </div>
+
+        <!-- صفحة الملاحظات -->
+        <div id="notes-page" class="page">
+            <h2>📌 الملاحظات</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">الأسئلة التي قمت بحفظها للمراجعة</p>
+
+            <div id="notes-container">
+                <div class="notes-loading">جاري التحميل...</div>
+            </div>
+
+            <button class="btn" onclick="showPage('chapters-page')">رجوع</button>
+        </div>
     </div>
 
     <!-- نافذة اختيار المؤقت -->
@@ -356,6 +376,7 @@
     <script src="assets/data/questions/essay/chapter6.js"></script>
     <script src="assets/js/storage.js"></script>
     <script src="assets/js/review-buttons.js?v=3"></script>
+    <script src="assets/js/notes.js?v=1"></script>
     <script src="assets/js/ui.js?v=2"></script>
 </body>
 </body>
