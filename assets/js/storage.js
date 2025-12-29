@@ -139,14 +139,36 @@ const Storage = {
     // حذف سؤال من الملاحظات
     removeNote(questionId) {
         const username = this.getUsername();
-        if (!username || username === 'مستخدم') return false;
+        if (!username || username === 'مستخدم') {
+            console.error('No username found');
+            return false;
+        }
+
+        if (!questionId) {
+            console.error('questionId is missing');
+            return false;
+        }
 
         const key = `notes_${username}`;
         let notes = this.get(key, []);
 
-        notes = notes.filter(note => (note.id || note.question) !== questionId);
-        this.set(key, notes);
-        return true;
+        const originalLength = notes.length;
+        
+        // استخدام String() لضمان المقارنة الصحيحة
+        notes = notes.filter(note => {
+            const noteId = String(note.id || note.question || '');
+            return noteId !== String(questionId);
+        });
+
+        const newLength = notes.length;
+        
+        if (newLength < originalLength) {
+            this.set(key, notes);
+            return true;
+        } else {
+            console.warn('Note not found for deletion:', questionId);
+            return false;
+        }
     },
 
     // التحقق من وجود سؤال في الملاحظات

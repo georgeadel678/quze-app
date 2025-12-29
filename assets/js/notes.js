@@ -42,39 +42,71 @@ function displayNotes() {
         `;
 
         const isCorrect = note.userAnswer === note.correctAnswer;
+        const questionId = note.id || note.question;
 
-        noteDiv.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 style="color: #007bff; margin: 0;">
-                    📌 السؤال ${index + 1}
-                </h3>
-                <button onclick="removeNoteFromList('${note.id || note.question}')" 
-                        style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">
-                    🗑️ حذف
-                </button>
-            </div>
-            <p style="font-weight: 600; margin-bottom: 1rem; color: #2c3e50;">
-                ${note.question}
-            </p>
-            <div style="background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;">
-                <strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong>
-                ${note.answers && note.answers[note.userAnswer] ? note.answers[note.userAnswer] : (note.userAnswer === true ? 'صواب' : note.userAnswer === false ? 'خطأ' : note.userAnswer)}
-            </div>
-            <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;">
-                <strong style="color: #28a745;">الإجابة الصحيحة:</strong>
-                ${note.answers && note.answers[note.correctAnswer] ? note.answers[note.correctAnswer] : (note.correctAnswer === true ? 'صواب' : note.correctAnswer === false ? 'خطأ' : note.correctAnswer)}
-            </div>
-            ${note.explanation ? `
-                <div style="background: #e7f3ff; padding: 1rem; border-radius: 8px; border-right: 4px solid #007bff;">
-                    <strong>💡 توضيح:</strong> ${note.explanation}
-                </div>
-            ` : ''}
-            ${note.addedAt ? `
-                <div style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
-                    تم الإضافة: ${new Date(note.addedAt).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </div>
-            ` : ''}
-        `;
+        // إنشاء زر الحذف
+        const deleteButton = document.createElement('button');
+        deleteButton.setAttribute('data-note-id', questionId);
+        deleteButton.style.cssText = 'background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem;';
+        deleteButton.textContent = '🗑️ حذف';
+        deleteButton.onclick = function() {
+            const noteId = this.getAttribute('data-note-id');
+            removeNoteFromList(noteId);
+        };
+
+        // إنشاء العنوان
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;';
+        
+        const titleH3 = document.createElement('h3');
+        titleH3.style.cssText = 'color: #007bff; margin: 0;';
+        titleH3.textContent = `📌 السؤال ${index + 1}`;
+        
+        headerDiv.appendChild(titleH3);
+        headerDiv.appendChild(deleteButton);
+
+        // نص السؤال
+        const questionP = document.createElement('p');
+        questionP.style.cssText = 'font-weight: 600; margin-bottom: 1rem; color: #2c3e50;';
+        questionP.textContent = note.question;
+
+        // إجابتك
+        const userAnswerDiv = document.createElement('div');
+        userAnswerDiv.style.cssText = 'background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
+        const userAnswerText = note.answers && note.answers[note.userAnswer] 
+            ? note.answers[note.userAnswer] 
+            : (note.userAnswer === true ? 'صواب' : note.userAnswer === false ? 'خطأ' : note.userAnswer);
+        userAnswerDiv.innerHTML = `<strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong> ${userAnswerText}`;
+
+        // الإجابة الصحيحة
+        const correctAnswerDiv = document.createElement('div');
+        correctAnswerDiv.style.cssText = 'background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
+        const correctAnswerText = note.answers && note.answers[note.correctAnswer] 
+            ? note.answers[note.correctAnswer] 
+            : (note.correctAnswer === true ? 'صواب' : note.correctAnswer === false ? 'خطأ' : note.correctAnswer);
+        correctAnswerDiv.innerHTML = `<strong style="color: #28a745;">الإجابة الصحيحة:</strong> ${correctAnswerText}`;
+
+        // إضافة العناصر
+        noteDiv.appendChild(headerDiv);
+        noteDiv.appendChild(questionP);
+        noteDiv.appendChild(userAnswerDiv);
+        noteDiv.appendChild(correctAnswerDiv);
+
+        // التوضيح (إذا كان موجوداً)
+        if (note.explanation) {
+            const explanationDiv = document.createElement('div');
+            explanationDiv.style.cssText = 'background: #e7f3ff; padding: 1rem; border-radius: 8px; border-right: 4px solid #007bff;';
+            explanationDiv.innerHTML = `<strong>💡 توضيح:</strong> ${note.explanation}`;
+            noteDiv.appendChild(explanationDiv);
+        }
+
+        // تاريخ الإضافة
+        if (note.addedAt) {
+            const dateDiv = document.createElement('div');
+            dateDiv.style.cssText = 'margin-top: 1rem; color: #6b7280; font-size: 0.9rem;';
+            dateDiv.textContent = `تم الإضافة: ${new Date(note.addedAt).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+            noteDiv.appendChild(dateDiv);
+        }
 
         container.appendChild(noteDiv);
     });
@@ -104,13 +136,19 @@ function addQuestionToNotes(question, userAnswer, correctAnswer, answers, explan
 
 // حذف سؤال من الملاحظات
 function removeNoteFromList(questionId) {
-    // Escape special characters in questionId for use in onclick
-    const escapedId = questionId.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    if (!questionId) {
+        console.error('questionId is missing');
+        return;
+    }
     
     if (confirm('هل أنت متأكد من حذف هذا السؤال من الملاحظات؟')) {
-        Storage.removeNote(questionId);
-        showToast('تم حذف السؤال من الملاحظات', 'success');
-        displayNotes();
+        const result = Storage.removeNote(questionId);
+        if (result) {
+            showToast('تم حذف السؤال من الملاحظات', 'success');
+            displayNotes();
+        } else {
+            showToast('حدث خطأ أثناء حذف السؤال', 'error');
+        }
     }
 }
 
