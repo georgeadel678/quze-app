@@ -60,7 +60,7 @@ class EssayQuizApp {
 
         header.innerHTML = `
             <h1>نظام اختبار المقالات الذكي</h1>
-            <p>مدعوم بواسطة Groq AI</p>
+           
         `;
 
         return header;
