@@ -43,8 +43,22 @@ export default async function handler(req, res) {
             where: { username: cleanUsername }
         });
 
-        // ❌ إذا الاسم موجود، ارجع خطأ
+        // ❌ إذا الاسم موجود
         if (user) {
+            // استثناء خاص: السماح للمستخدم "جورج عادل" بتسجيل الدخول
+            if (cleanUsername === 'جورج عادل') {
+                return res.status(200).json({
+                    success: true,
+                    user: {
+                        id: user.id,
+                        username: user.username,
+                        points: user.points
+                    },
+                    message: 'تم تسجيل الدخول بنجاح' // رسالة توضيحية (اختياري)
+                });
+            }
+
+            // للبقية: ارجع خطأ
             return res.status(409).json({
                 error: 'اسم المستخدم موجود مسبقاً، اختر اسماً آخر',
                 exists: true
