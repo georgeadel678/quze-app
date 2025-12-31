@@ -69,10 +69,28 @@ async function handleToggleLike({ targetUsername }, res) {
 }
 
 async function handleUpdateActivity({ username, timeSpent }, res) {
-    // Disabled to reduce database writes and plan usage
+    // Disabled DB writes to save resources
+    // But we send a stateless Telegram notification as requested (Free of DB cost)
+    try {
+        // نرسل الإشعار فقط إذا كان هذا بداية جلسة (أول مرة تتصل فيها الصفحة)
+        // وبما أننا لا نملك حالة في القاعدة، سنعتمد على أن المتصفح يرسل طلب تحديث.
+        // لتقليل الإزعاج، سنرسل إشعار "متصل" بسيط.
+
+        // ملاحظة: لضمان عدم إرسال إشعارات كل 30 ثانية، 
+        // سنعتمد على أن العميل (app.js) معطل فيه الـ Loop حالياً.
+        // ولكن إذا أعدنا تفعيله مستقبلاً، يجب الحذر.
+        // حالياً العميل لن يرسل شيئاً، لذا يجب أن نضيف استدعاء واحد عند فتح الموقع.
+
+        const { notifyUserStatus } = await import('../../utils/telegram-utils.js');
+        await notifyUserStatus(username, 'online');
+
+    } catch (error) {
+        console.error('Failed to send stateless notification:', error);
+    }
+
     return res.status(200).json({
         success: true,
-        message: 'Activity tracking disabled to save resources',
+        message: 'Activity notification sent (Stateless)',
         user: {
             username: username,
             totalTimeSpent: 0,
