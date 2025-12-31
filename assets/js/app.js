@@ -502,3 +502,53 @@ window.toggleLike = async function (targetUsername, btnElement) {
     }
 };
 
+// Summaries Modal Functions
+window.showSummariesModal = function() {
+    const modal = document.getElementById('summaries-modal');
+    if (modal) {
+        modal.classList.add('visible');
+    }
+};
+
+window.closeSummariesModal = function() {
+    const modal = document.getElementById('summaries-modal');
+    if (modal) {
+        modal.classList.remove('visible');
+    }
+};
+
+window.openSummaryPDF = function(filename) {
+    // مسار ملف PDF - يجب أن يكون مسار نسبي من موقع المشروع
+    // من Sound-techniques/index.html إلى الفصول/
+    const pdfPath = `../الفصول/${encodeURIComponent(filename)}`;
+    
+    try {
+        // فتح ملف PDF في تبويب جديد
+        const newWindow = window.open(pdfPath, '_blank');
+        
+        // التحقق من فتح النافذة بنجاح
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            showToast('تعذر فتح الملف. يرجى التحقق من وجود الملف.', 'error');
+        } else {
+            // إغلاق الـ modal بعد فتح الملف
+            closeSummariesModal();
+            showToast(`تم فتح ملف: ${filename}`, 'success');
+        }
+    } catch (error) {
+        console.error('خطأ في فتح ملف PDF:', error);
+        showToast('حدث خطأ أثناء فتح الملف', 'error');
+    }
+};
+
+// إغلاق الـ modal عند الضغط خارجها
+document.addEventListener('DOMContentLoaded', function() {
+    const summariesModal = document.getElementById('summaries-modal');
+    if (summariesModal) {
+        summariesModal.addEventListener('click', function(e) {
+            if (e.target === summariesModal) {
+                closeSummariesModal();
+            }
+        });
+    }
+});
+
