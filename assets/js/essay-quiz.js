@@ -623,7 +623,7 @@ class EssayQuizApp {
         }
     }
 
-    // ✅ تحديث نقاط المستخدم في قاعدة البيانات
+    // ✅ تحديث نقاط المستخدم في قاعدة البيانات (مع التجميع لتقليل الطلبات)
     async updateUserPoints(points) {
         const username = Storage.getUsername();
 
@@ -632,6 +632,37 @@ class EssayQuizApp {
             return;
         }
 
+        // نحن نستخدم نفس مفتاح LocalStorage الخاص بـ Quiz.js لتوحيد الرصيد المعلق
+        // 1. تحديث النقاط محلياً فوراً
+        const currentTotal = Storage.getPoints();
+        // Storage.addPoints(points) يجب أن يتم استدعاؤه بشكل منفصل إذا لم يكن مضافاً، 
+        // لكن هنا في المقالي لا يتم استدعاء Storage.addPoints إلا يدوياً، 
+        // سأتأكد من إضافتها للرصيد المحلي الظاهري أيضاً
+        Storage.addPoints(points);
+
+        // 2. إدارة النقاط المعلقة (Pending Points)
+        let pending = parseInt(localStorage.getItem('pendingPoints') || '0');
+        pending += points;
+        localStorage.setItem('pendingPoints', pending);
+
+        console.log(`[Essay] تم إضافة ${points} نقطة للمحفظة المحلية. الرصيد المعلق: ${pending}`);
+
+        // 3. التحقق من حد الإرسال (Threshold)
+        const SYNC_THRESHOLD = 50;
+
+        // نحاول استخدام دالة المزامنة الموجودة في Quiz إذا كانت متاحة لتوحيد الكود
+        if (pending >= SYNC_THRESHOLD) {
+            console.log(`[Essay] تم تجاوز الحد (${SYNC_THRESHOLD})، جاري المزامنة...`);
+            if (window.Quiz && typeof window.Quiz.syncPendingPoints === 'function') {
+                await window.Quiz.syncPendingPoints();
+            } else {
+                // Fallback implementation if Quiz object is not available
+                await this.syncPendingPointsFallback(username, pending);
+            }
+        }
+    }
+
+    async syncPendingPointsFallback(username, pending) {
         try {
             const response = await fetch('/api/users/update', {
                 method: 'POST',
@@ -639,19 +670,18 @@ class EssayQuizApp {
                 body: JSON.stringify({
                     action: 'update-points',
                     username,
-                    pointsToAdd: points
+                    pointsToAdd: pending
                 })
             });
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('✅ تم تحديث النقاط:', data.user.points);
+                console.log('✅ [Fallback] تم مزامنة النقاط بنجاح:', data.user.points);
+                localStorage.setItem('pendingPoints', '0');
                 Storage.set('userPoints', data.user.points);
-            } else {
-                console.error('فشل تحديث النقاط');
             }
         } catch (error) {
-            console.error('خطأ في تحديث النقاط:', error);
+            console.error('خطأ في المزامنة الاحتياطية:', error);
         }
     }
 

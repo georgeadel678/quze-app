@@ -294,6 +294,11 @@ async function showLeaderboard(fromPage = 'chapters-page') {
     container.innerHTML = '<div class="leaderboard-loading">⏳ جاري التحميل...</div>';
 
     try {
+        // مزامنة أي نقاط معلقة قبل عرض الترتيب لضمان الدقة
+        if (window.Quiz && typeof window.Quiz.syncPendingPoints === 'function') {
+            await window.Quiz.syncPendingPoints();
+        }
+
         const response = await fetch('/api/users/all');
         const data = await response.json();
 

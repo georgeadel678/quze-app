@@ -58,7 +58,7 @@ const Quiz = {
             // Filter out mastered questions
             // Convert all IDs to strings for consistent comparison
             const masteredIdsStr = masteredIds.map(id => String(id));
-            
+
             filtered = filtered.filter(q => {
                 const qId = q.id ? String(q.id) : null;
                 // Only filter if question has an ID and it's in mastered list
@@ -68,7 +68,7 @@ const Quiz = {
             // Only show reset message if ALL questions are mastered (not just filtered ones)
             // Check if we have enough questions for the requested count
             const requestedCount = this.questionCount === 'all' ? filtered.length : Number(this.questionCount);
-            
+
             if (filtered.length === 0 && originalCount > 0) {
                 // All questions in this chapter are mastered
                 alert('🎉 مبروك! لقد أتقنت جميع أسئلة هذا الفصل.\nسيتم إعادة تعيين الأسئلة لتبدأ من جديد.');
@@ -196,7 +196,7 @@ const Quiz = {
         }
     },
 
-    // تحديث نقاط المستخدم في قاعدة البيانات
+    // تحديث نقاط المستخدم في قاعدة البيانات (مع التجميع لتقليل الطلبات)
     async updateUserPoints(points) {
         const username = Storage.getUsername();
 
@@ -205,26 +205,64 @@ const Quiz = {
             return;
         }
 
+        // 1. تحديث النقاط محلياً فوراً (ليراها المستخدم)
+        const currentTotal = Storage.getPoints();
+        // ملاحظة: Storage.addPoints يتم استدعاؤه بالفعل خارج هذه الدالة في submitQuiz
+        // لذا هنا فقط نهتم بالمزامنة مع السيرفر
+
+        // 2. إدارة النقاط المعلقة (Pending Points)
+        let pending = parseInt(localStorage.getItem('pendingPoints') || '0');
+        pending += points;
+        localStorage.setItem('pendingPoints', pending);
+
+        console.log(`تم إضافة ${points} نقطة للمحفظة المحلية. الرصيد المعلق: ${pending}`);
+
+        // 3. التحقق من حد الإرسال (Threshold)
+        // نرسل فقط إذا جمعنا 50 نقطة أو أكثر لتقليل استهلاك قاعدة البيانات
+        const SYNC_THRESHOLD = 50;
+
+        if (pending >= SYNC_THRESHOLD) {
+            console.log(`تم تجاوز الحد (${SYNC_THRESHOLD})، جاري المزامنة مع قاعدة البيانات...`);
+            await this.syncPendingPoints();
+        } else {
+            console.log('لم يتم تجاوز الحد، سيتم المزامنة لاحقاً.');
+        }
+    },
+
+    // دالة لمزامنة النقاط المعلقة مع السيرفر (تستدعى عند الحاجة)
+    async syncPendingPoints() {
+        const username = Storage.getUsername();
+        const pending = parseInt(localStorage.getItem('pendingPoints') || '0');
+
+        if (pending <= 0) return; // لا يوجد شيء للمزامنة
+
         try {
+            console.log(`جاري إرسال ${pending} نقطة إلى السيرفر...`);
             const response = await fetch('/api/users/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: 'update-points',
                     username,
-                    pointsToAdd: points
+                    pointsToAdd: pending
                 })
             });
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('تم تحديث النقاط:', data.user.points);
+                console.log('✅ تم مزامنة النقاط بنجاح:', data.user.points);
+
+                // تصفير النقاط المعلقة بعد النجاح
+                localStorage.setItem('pendingPoints', '0');
+
+                // تحديث الرصيد المحلي بالرصيد الحقيقي من السيرفر كزيادة تأكيد
                 Storage.set('userPoints', data.user.points);
             } else {
-                console.error('فشل تحديث النقاط');
+                console.error('فشل مزامنة النقاط المفصولة');
+                // لا نصفر الرصيد، سيحاول مرة أخرى لاحقاً
             }
         } catch (error) {
-            console.error('خطأ في تحديث النقاط:', error);
+            console.error('خطأ في الاتصال/المزامنة:', error);
         }
     },
 
