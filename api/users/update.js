@@ -118,10 +118,7 @@ async function handleUpdateUsername({ currentUsername, newUsername }, res) {
     });
 }
 
-async function handleUpdatePoints({ username, pointsToAdd }, res) {
-    if (!username || pointsToAdd === undefined) return res.status(400).json({ error: 'Missing required fields' });
-    if (typeof pointsToAdd !== 'number' || pointsToAdd < 0) return res.status(400).json({ error: 'Invalid points value' });
-
+try {
     const user = await prisma.user.update({
         where: { username: username.trim() },
         data: { points: { increment: pointsToAdd } }
@@ -131,6 +128,12 @@ async function handleUpdatePoints({ username, pointsToAdd }, res) {
         success: true,
         user: { id: user.id, username: user.username, points: user.points }
     });
+} catch (error) {
+    // P2025: Record to update not found.
+    if (error.code === 'P2025') {
+        return res.status(404).json({ error: 'المستخدم غير موجود، يرجى تسجيل الدخول مجدداً' });
+    }
+    throw error;
 }
 
 async function handleSetPoints({ username, newPoints }, res) {
