@@ -120,14 +120,13 @@ async function handleUpdateUsername({ currentUsername, newUsername }, res) {
         data: { username: cleanNew }
     });
 
-    // Telegram notification disabled
-    /*
+    // Telegram notification re-enabled
     try {
+        const { notifyUserStatus } = await import('../../utils/telegram-utils.js');
         await notifyUserStatus(cleanNew, 'name_change', { oldName: cleanCurrent, newName: cleanNew });
     } catch (e) {
         console.error('Telegram notification failed:', e);
     }
-    */
 
     return res.status(200).json({
         success: true,
