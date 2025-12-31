@@ -386,11 +386,16 @@ class EssayQuizApp {
         container.className = 'results-content';
 
         const totalQs = Object.keys(this.state.answers).length;
-        const totalScore = Object.values(this.state.answers).reduce((acc, curr) => acc + (curr.score || 0), 0);
-        const percentage = Math.round((totalScore / (totalQs * 10)) * 100);
+
+        // ✅ تغيير حساب النقاط: نقطتين لكل إجابة صحيحة فقط
+        const correctAnswers = Object.values(this.state.answers).filter(ans => ans.status === 'correct').length;
+        const totalPoints = correctAnswers * 2;
+
+        const totalPossiblePoints = totalQs * 2;
+        const percentage = totalQs > 0 ? Math.round((totalPoints / totalPossiblePoints) * 100) : 0;
 
         // ✅ تحديث النقاط في قاعدة البيانات
-        this.updateUserPoints(totalScore);
+        this.updateUserPoints(totalPoints);
 
         // Score section
         const scoreSection = document.createElement('div');
@@ -408,7 +413,7 @@ class EssayQuizApp {
         const scoreText = document.createElement('p');
         scoreText.style.color = '#6b7280';
         scoreText.style.marginTop = '0.5rem';
-        scoreText.textContent = `مجموع النقاط: ${totalScore} من ${totalQs * 10}`;
+        scoreText.textContent = `النقاط: ${totalPoints} من ${totalPossiblePoints} (${correctAnswers} إجابة صحيحة)`;
 
         scoreSection.appendChild(title);
         scoreSection.appendChild(percentageEl);
