@@ -341,7 +341,18 @@ async function showLeaderboard(fromPage = 'chapters-page') {
                         </div>
                         <div class="leaderboard-username" style="margin-right: 10px;">${user.username}</div>
                     </div>
-                    <div class="leaderboard-points">${user.points} نقطة</div>
+                    <div class="leaderboard-stats">
+                        <div class="leaderboard-questions">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-value">${user.points}</span>
+                            <span class="stat-label">سؤال</span>
+                        </div>
+                        <div class="leaderboard-points">
+                            <span class="stat-icon">💎</span>
+                            <span class="stat-value">${user.points}</span>
+                            <span class="stat-label">نقطة</span>
+                        </div>
+                    </div>
                 </div>
             `;
         });
