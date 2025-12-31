@@ -285,9 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // إضافة تأثيرات الجسيمات
-    createParticles();
-
     // عرض رسالة ترحيب في Console
     console.log(`
     ╔══════════════════════════════════════╗
@@ -413,22 +410,6 @@ function stopTimeTracking() {
     sessionStartTime = null;
     lastUpdateTime = null;
     accumulatedTime = 0;
-}
-
-// إنشاء تأثير الجسيمات
-function createParticles() {
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'particles';
-    document.body.appendChild(particlesContainer);
-
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 12 + 's';
-        particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
-        particlesContainer.appendChild(particle);
-    }
 }
 
 // معالجة الأخطاء العامة
