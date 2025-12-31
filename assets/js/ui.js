@@ -15,6 +15,11 @@ const UI = {
         if (page) {
             page.classList.add('active');
         }
+
+        // تحديث شريط التقدم العام عند عرض صفحة الفصول
+        if (pageId === 'chapters-page' && typeof updateGlobalProgress === 'function') {
+            setTimeout(updateGlobalProgress, 50);
+        }
     },
 
     // تحديث شريط التقدم
@@ -149,7 +154,7 @@ const UI = {
             // إضافة رقم الفصل لضمان التفرقة بين الفصول
             let questionId = null;
             const chapter = q.chapter || (window.Quiz && window.Quiz.selectedChapter) || null;
-            
+
             if (q.id) {
                 // إضافة رقم الفصل إلى المعرف
                 questionId = chapter ? `ch${chapter}_${String(q.id).trim()}` : String(q.id).trim();
@@ -157,12 +162,12 @@ const UI = {
                 // إضافة رقم الفصل إلى نص السؤال
                 questionId = chapter ? `ch${chapter}_${String(q.question).trim()}` : String(q.question).trim();
             }
-            
+
             // إذا لم يكن هناك id أو question، نتخطى إضافة زر الملاحظات
             if (!questionId) {
                 console.warn('Question missing id and question text:', q);
             }
-            
+
             // التحقق من وجود السؤال في الملاحظات - فقط إذا كان questionId موجود
             let isNoteExists = false;
             if (questionId) {
@@ -199,11 +204,11 @@ const UI = {
             // إنشاء العنوان مع الزر
             const headerDiv = document.createElement('div');
             headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;';
-            
+
             const titleH3 = document.createElement('h3');
             titleH3.style.cssText = `color: ${isCorrect ? '#28a745' : '#dc3545'}; margin: 0;`;
             titleH3.textContent = `${isCorrect ? '✅' : '❌'} السؤال ${index + 1}`;
-            
+
             headerDiv.appendChild(titleH3);
             headerDiv.appendChild(addButton);
 
@@ -374,7 +379,7 @@ function handleAddToNotes(questionId, questionIndex) {
     // إضافة رقم الفصل لضمان التفرقة بين الفصول
     const chapter = question.chapter || (window.Quiz && window.Quiz.selectedChapter) || null;
     let finalQuestionId = null;
-    
+
     if (question.id) {
         finalQuestionId = chapter ? `ch${chapter}_${String(question.id).trim()}` : String(question.id).trim();
     } else if (question.question) {
