@@ -71,3 +71,4 @@ function updateChapterProgress() {
 // تصدير للاستخدام العام
 window.updateChapterProgress = updateChapterProgress;
 
+
