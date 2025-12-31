@@ -215,6 +215,11 @@ document.addEventListener('DOMContentLoaded', function () {
         Storage.updateDarkModeToggle();
     }
 
+    // ✅ التحقق من تحديث المنهج ومسح البيانات القديمة
+    if (Storage.checkAppVersion()) {
+        showToast('تم تحديث المنهج! 📚\nتم بدء فصل دراسي جديد.', 'info', 5000);
+    }
+
     // ✅ تحقق من وجود مستخدم محفوظ في قاعدة البيانات
     const savedUsername = Storage.getUsername();
     if (savedUsername && savedUsername !== 'مستخدم') {
@@ -468,9 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Like System
-window.toggleLike = async function(targetUsername, btnElement) {
+window.toggleLike = async function (targetUsername, btnElement) {
     const currentUser = Storage.getUsername();
-    
+
     if (!currentUser || currentUser === 'مستخدم') {
         showToast('يجب تسجيل الدخول للإعجاب', 'warning');
         return;
@@ -484,7 +489,7 @@ window.toggleLike = async function(targetUsername, btnElement) {
     // Local storage check
     const storageKey = 'liked_' + currentUser;
     const likedUsers = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    
+
     if (likedUsers.includes(targetUsername)) {
         showToast('لقد قمت بالإعجاب مسبقاً', 'warning');
         return;
@@ -494,10 +499,10 @@ window.toggleLike = async function(targetUsername, btnElement) {
     const countSpan = btnElement.parentElement.querySelector('.like-count');
     let currentCount = parseInt(countSpan.textContent) || 0;
     countSpan.textContent = currentCount + 1;
-    
+
     btnElement.classList.add('liked');
     btnElement.disabled = true;
-    
+
     // Save locally
     likedUsers.push(targetUsername);
     localStorage.setItem(storageKey, JSON.stringify(likedUsers));
