@@ -1,6 +1,6 @@
 
 import { PrismaClient } from '@prisma/client';
-import { notifyUserStatus } from '../../utils/telegram-utils.js';
+// import { notifyUserStatus } from '../../utils/telegram-utils.js'; // Disabled to save resources
 
 const prisma = new PrismaClient();
 
@@ -69,55 +69,14 @@ async function handleToggleLike({ targetUsername }, res) {
 }
 
 async function handleUpdateActivity({ username, timeSpent }, res) {
-    if (!username) return res.status(400).json({ error: 'اسم المستخدم مطلوب' });
-    if (typeof timeSpent !== 'number' || timeSpent < 0) return res.status(400).json({ error: 'قيمة الوقت غير صحيحة' });
-
-    const user = await prisma.user.findUnique({ where: { username: username.trim() } });
-    if (!user) return res.status(404).json({ error: 'المستخدم غير موجود' });
-
-    const now = new Date();
-    const lastActive = user.lastActiveAt ? new Date(user.lastActiveAt) : null;
-    let additionalTime = 0;
-    let sessionStart = user.sessionStartAt ? new Date(user.sessionStartAt) : null;
-    let isNewSession = false;
-
-    if (lastActive) {
-        const timeDiff = Math.floor((now - lastActive) / 1000);
-        if (timeDiff <= 300) {
-            additionalTime = timeDiff;
-        } else {
-            sessionStart = now;
-            isNewSession = true;
-        }
-    } else {
-        sessionStart = now;
-        isNewSession = true;
-    }
-
-    if (isNewSession) {
-        try {
-            await notifyUserStatus(username.trim(), 'online');
-        } catch (telegramError) {
-            console.error('Telegram notification failed:', telegramError);
-        }
-    }
-
-    const updatedUser = await prisma.user.update({
-        where: { username: username.trim() },
-        data: {
-            lastActiveAt: now,
-            totalTimeSpent: { increment: additionalTime + timeSpent },
-            sessionStartAt: sessionStart || now
-        }
-    });
-
+    // Disabled to reduce database writes and plan usage
     return res.status(200).json({
         success: true,
+        message: 'Activity tracking disabled to save resources',
         user: {
-            id: updatedUser.id,
-            username: updatedUser.username,
-            totalTimeSpent: updatedUser.totalTimeSpent,
-            lastActiveAt: updatedUser.lastActiveAt
+            username: username,
+            totalTimeSpent: 0,
+            lastActiveAt: new Date()
         }
     });
 }
@@ -143,11 +102,14 @@ async function handleUpdateUsername({ currentUsername, newUsername }, res) {
         data: { username: cleanNew }
     });
 
+    // Telegram notification disabled
+    /*
     try {
         await notifyUserStatus(cleanNew, 'name_change', { oldName: cleanCurrent, newName: cleanNew });
     } catch (e) {
         console.error('Telegram notification failed:', e);
     }
+    */
 
     return res.status(200).json({
         success: true,

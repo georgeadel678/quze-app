@@ -316,32 +316,8 @@ function startTimeTracking() {
         return;
     }
 
-    // بدء الجلسة
-    sessionStartTime = Date.now();
-    lastUpdateTime = Date.now();
-
-    // إرسال تحديث كل 30 ثانية
-    timeTrackingInterval = setInterval(() => {
-        updateUserActivity();
-    }, 30000); // كل 30 ثانية
-
-    // تحديث عند إغلاق الصفحة
-    window.addEventListener('beforeunload', () => {
-        updateUserActivity(true); // إرسال فوري قبل الإغلاق
-    });
-
-    // تحديث عند فقدان التركيز (تبديل التبويب)
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            // الصفحة مخفية - حفظ الوقت حتى الآن
-            updateUserActivity(true);
-        } else {
-            // الصفحة ظاهرة - إعادة بدء التتبع
-            lastUpdateTime = Date.now();
-        }
-    });
-
-    console.log('⏱️ تم تفعيل تتبع الوقت للمستخدم:', username);
+    // تم تعطيل تتبع الوقت لتقليل الطلبات على قاعدة البيانات
+    console.log('⏱️ تم تعطيل تتبع الوقت لتقليل عدد الطلبات');
 }
 
 function updateUserActivity(immediate = false) {
