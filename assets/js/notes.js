@@ -49,7 +49,7 @@ function displayNotes() {
         deleteButton.setAttribute('data-note-id', questionId);
         deleteButton.style.cssText = 'background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem;';
         deleteButton.textContent = '🗑️ حذف';
-        deleteButton.onclick = function() {
+        deleteButton.onclick = function () {
             const noteId = this.getAttribute('data-note-id');
             removeNoteFromList(noteId);
         };
@@ -57,11 +57,11 @@ function displayNotes() {
         // إنشاء العنوان
         const headerDiv = document.createElement('div');
         headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;';
-        
+
         const titleH3 = document.createElement('h3');
         titleH3.style.cssText = 'color: #007bff; margin: 0;';
         titleH3.textContent = `📌 السؤال ${index + 1}`;
-        
+
         headerDiv.appendChild(titleH3);
         headerDiv.appendChild(deleteButton);
 
@@ -73,16 +73,16 @@ function displayNotes() {
         // إجابتك
         const userAnswerDiv = document.createElement('div');
         userAnswerDiv.style.cssText = 'background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
-        const userAnswerText = note.answers && note.answers[note.userAnswer] 
-            ? note.answers[note.userAnswer] 
+        const userAnswerText = note.answers && note.answers[note.userAnswer]
+            ? note.answers[note.userAnswer]
             : (note.userAnswer === true ? 'صواب' : note.userAnswer === false ? 'خطأ' : note.userAnswer);
         userAnswerDiv.innerHTML = `<strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong> ${userAnswerText}`;
 
         // الإجابة الصحيحة
         const correctAnswerDiv = document.createElement('div');
         correctAnswerDiv.style.cssText = 'background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
-        const correctAnswerText = note.answers && note.answers[note.correctAnswer] 
-            ? note.answers[note.correctAnswer] 
+        const correctAnswerText = note.answers && note.answers[note.correctAnswer]
+            ? note.answers[note.correctAnswer]
             : (note.correctAnswer === true ? 'صواب' : note.correctAnswer === false ? 'خطأ' : note.correctAnswer);
         correctAnswerDiv.innerHTML = `<strong style="color: #28a745;">الإجابة الصحيحة:</strong> ${correctAnswerText}`;
 
@@ -124,9 +124,13 @@ function addQuestionToNotes(question, userAnswer, correctAnswer, answers, explan
         chapter: chapter
     };
 
-    const added = Storage.addNote(questionData);
-    
-    if (added) {
+    const result = Storage.addNote(questionData);
+
+    if (result === 'updated') {
+        showToast('تم تحديث الملاحظة بنجاح! 🔄', 'success');
+        // تحديث حالة الزر
+        updateNoteButtonState(questionId || question);
+    } else if (result === 'added' || result === true) {
         showToast('تم إضافة السؤال للملاحظات بنجاح! ✅', 'success');
         // تحديث حالة الزر
         updateNoteButtonState(questionId || question);
@@ -141,7 +145,7 @@ function removeNoteFromList(questionId) {
         console.error('questionId is missing');
         return;
     }
-    
+
     if (confirm('هل أنت متأكد من حذف هذا السؤال من الملاحظات؟')) {
         const result = Storage.removeNote(questionId);
         if (result) {
@@ -156,11 +160,11 @@ function removeNoteFromList(questionId) {
 // تحديث حالة زر "أضف للملاحظات"
 function updateNoteButtonState(questionId) {
     if (!questionId) return;
-    
+
     // البحث عن الزر باستخدام data-question-id
     const allButtons = document.querySelectorAll('[data-question-id]');
     let btn = null;
-    
+
     const searchId = String(questionId).trim();
     allButtons.forEach(button => {
         const btnId = String(button.getAttribute('data-question-id') || '').trim();
@@ -168,7 +172,7 @@ function updateNoteButtonState(questionId) {
             btn = button;
         }
     });
-    
+
     if (!btn) return;
 
     const exists = Storage.isNoteExists(questionId);

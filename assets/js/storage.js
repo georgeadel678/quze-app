@@ -158,30 +158,36 @@ const Storage = {
             questionId = `ch${chapter}_${questionId}`;
         }
 
-        // التحقق من وجود السؤال باستخدام مقارنة موحدة
-        const exists = notes.some(note => {
+        // البحث عن الملاحظة الموجودة
+        const existingIndex = notes.findIndex(note => {
             const noteId = String(note.id || note.question || '').trim();
             return noteId === questionId;
         });
 
-        if (exists) {
-            return false; // السؤال موجود بالفعل
-        }
-
-        // التأكد من وجود id في questionData - هذا مهم جداً للمقارنة
+        // إعداد بيانات السؤال
         questionData.id = questionId;
-
-        // حفظ chapter أيضاً في questionData
-        if (chapter) {
-            questionData.chapter = chapter;
-        }
-
-        // إضافة تاريخ الإضافة
+        if (chapter) questionData.chapter = chapter;
         questionData.addedAt = new Date().toISOString();
-        notes.push(questionData);
 
-        this.set(key, notes);
-        return true;
+        if (existingIndex !== -1) {
+            // تحديث الملاحظة الموجودة
+            notes[existingIndex] = questionData;
+            this.set(key, notes);
+            return 'updated';
+        } else {
+            // إضافة ملاحظة جديدة
+            notes.push(questionData);
+            this.set(key, notes);
+            return 'added';
+        }
+    },
+
+    // جلب ملاحظة محددة
+    getNote(questionId) {
+        if (!questionId) return null;
+        const notes = this.getNotes(); // نستخدم getNotes لضمان تنظيف البيانات
+        const searchId = String(questionId).trim();
+        return notes.find(note => String(note.id).trim() === searchId) || null;
     },
 
     // جلب جميع الملاحظات

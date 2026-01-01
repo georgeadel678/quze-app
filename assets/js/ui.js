@@ -168,10 +168,21 @@ const UI = {
                 console.warn('Question missing id and question text:', q);
             }
 
-            // التحقق من وجود السؤال في الملاحظات - فقط إذا كان questionId موجود
-            let isNoteExists = false;
+            // التحقق من حالة الملاحظة (موجودة، محدثة، غير موجودة)
+            let noteStatus = 'missing'; // values: 'missing', 'added', 'stale'
             if (questionId) {
-                isNoteExists = Storage.isNoteExists(questionId, chapter);
+                const existingNote = Storage.getNote(questionId);
+                if (existingNote) {
+                    // مقارنة نص السؤال الحالي مع المخزن
+                    const currentText = String(q.question || '').trim();
+                    const storedText = String(existingNote.question || '').trim();
+
+                    if (currentText === storedText) {
+                        noteStatus = 'added'; // متطابق تماماً
+                    } else {
+                        noteStatus = 'stale'; // موجود ولكن النص مختلف (يحتاج تحديث)
+                    }
+                }
             }
 
             // إنشاء زر إضافة للملاحظات (فقط إذا كان questionId موجود)
@@ -180,19 +191,35 @@ const UI = {
                 addButton.setAttribute('data-question-id', questionId);
                 addButton.setAttribute('data-question-index', index);
             }
+
+            let btnText = '📌 أضف للملاحظات';
+            let btnBg = '#007bff';
+            let btnDisabled = false;
+
+            if (noteStatus === 'added') {
+                btnText = '✅ تم الإضافة';
+                btnBg = '#28a745';
+                btnDisabled = true;
+            } else if (noteStatus === 'stale') {
+                btnText = '🔄 تحديث الملاحظة';
+                btnBg = '#fd7e14'; // Orange
+                btnDisabled = false;
+            }
+
             addButton.style.cssText = `
-                background: ${isNoteExists ? '#28a745' : '#007bff'};
+                background: ${btnBg};
                 color: white;
                 border: none;
                 padding: 0.5rem 1rem;
                 border-radius: 8px;
-                cursor: ${questionId ? 'pointer' : 'not-allowed'};
+                cursor: ${!btnDisabled ? 'pointer' : 'not-allowed'};
                 font-size: 0.9rem;
                 white-space: nowrap;
-                opacity: ${questionId ? '1' : '0.6'};
+                opacity: ${!btnDisabled ? '1' : '0.6'};
             `;
-            addButton.textContent = isNoteExists ? '✅ تم الإضافة' : '📌 أضف للملاحظات';
-            addButton.disabled = isNoteExists || !questionId;
+            addButton.textContent = btnText;
+            addButton.disabled = btnDisabled;
+
             if (questionId) {
                 addButton.onclick = () => handleAddToNotes(questionId, index);
             } else {
