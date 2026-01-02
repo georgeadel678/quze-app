@@ -151,6 +151,14 @@
                     <div class="chapter-title">النقاط والرتب</div>
                     <div class="chapter-subtitle">عرض الإنجازات</div>
                 </div>
+
+                <!-- رفع ملفات BDF -->
+                <div class="chapter-card" onclick="openBDFUploadModal()"
+                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <span class="chapter-icon">📤</span>
+                    <div class="chapter-title" style="color: white;">ارفع الاسئله اللي عايز تضيفها</div>
+                    <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">ملفات BDF</div>
+                </div>
             </div>
         </div>
 
@@ -436,6 +444,42 @@
         </div>
     </div>
 
+    <!-- BDF Upload Modal -->
+    <div id="bdf-upload-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div style="position: absolute; top: 15px; left: 15px; cursor: pointer; font-size: 24px; color: #888;"
+                onclick="closeBDFUploadModal()">✕</div>
+            <div style="font-size: 50px; margin-bottom: 20px;">📤</div>
+            <h2 style="color: #2c3e50; font-size: 24px; font-weight: 700; margin-bottom: 10px;">ارفع ملف BDF</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">اختر ملف الأسئلة الذي تريد إضافته</p>
+
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="drop-zone">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">اسحب وأفلت الملف هنا</p>
+                <p style="color: #6b7280; margin-bottom: 1rem;">أو</p>
+                <label for="bdf-file-input" class="file-select-btn">
+                    اختر ملف من الجهاز
+                </label>
+                <input type="file" id="bdf-file-input" accept=".bdf" style="display: none;" />
+                <p style="color: #9ca3af; font-size: 0.85rem; margin-top: 1rem;">الملفات المسموحة: .bdf فقط (حتى 50MB)
+                </p>
+            </div>
+
+            <!-- Upload Progress -->
+            <div id="upload-progress" class="upload-progress" style="display: none;">
+                <div class="spinner"></div>
+                <p id="progress-text" style="margin-top: 1rem; font-weight: 600; color: #2c3e50;">جاري رفع الملف...</p>
+            </div>
+
+            <!-- Upload Button -->
+            <button id="upload-bdf-button" class="btn btn-primary" onclick="uploadBDFFile()"
+                style="width: 100%; margin-top: 1.5rem;" disabled>
+                اختر ملف أولاً
+            </button>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
 
@@ -467,6 +511,7 @@
     <script src="assets/js/chapter-progress.js?v=1"></script>
     <script src="assets/js/notes.js?v=1"></script>
     <script src="assets/js/ui.js?v=2"></script>
+    <script src="assets/js/bdf-upload.js"></script>
 </body>
 </body>
 
