@@ -78,13 +78,23 @@ async function parseFormData(req) {
 async function sendFileToTelegram(fileBuffer, filename, username) {
     const form = new FormData();
 
+    if (!fileBuffer || fileBuffer.length === 0) {
+        throw new Error('File buffer is empty');
+    }
+
+    // Sanitize filename for the FormData to avoid header encoding issues
+    // We still preserve the original filename in the caption
+    const ext = filename.split('.').pop().toLowerCase() || 'dat';
+    const safeFilename = `file_${Date.now()}.${ext}`;
+
     form.append('chat_id', TELEGRAM_CHAT_ID);
     form.append('document', fileBuffer, {
-        filename: filename,
-        contentType: 'application/octet-stream'
+        filename: safeFilename,
+        contentType: 'application/octet-stream',
+        knownLength: fileBuffer.length
     });
 
-    const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف: ${filename}`;
+    const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف الأصلي: ${filename}\n📊 الحجم: ${(fileBuffer.length / 1024).toFixed(2)} KB`;
     form.append('caption', caption);
 
     const response = await fetch(
@@ -98,8 +108,8 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
 
     if (!response.ok) {
         const errorText = await response.text();
-        console.error(`Status: ${response.status}, Text: ${response.statusText}, Body: ${errorText}`);
-        throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorText}`);
+        const errorJson = JSON.parse(errorText);
+        throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorJson.description || errorText}`);
     }
 
     return await response.json();
