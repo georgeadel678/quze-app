@@ -612,7 +612,8 @@ async function uploadBDFFile() {
             // Clear selected file
             window.selectedBDFFile = null;
         } else {
-            throw new Error(result.error || 'فشل رفع الملف');
+            const errorMsg = result.details ? `${result.error} (${result.details})` : (result.error || 'فشل رفع الملف');
+            throw new Error(errorMsg);
         }
 
     } catch (error) {
