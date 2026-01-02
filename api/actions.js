@@ -1,6 +1,4 @@
-
-import { sendTelegramMessage } from '../utils/telegram-utils.js';
-import Busboy from 'busboy';
+import FormData from 'form-data';
 
 // Configuration for handling file uploads
 export const config = {
@@ -77,7 +75,6 @@ async function parseFormData(req) {
 
 // Send file to Telegram
 async function sendFileToTelegram(fileBuffer, filename, username) {
-    const FormData = require('form-data');
     const form = new FormData();
 
     form.append('chat_id', TELEGRAM_CHAT_ID);
