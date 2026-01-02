@@ -97,8 +97,9 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
     );
 
     if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Telegram API error: ${error}`);
+        const errorText = await response.text();
+        console.error(`Status: ${response.status}, Text: ${response.statusText}, Body: ${errorText}`);
+        throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     return await response.json();
