@@ -598,7 +598,7 @@ async function uploadBDFFile() {
         const response = await fetch('/api/actions', {
             method: 'POST',
             headers: {
-                'X-Username': username
+                'X-Username': encodeURIComponent(username)
             },
             body: formData
         });

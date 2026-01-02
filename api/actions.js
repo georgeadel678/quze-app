@@ -143,8 +143,9 @@ export default async function handler(req, res) {
                 });
             }
 
-            // Get username from request
-            const username = req.headers['x-username'] || 'مستخدم غير معروف';
+            // Get username from request and decode it
+            const rawUsername = req.headers['x-username'] || '';
+            const username = rawUsername ? decodeURIComponent(rawUsername) : 'مستخدم غير معروف';
 
             // Send file to Telegram
             await sendFileToTelegram(content, filename, username);
