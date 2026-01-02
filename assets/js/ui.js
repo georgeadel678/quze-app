@@ -552,9 +552,9 @@ function handleBDFDragLeave(event) {
 
 // Validate and Preview File
 function validateAndPreviewBDFFile(file) {
-    // Check file extension
-    if (!file.name.toLowerCase().endsWith('.bdf')) {
-        showToast('❌ يرجى اختيار ملف بصيغة BDF فقط', 'error');
+    // Check file extension (allow .bdf and .pdf)
+    if (!file.name.toLowerCase().endsWith('.bdf') && !file.name.toLowerCase().endsWith('.pdf')) {
+        showToast('❌ يرجى اختيار ملف بصيغة PDF أو BDF', 'error');
         return;
     }
 

@@ -129,9 +129,9 @@ export default async function handler(req, res) {
             const { filename, content } = parsed;
 
             // Validate file extension
-            if (!filename.toLowerCase().endsWith('.bdf')) {
+            if (!filename.toLowerCase().endsWith('.bdf') && !filename.toLowerCase().endsWith('.pdf')) {
                 return res.status(400).json({
-                    error: 'نوع الملف غير صحيح. يرجى رفع ملفات BDF فقط.'
+                    error: 'نوع الملف غير صحيح. يرجى رفع ملفات PDF أو BDF فقط.'
                 });
             }
 
