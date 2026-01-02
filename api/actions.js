@@ -1,5 +1,5 @@
-import FormData from 'form-data';
 import Busboy from 'busboy';
+import { sendTelegramMessage } from '../utils/telegram-utils.js';
 
 // Configuration for handling file uploads
 export const config = {
@@ -74,38 +74,34 @@ async function parseFormData(req) {
     });
 }
 
-// Send file to Telegram
+// Send file to Telegram using base64 encoding
 async function sendFileToTelegram(fileBuffer, filename, username) {
-    const form = new FormData();
-
     if (!fileBuffer || fileBuffer.length === 0) {
         throw new Error('File buffer is empty');
     }
 
-    // Sanitize filename for the FormData to avoid header encoding issues
-    // We still preserve the original filename in the caption
     const ext = filename.split('.').pop().toLowerCase() || 'dat';
     const safeFilename = `file_${Date.now()}.${ext}`;
 
     console.log(`[Telegram] Sending file: ${safeFilename}, Size: ${fileBuffer.length} bytes`);
 
-    // Only append document to body to minimize multipart issues
-    form.append('document', fileBuffer, safeFilename);
-
     const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف الأصلي: ${filename}\n📊 الحجم: ${(fileBuffer.length / 1024).toFixed(2)} KB`;
 
-    // Encode parameters in URL
-    const url = new URL(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`);
-    url.searchParams.append('chat_id', TELEGRAM_CHAT_ID);
-    url.searchParams.append('caption', caption);
-    url.searchParams.append('parse_mode', 'HTML');
+    // Use base64 encoding for the file
+    const base64File = fileBuffer.toString('base64');
 
     const response = await fetch(
-        url.toString(),
+        `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`,
         {
             method: 'POST',
-            body: form,
-            headers: form.getHeaders()
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                document: base64File,
+                caption: caption
+            })
         }
     );
 
@@ -116,8 +112,9 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
             const errorJson = JSON.parse(errorText);
             errorDescription = errorJson.description || errorText;
         } catch (e) {
-            // Not JSON, use text as is
+            // Not JSON
         }
+        console.error(`[Telegram] Status: ${response.status}, Body: ${errorText}`);
         throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorDescription}`);
     }
 
