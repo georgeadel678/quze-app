@@ -87,12 +87,12 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
     const ext = filename.split('.').pop().toLowerCase() || 'dat';
     const safeFilename = `file_${Date.now()}.${ext}`;
 
+    console.log(`[Telegram] Sending file: ${safeFilename}, Size: ${fileBuffer.length} bytes`);
+
     form.append('chat_id', TELEGRAM_CHAT_ID);
-    form.append('document', fileBuffer, {
-        filename: safeFilename,
-        contentType: 'application/octet-stream',
-        knownLength: fileBuffer.length
-    });
+
+    // Simple append with filename, letting form-data handle the rest
+    form.append('document', fileBuffer, safeFilename);
 
     const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف الأصلي: ${filename}\n📊 الحجم: ${(fileBuffer.length / 1024).toFixed(2)} KB`;
     form.append('caption', caption);
