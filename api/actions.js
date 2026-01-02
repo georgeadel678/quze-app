@@ -1,5 +1,6 @@
 
 import { sendTelegramMessage } from '../utils/telegram-utils.js';
+import Busboy from 'busboy';
 
 // Configuration for handling file uploads
 export const config = {
@@ -11,50 +12,66 @@ export const config = {
 const TELEGRAM_TOKEN = '5789183030:AAElmk-M-SL2BtV4UFXp5A_yslcTG3Q4cxo';
 const TELEGRAM_CHAT_ID = '1350722553';
 
-// Helper function to parse multipart form data
-async function parseForm(req) {
+// Helper function to parse multipart form data using busboy
+async function parseFormData(req) {
     return new Promise((resolve, reject) => {
-        const chunks = [];
-        req.on('data', chunk => chunks.push(chunk));
-        req.on('end', () => {
-            try {
-                const buffer = Buffer.concat(chunks);
+        const contentType = req.headers['content-type'] || req.headers['Content-Type'];
 
-                // Check if this is multipart/form-data
-                const contentType = req.headers['content-type'] || '';
-                if (contentType.includes('multipart/form-data')) {
-                    const boundary = contentType.split('boundary=')[1];
-                    const parts = buffer.toString('binary').split(`--${boundary}`);
-
-                    for (const part of parts) {
-                        if (part.includes('filename=')) {
-                            const filenameMatch = part.match(/filename="([^"]+)"/);
-                            const filename = filenameMatch ? filenameMatch[1] : 'file';
-
-                            // Extract file content
-                            const contentStart = part.indexOf('\r\n\r\n') + 4;
-                            const contentEnd = part.lastIndexOf('\r\n');
-                            const fileContent = part.substring(contentStart, contentEnd);
-
-                            resolve({
-                                type: 'file',
-                                filename,
-                                content: Buffer.from(fileContent, 'binary')
-                            });
-                            return;
-                        }
-                    }
+        // Check if this is JSON
+        if (contentType && contentType.includes('application/json')) {
+            const chunks = [];
+            req.on('data', chunk => chunks.push(chunk));
+            req.on('end', () => {
+                try {
+                    const body = JSON.parse(Buffer.concat(chunks).toString());
+                    resolve({ type: 'json', body });
+                } catch (error) {
+                    reject(error);
                 }
+            });
+            req.on('error', reject);
+            return;
+        }
 
-                // If not a file upload, parse as JSON
-                const body = JSON.parse(buffer.toString());
-                resolve({ type: 'json', body });
+        // Check if this is multipart/form-data
+        if (!contentType || !contentType.includes('multipart/form-data')) {
+            reject(new Error('Unsupported content type'));
+            return;
+        }
 
-            } catch (error) {
-                reject(error);
+        const busboy = Busboy({ headers: req.headers });
+        let fileData = null;
+
+        busboy.on('file', (fieldname, file, info) => {
+            const { filename, encoding, mimeType } = info;
+            const chunks = [];
+
+            file.on('data', (data) => {
+                chunks.push(data);
+            });
+
+            file.on('end', () => {
+                fileData = {
+                    type: 'file',
+                    filename: filename,
+                    content: Buffer.concat(chunks),
+                    encoding: encoding,
+                    mimeType: mimeType
+                };
+            });
+        });
+
+        busboy.on('finish', () => {
+            if (fileData) {
+                resolve(fileData);
+            } else {
+                reject(new Error('No file found in request'));
             }
         });
-        req.on('error', reject);
+
+        busboy.on('error', reject);
+
+        req.pipe(busboy);
     });
 }
 
@@ -105,7 +122,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const parsed = await parseForm(req);
+        const parsed = await parseFormData(req);
 
         // Handle file upload
         if (parsed.type === 'file') {
@@ -166,7 +183,8 @@ ${message}
     } catch (error) {
         console.error('Handler error:', error);
         return res.status(500).json({
-            error: 'حدث خطأ أثناء معالجة الطلب. يرجى المحاولة مرة أخرى.'
+            error: 'حدث خطأ أثناء معالجة الطلب. يرجى المحاولة مرة أخرى.',
+            details: error.message
         });
     }
 }
