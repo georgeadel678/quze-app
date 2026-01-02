@@ -1,7 +1,7 @@
 import Busboy from 'busboy';
 import { sendTelegramMessage } from '../utils/telegram-utils.js';
 
-// Configuration for handling file uploads
+// Vercel config
 export const config = {
     api: {
         bodyParser: false,
@@ -11,12 +11,10 @@ export const config = {
 const TELEGRAM_TOKEN = '5789183030:AAElmk-M-SL2BtV4UFXp5A_yslcTG3Q4cxo';
 const TELEGRAM_CHAT_ID = '1350722553';
 
-// Helper function to parse multipart form data using busboy
 async function parseFormData(req) {
     return new Promise((resolve, reject) => {
         const contentType = req.headers['content-type'] || req.headers['Content-Type'];
 
-        // Check if this is JSON
         if (contentType && contentType.includes('application/json')) {
             const chunks = [];
             req.on('data', chunk => chunks.push(chunk));
@@ -32,7 +30,6 @@ async function parseFormData(req) {
             return;
         }
 
-        // Check if this is multipart/form-data
         if (!contentType || !contentType.includes('multipart/form-data')) {
             reject(new Error('Unsupported content type'));
             return;
@@ -44,11 +41,7 @@ async function parseFormData(req) {
         busboy.on('file', (fieldname, file, info) => {
             const { filename, encoding, mimeType } = info;
             const chunks = [];
-
-            file.on('data', (data) => {
-                chunks.push(data);
-            });
-
+            file.on('data', (data) => chunks.push(data));
             file.on('end', () => {
                 fileData = {
                     type: 'file',
@@ -61,20 +54,16 @@ async function parseFormData(req) {
         });
 
         busboy.on('finish', () => {
-            if (fileData) {
-                resolve(fileData);
-            } else {
-                reject(new Error('No file found in request'));
-            }
+            if (fileData) resolve(fileData);
+            else reject(new Error('No file found in request'));
         });
 
         busboy.on('error', reject);
-
         req.pipe(busboy);
     });
 }
 
-// Send file to Telegram using base64 encoding
+// Send file using Native FormData and Blob (Node 18+)
 async function sendFileToTelegram(fileBuffer, filename, username) {
     if (!fileBuffer || fileBuffer.length === 0) {
         throw new Error('File buffer is empty');
@@ -83,25 +72,21 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
     const ext = filename.split('.').pop().toLowerCase() || 'dat';
     const safeFilename = `file_${Date.now()}.${ext}`;
 
-    console.log(`[Telegram] Sending file: ${safeFilename}, Size: ${fileBuffer.length} bytes`);
+    const formData = new FormData();
+    formData.append('chat_id', TELEGRAM_CHAT_ID);
+
+    // Convert Buffer to Blob for FormData
+    const fileBlob = new Blob([fileBuffer], { type: 'application/octet-stream' });
+    formData.append('document', fileBlob, safeFilename);
 
     const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف الأصلي: ${filename}\n📊 الحجم: ${(fileBuffer.length / 1024).toFixed(2)} KB`;
-
-    // Use base64 encoding for the file
-    const base64File = fileBuffer.toString('base64');
+    formData.append('caption', caption);
 
     const response = await fetch(
         `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`,
         {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                document: base64File,
-                caption: caption
-            })
+            body: formData
         }
     );
 
@@ -111,58 +96,34 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
         try {
             const errorJson = JSON.parse(errorText);
             errorDescription = errorJson.description || errorText;
-        } catch (e) {
-            // Not JSON
-        }
-        console.error(`[Telegram] Status: ${response.status}, Body: ${errorText}`);
+        } catch (e) { }
         throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorDescription}`);
     }
 
     return await response.json();
 }
 
-// Main handler for both feedback and file upload
 export default async function handler(req, res) {
-    // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Username');
 
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
-
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
+    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     try {
         const parsed = await parseFormData(req);
 
-        // Handle file upload
         if (parsed.type === 'file') {
             const { filename, content } = parsed;
 
-            // Validate file extension
             if (!filename.toLowerCase().endsWith('.bdf') && !filename.toLowerCase().endsWith('.pdf')) {
-                return res.status(400).json({
-                    error: 'نوع الملف غير صحيح. يرجى رفع ملفات PDF أو BDF فقط.'
-                });
+                return res.status(400).json({ error: 'نوع الملف غير صحيح. يرجى رفع ملفات PDF أو BDF فقط.' });
             }
 
-            // Validate file size (max 50MB)
-            const maxSize = 50 * 1024 * 1024; // 50MB
-            if (content.length > maxSize) {
-                return res.status(400).json({
-                    error: 'حجم الملف كبير جداً. الحد الأقصى 50MB.'
-                });
-            }
-
-            // Get username from request and decode it
             const rawUsername = req.headers['x-username'] || '';
             const username = rawUsername ? decodeURIComponent(rawUsername) : 'مستخدم غير معروف';
 
-            // Send file to Telegram
             await sendFileToTelegram(content, filename, username);
 
             return res.status(200).json({
@@ -171,15 +132,8 @@ export default async function handler(req, res) {
             });
         }
 
-        // Handle feedback message
         if (parsed.type === 'json') {
             const { username, message, type } = parsed.body;
-
-            if (!message || !username) {
-                return res.status(400).json({ error: 'Missing required fields' });
-            }
-
-            // Format the message for Telegram
             const telegramMessage = `
 📩 <b>رسالة جديدة من المستخدم</b>
 👤 <b>الاسم:</b> ${username}
@@ -187,10 +141,7 @@ export default async function handler(req, res) {
 📝 <b>الرسالة:</b>
 ${message}
             `.trim();
-
-            // Send to Telegram
             await sendTelegramMessage(null, telegramMessage);
-
             return res.status(200).json({ success: true });
         }
 
@@ -199,7 +150,7 @@ ${message}
     } catch (error) {
         console.error('Handler error:', error);
         return res.status(500).json({
-            error: 'حدث خطأ أثناء معالجة الطلب. يرجى المحاولة مرة أخرى.',
+            error: 'حدث خطأ أثناء معالجة الطلب.',
             details: error.message
         });
     }
