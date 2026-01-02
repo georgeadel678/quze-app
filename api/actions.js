@@ -89,16 +89,19 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
 
     console.log(`[Telegram] Sending file: ${safeFilename}, Size: ${fileBuffer.length} bytes`);
 
-    form.append('chat_id', TELEGRAM_CHAT_ID);
-
-    // Simple append with filename, letting form-data handle the rest
+    // Only append document to body to minimize multipart issues
     form.append('document', fileBuffer, safeFilename);
 
     const caption = `📤 ملف جديد من المستخدم: ${username}\n📄 اسم الملف الأصلي: ${filename}\n📊 الحجم: ${(fileBuffer.length / 1024).toFixed(2)} KB`;
-    form.append('caption', caption);
+
+    // Encode parameters in URL
+    const url = new URL(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`);
+    url.searchParams.append('chat_id', TELEGRAM_CHAT_ID);
+    url.searchParams.append('caption', caption);
+    url.searchParams.append('parse_mode', 'HTML');
 
     const response = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`,
+        url.toString(),
         {
             method: 'POST',
             body: form,
