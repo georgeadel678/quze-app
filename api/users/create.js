@@ -28,12 +28,14 @@ export default async function handler(req, res) {
 
     // التحقق من الطول
     if (cleanUsername.length < 2 || cleanUsername.length > 20) {
+        console.error(`Validation failed: Username length ${cleanUsername.length} (must be 2-20)`);
         return res.status(400).json({ error: 'اسم المستخدم يجب أن يكون بين 2-20 حرف' });
     }
 
     // التحقق من الأحرف المسموحة (عربي، إنجليزي، أرقام، مسافات)
     const validPattern = /^[\u0600-\u06FFa-zA-Z0-9\s]+$/;
     if (!validPattern.test(cleanUsername)) {
+        console.error(`Validation failed: Invalid characters in "${cleanUsername}"`);
         return res.status(400).json({ error: 'اسم المستخدم يحتوي على أحرف غير مسموحة' });
     }
 
