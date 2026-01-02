@@ -108,8 +108,14 @@ async function sendFileToTelegram(fileBuffer, filename, username) {
 
     if (!response.ok) {
         const errorText = await response.text();
-        const errorJson = JSON.parse(errorText);
-        throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorJson.description || errorText}`);
+        let errorDescription = errorText;
+        try {
+            const errorJson = JSON.parse(errorText);
+            errorDescription = errorJson.description || errorText;
+        } catch (e) {
+            // Not JSON, use text as is
+        }
+        throw new Error(`Telegram API error: ${response.status} ${response.statusText} - ${errorDescription}`);
     }
 
     return await response.json();
