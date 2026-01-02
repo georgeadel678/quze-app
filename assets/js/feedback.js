@@ -37,7 +37,7 @@ async function submitFeedback() {
     btn.style.opacity = '0.7';
 
     try {
-        const response = await fetch('/api/feedback', {
+        const response = await fetch('/api/actions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
