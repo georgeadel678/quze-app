@@ -16,6 +16,7 @@ const Quiz = {
     selectChapter(chapter) {
         this.selectedChapter = chapter;
         this.isReviewMode = false; // Reset review mode
+        this.isNotesMode = false; // Reset notes mode
         UI.showPage('quiz-type-select-page');
     },
 
@@ -23,6 +24,7 @@ const Quiz = {
     selectFullCurriculum() {
         this.selectedChapter = 'full';
         this.isReviewMode = false; // Reset review mode
+        this.isNotesMode = false; // Reset notes mode
         UI.showPage('quiz-type-select-page');
     },
 
@@ -304,8 +306,42 @@ const Quiz = {
 
     // --- Mastery Mode Logic ---
 
+    // Start Notes Quiz
+    startNotesQuiz() {
+        const notes = Storage.getNotes();
+
+        if (!notes || notes.length === 0) {
+            alert('لا توجد ملاحظات للاختبار!');
+            return;
+        }
+
+        // Setup Quiz Mode
+        this.isNotesMode = true;
+        this.selectedChapter = null; // Mixed chapters
+        this.isReviewMode = false;
+
+        // Shuffle questions
+        this.currentQuestions = [...notes].sort(() => Math.random() - 0.5);
+        this.questionCount = this.currentQuestions.length;
+
+        // Initialize state
+        this.userAnswers = Array(this.currentQuestions.length).fill(null);
+        this.currentQuestionIndex = 0;
+
+        // Reset Timer
+        this.timerSeconds = 0;
+        this.stopTimer();
+
+        // Show Quiz Page
+        UI.showPage('quiz-page');
+        this.displayCurrentQuestion();
+    },
+
     // Save correct answer to mastered list
     saveMasteredQuestion(questionId) {
+        // Skip if in Notes Mode (as chapters are mixed)
+        if (this.isNotesMode) return;
+
         const username = Storage.getUsername();
         if (!username || !this.selectedChapter || !questionId) return;
 
@@ -320,6 +356,38 @@ const Quiz = {
             mastered.push(questionIdStr);
             localStorage.setItem(key, JSON.stringify(mastered));
         }
+    },
+
+    // Save wrong answer to list
+    saveWrongAnswer(questionId) {
+        // Skip if in Notes Mode
+        if (this.isNotesMode) return;
+
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
+
+        const key = `wrong_${username}_ch${this.selectedChapter}`;
+        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
+
+        if (!wrong.includes(questionId)) {
+            wrong.push(questionId);
+            localStorage.setItem(key, JSON.stringify(wrong));
+        }
+    },
+
+    // Remove from wrong answer list
+    removeWrongAnswer(questionId) {
+        // Skip if in Notes Mode
+        if (this.isNotesMode) return;
+
+        const username = Storage.getUsername();
+        if (!username || !this.selectedChapter) return;
+
+        const key = `wrong_${username}_ch${this.selectedChapter}`;
+        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
+
+        wrong = wrong.filter(id => id !== questionId);
+        localStorage.setItem(key, JSON.stringify(wrong));
     },
 
     // Get list of mastered question IDs
@@ -340,34 +408,6 @@ const Quiz = {
 
         const key = `mastered_${username}_ch${this.selectedChapter}`;
         localStorage.removeItem(key);
-    },
-
-    // --- Wrong Answer Tracking ---
-
-    // Save wrong answer to list
-    saveWrongAnswer(questionId) {
-        const username = Storage.getUsername();
-        if (!username || !this.selectedChapter) return;
-
-        const key = `wrong_${username}_ch${this.selectedChapter}`;
-        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
-
-        if (!wrong.includes(questionId)) {
-            wrong.push(questionId);
-            localStorage.setItem(key, JSON.stringify(wrong));
-        }
-    },
-
-    // Remove from wrong answer list
-    removeWrongAnswer(questionId) {
-        const username = Storage.getUsername();
-        if (!username || !this.selectedChapter) return;
-
-        const key = `wrong_${username}_ch${this.selectedChapter}`;
-        let wrong = JSON.parse(localStorage.getItem(key) || '[]');
-
-        wrong = wrong.filter(id => id !== questionId);
-        localStorage.setItem(key, JSON.stringify(wrong));
     },
 
     // Get wrong answers for current chapter
@@ -393,6 +433,7 @@ const Quiz = {
     startReviewMode(chapter) {
         this.selectedChapter = chapter;
         this.isReviewMode = true;
+        this.isNotesMode = false;
         UI.showPage('quiz-type-select-page');
     },
 

@@ -28,6 +28,31 @@ function displayNotes() {
 
     container.innerHTML = '';
 
+    // إضافة زر "اختبار في الملاحظات"
+    const controlsDiv = document.createElement('div');
+    controlsDiv.style.cssText = 'margin-bottom: 2rem; text-align: center;';
+
+    const testButton = document.createElement('button');
+    testButton.className = 'btn';
+    testButton.style.cssText = 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border-radius: 50px; border: none; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;';
+    testButton.innerHTML = '📝 اختبار شامل للملاحظات';
+
+    testButton.onclick = function () {
+        if (typeof Quiz !== 'undefined' && Quiz.startNotesQuiz) {
+            Quiz.startNotesQuiz();
+        } else {
+            console.error('Quiz module not loaded');
+            alert('حدث خطأ في تحميل نظام الاختبارات');
+        }
+    };
+
+    // Hover effect via JS since inline styles are used
+    testButton.onmouseenter = () => testButton.style.transform = 'translateY(-3px)';
+    testButton.onmouseleave = () => testButton.style.transform = 'translateY(0)';
+
+    controlsDiv.appendChild(testButton);
+    container.appendChild(controlsDiv);
+
     notes.forEach((note, index) => {
         const noteDiv = document.createElement('div');
         noteDiv.className = 'note-item';
