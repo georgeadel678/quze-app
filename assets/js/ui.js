@@ -322,14 +322,8 @@ async function showLeaderboard(fromPage = 'chapters-page') {
 
     try {
         // مزامنة أي نقاط معلقة قبل عرض الترتيب لضمان الدقة
-        // وأيضاً مزامنة عدد الأسئلة حتى لو لم تكن هناك نقاط معلقة
         if (window.Quiz && typeof window.Quiz.syncPendingPoints === 'function') {
             await window.Quiz.syncPendingPoints();
-        }
-
-        // إذا لم تكن هناك نقاط معلقة، نزامن عدد الأسئلة فقط
-        if (window.Quiz && typeof window.Quiz.syncQuestionsCount === 'function') {
-            await window.Quiz.syncQuestionsCount();
         }
 
         const response = await fetch('/api/users/all');
@@ -365,8 +359,7 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             // تحقق إذا كان المستخدم الحالي
             const isCurrentUser = user.username === Storage.getUsername();
 
-            // Use database value for questions answered
-            const questionsSolved = user.questionsAnswered || 0;
+
 
             html += `
                 <div class="leaderboard-row ${rankClass} ${isCurrentUser ? 'current-user' : ''}">
@@ -382,15 +375,7 @@ async function showLeaderboard(fromPage = 'chapters-page') {
                         </div>
                         <div class="leaderboard-username" style="margin-right: 10px;">${user.username}</div>
                     </div>
-                    <div class="leaderboard-stats" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;">
-                        <div class="leaderboard-points" style="font-size: 1rem; font-weight: 700; color: #28a745;">
-                            ${user.points} نقطة
-                        </div>
-                        <div class="leaderboard-questions" style="font-size: 0.85rem; color: #667eea; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">
-                            <span style="font-size: 0.9rem;">📝</span>
-                            <span>${questionsSolved} سؤال</span>
-                        </div>
-                    </div>
+                    <div class="leaderboard-points">${user.points} نقطة</div>
                 </div>
             `;
         });
