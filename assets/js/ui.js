@@ -334,6 +334,17 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             return;
         }
 
+        // دالة مساعدة لحساب عدد الأسئلة المحلولة لكل مستخدم
+        function getUserQuestionCount(username) {
+            let totalMastered = 0;
+            for (let chapter = 1; chapter <= 5; chapter++) {
+                const key = `mastered_${username}_ch${chapter}`;
+                const mastered = JSON.parse(localStorage.getItem(key) || '[]');
+                totalMastered += mastered.length;
+            }
+            return totalMastered;
+        }
+
         // إنشاء جدول المتصدرين
         let html = '<div class="leaderboard-table">';
 
@@ -359,6 +370,9 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             // تحقق إذا كان المستخدم الحالي
             const isCurrentUser = user.username === Storage.getUsername();
 
+            // حساب عدد الأسئلة المحلولة
+            const questionsSolved = getUserQuestionCount(user.username);
+
             html += `
                 <div class="leaderboard-row ${rankClass} ${isCurrentUser ? 'current-user' : ''}">
                     <div class="leaderboard-rank">${rankIcon}</div>
@@ -373,7 +387,15 @@ async function showLeaderboard(fromPage = 'chapters-page') {
                         </div>
                         <div class="leaderboard-username" style="margin-right: 10px;">${user.username}</div>
                     </div>
-                    <div class="leaderboard-points">${user.points} نقطة</div>
+                    <div class="leaderboard-stats" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                        <div class="leaderboard-points" style="font-size: 1rem; font-weight: 700; color: #28a745;">
+                            ${user.points} نقطة
+                        </div>
+                        <div class="leaderboard-questions" style="font-size: 0.85rem; color: #667eea; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">
+                            <span style="font-size: 0.9rem;">📝</span>
+                            <span>${questionsSolved} سؤال</span>
+                        </div>
+                    </div>
                 </div>
             `;
         });
