@@ -14,6 +14,7 @@ model User {
   id              String   @id @default(cuid())
   username        String   @unique
   points          Int      @default(0)
+  questionsAnswered Int    @default(0) // عدد الأسئلة التي تمت الإجابة عليها بشكل صحيح
   likes           Int      @default(0)
   totalTimeSpent  Int      @default(0) // الوقت الإجمالي بالثواني
   lastActiveAt    DateTime? // آخر مرة كان المستخدم نشطاً

@@ -135,19 +135,29 @@ async function handleUpdateUsername({ currentUsername, newUsername }, res) {
     });
 }
 
-async function handleUpdatePoints({ username, pointsToAdd }, res) {
+async function handleUpdatePoints({ username, pointsToAdd, questionsToAdd }, res) {
     if (!username || pointsToAdd === undefined) return res.status(400).json({ error: 'Missing required fields' });
     if (typeof pointsToAdd !== 'number' || pointsToAdd < 0) return res.status(400).json({ error: 'Invalid points value' });
 
     try {
+        // Build update data
+        const updateData = {
+            points: { increment: pointsToAdd }
+        };
+
+        // Set questions count if provided (not increment, since we send the total)
+        if (questionsToAdd !== undefined && typeof questionsToAdd === 'number' && questionsToAdd >= 0) {
+            updateData.questionsAnswered = questionsToAdd;
+        }
+
         const user = await prisma.user.update({
             where: { username: username.trim() },
-            data: { points: { increment: pointsToAdd } }
+            data: updateData
         });
 
         return res.status(200).json({
             success: true,
-            user: { id: user.id, username: user.username, points: user.points }
+            user: { id: user.id, username: user.username, points: user.points, questionsAnswered: user.questionsAnswered }
         });
     } catch (error) {
         // P2025: Record to update not found.

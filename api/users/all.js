@@ -26,6 +26,7 @@ export default async function handler(req, res) {
                 id: true,
                 username: true,
                 points: true,
+                questionsAnswered: true,
                 likes: true,
                 createdAt: true
             }

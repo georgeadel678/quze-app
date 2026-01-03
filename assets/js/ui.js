@@ -334,17 +334,6 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             return;
         }
 
-        // دالة مساعدة لحساب عدد الأسئلة المحلولة لكل مستخدم
-        function getUserQuestionCount(username) {
-            let totalMastered = 0;
-            for (let chapter = 1; chapter <= 5; chapter++) {
-                const key = `mastered_${username}_ch${chapter}`;
-                const mastered = JSON.parse(localStorage.getItem(key) || '[]');
-                totalMastered += mastered.length;
-            }
-            return totalMastered;
-        }
-
         // إنشاء جدول المتصدرين
         let html = '<div class="leaderboard-table">';
 
@@ -370,8 +359,8 @@ async function showLeaderboard(fromPage = 'chapters-page') {
             // تحقق إذا كان المستخدم الحالي
             const isCurrentUser = user.username === Storage.getUsername();
 
-            // حساب عدد الأسئلة المحلولة
-            const questionsSolved = getUserQuestionCount(user.username);
+            // Use database value for questions answered
+            const questionsSolved = user.questionsAnswered || 0;
 
             html += `
                 <div class="leaderboard-row ${rankClass} ${isCurrentUser ? 'current-user' : ''}">

@@ -248,14 +248,23 @@ const Quiz = {
         if (pending <= 0) return; // لا يوجد شيء للمزامنة
 
         try {
-            console.log(`جاري إرسال ${pending} نقطة إلى السيرفر...`);
+            // حساب إجمالي الأسئلة المتقنة من localStorage
+            let totalMastered = 0;
+            for (let chapter = 1; chapter <= 5; chapter++) {
+                const key = `mastered_${username}_ch${chapter}`;
+                const mastered = JSON.parse(localStorage.getItem(key) || '[]');
+                totalMastered += mastered.length;
+            }
+
+            console.log(`جاري إرسال ${pending} نقطة و ${totalMastered} سؤال إلى السيرفر...`);
             const response = await fetch('/api/users/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: 'update-points',
                     username,
-                    pointsToAdd: pending
+                    pointsToAdd: pending,
+                    questionsToAdd: totalMastered // Send total count to server (will be set, not incremented)
                 })
             });
 
