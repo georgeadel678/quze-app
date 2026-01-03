@@ -15,12 +15,14 @@ const Quiz = {
     // اختيار فصل
     selectChapter(chapter) {
         this.selectedChapter = chapter;
+        this.isReviewMode = false; // Reset review mode
         UI.showPage('quiz-type-select-page');
     },
 
     // اختيار المنهج كامل
     selectFullCurriculum() {
         this.selectedChapter = 'full';
+        this.isReviewMode = false; // Reset review mode
         UI.showPage('quiz-type-select-page');
     },
 
