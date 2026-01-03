@@ -533,3 +533,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// ====================================
+// تجميع الأسئلة من جميع الفصول
+// ====================================
+document.addEventListener('DOMContentLoaded', function () {
+    window.questions = [];
+
+    const chapters = [
+        window.chapter1Questions,
+        window.chapter2Questions,
+        window.chapter3Questions,
+        window.chapter4Questions,
+        window.chapter5Questions
+    ];
+
+    chapters.forEach((chapterQs, index) => {
+        if (Array.isArray(chapterQs)) {
+            console.log(`✅ تم تحميل ${chapterQs.length} سؤال من الفصل ${index + 1}`);
+            window.questions = window.questions.concat(chapterQs);
+        } else {
+            console.warn(`⚠️ لم يتم العثور على أسئلة الفصل ${index + 1}`);
+        }
+    });
+
+    console.log(`📊 إجمالي الأسئلة المحملة: ${window.questions.length}`);
+});
+
