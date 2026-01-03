@@ -174,6 +174,11 @@ async function changeUsername() {
                 throw new Error(data.error || 'حدث خطأ');
             }
 
+            // ترحيل البيانات القديمة إلى الاسم الجديد قبل الحفظ
+            if (Storage.migrateUserData) {
+                Storage.migrateUserData(currentUsername, data.user.username);
+            }
+
             // تحديث localStorage
             Storage.setUsername(data.user.username);
             Storage.set('userId', data.user.id);

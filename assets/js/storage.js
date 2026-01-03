@@ -319,6 +319,59 @@ const Storage = {
         }
 
         return false;
+    },
+
+    // ترحيل بيانات المستخدم عند تغيير الاسم
+    migrateUserData(oldUsername, newUsername) {
+        if (!oldUsername || !newUsername || oldUsername === newUsername) return false;
+
+        console.log(`Migrating data from ${oldUsername} to ${newUsername}...`);
+
+        let migratedCount = 0;
+        const keysToRemove = [];
+        const updates = {}; // تخزين التحديثات لتطبيقها لاحقاً لتجنب مشاكل أثناء الدوران
+
+        // البحث في كل المفاتيح
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+
+            // تحقق مما إذا كان المفتاح يخص المستخدم القديم
+            // الأنماط المدعومة:
+            // notes_OLDUSER
+            // mastered_OLDUSER_ch...
+            // wrong_OLDUSER_ch...
+            // liked_OLDUSER
+
+            if (key.includes(`_${oldUsername}`)) {
+                // تأكد من أن المفتاح ينتهي بالاسم القديم أو يتبعه فاصل (مثل _ch)
+                // هذا يمنع استبدال user1 في user10
+
+                // الطريقة الأفضل: استبدال أول حدوث للاسم القديم بالجديد
+                // ونفترض أن التنسيق هو prefix_USERNAME أو prefix_USERNAME_suffix
+
+                // استبدال الاسم القديم بالجديد في المفتاح
+                const newKey = key.replace(`_${oldUsername}`, `_${newUsername}`);
+
+                // قراءة القيمة
+                const value = localStorage.getItem(key);
+
+                // جدولة التحديث
+                updates[newKey] = value;
+                keysToRemove.push(key);
+                migratedCount++;
+            }
+        }
+
+        // تطبيق التحديثات
+        for (const [newKey, value] of Object.entries(updates)) {
+            localStorage.setItem(newKey, value);
+        }
+
+        // حذف المفاتيح القديمة
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+
+        console.log(`Migration complete. Moved ${migratedCount} items.`);
+        return true;
     }
 };
 
