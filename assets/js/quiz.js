@@ -286,6 +286,43 @@ const Quiz = {
         }
     },
 
+    // دالة لمزامنة عدد الأسئلة فقط (بدون نقاط)
+    async syncQuestionsCount() {
+        const username = Storage.getUsername();
+        if (!username || username === 'مستخدم') return;
+
+        try {
+            // حساب إجمالي الأسئلة المتقنة من localStorage
+            let totalMastered = 0;
+            for (let chapter = 1; chapter <= 5; chapter++) {
+                const key = `mastered_${username}_ch${chapter}`;
+                const mastered = JSON.parse(localStorage.getItem(key) || '[]');
+                totalMastered += mastered.length;
+            }
+
+            console.log(`جاري مزامنة عدد الأسئلة: ${totalMastered}...`);
+            const response = await fetch('/api/users/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'update-points',
+                    username,
+                    pointsToAdd: 0, // No points
+                    questionsToAdd: totalMastered
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('✅ تم مزامنة عدد الأسئلة:', data.user.questionsAnswered);
+            } else {
+                console.error('فشل مزامنة عدد الأسئلة');
+            }
+        } catch (error) {
+            console.error('خطأ في مزامنة عدد الأسئلة:', error);
+        }
+    },
+
     // بدء المؤقت
     startTimer() {
         this.timerSeconds = this.questionCount === 'all'

@@ -322,8 +322,14 @@ async function showLeaderboard(fromPage = 'chapters-page') {
 
     try {
         // مزامنة أي نقاط معلقة قبل عرض الترتيب لضمان الدقة
+        // وأيضاً مزامنة عدد الأسئلة حتى لو لم تكن هناك نقاط معلقة
         if (window.Quiz && typeof window.Quiz.syncPendingPoints === 'function') {
             await window.Quiz.syncPendingPoints();
+        }
+
+        // إذا لم تكن هناك نقاط معلقة، نزامن عدد الأسئلة فقط
+        if (window.Quiz && typeof window.Quiz.syncQuestionsCount === 'function') {
+            await window.Quiz.syncQuestionsCount();
         }
 
         const response = await fetch('/api/users/all');
