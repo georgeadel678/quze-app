@@ -84,7 +84,8 @@ const Quiz = {
         }
 
         // --- Review Mode Filter ---
-        if (this.isReviewMode && this.selectedChapter !== 'full') {
+        // تم إزالة شرط (this.selectedChapter !== 'full') للسماح بالمراجعة في المنهج الكامل
+        if (this.isReviewMode) {
             const wrongIds = this.getWrongAnswers();
 
             if (wrongIds.length === 0) {
@@ -95,7 +96,13 @@ const Quiz = {
             }
 
             // Filter to only show wrong questions
-            filtered = filtered.filter(q => wrongIds.includes(q.id));
+            // Robust ID comparison: convert both to strings
+            const wrongIdsStr = wrongIds.map(id => String(id));
+
+            filtered = filtered.filter(q => {
+                const qId = q.id ? String(q.id) : null;
+                return qId && wrongIdsStr.includes(qId);
+            });
         }
 
         if (filtered.length === 0) {
