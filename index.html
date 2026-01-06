@@ -42,6 +42,31 @@
             </div>
         </div>
 
+        <!-- صفحة اختيار المادة -->
+        <div id="subject-selection-page" class="page">
+            <h2>اختر المادة</h2>
+            <p>اختر المادة التي تريد اختبار نفسك فيها</p>
+
+            <div class="chapters-grid">
+                <!-- مادة أساسيات التصميم -->
+                <div class="chapter-card" onclick="selectSubject('design')">
+                    <span class="chapter-icon">🎨</span>
+                    <div class="chapter-title">أساسيات التصميم</div>
+                    <div class="chapter-subtitle">تقنيات التصوير</div>
+                </div>
+
+                <!-- مادة مناهج وطرق التدريس -->
+                <div class="chapter-card" onclick="selectSubject('teaching')"
+                    style="background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);">
+                    <span class="chapter-icon">📚</span>
+                    <div class="chapter-title">مناهج وطرق التدريس</div>
+                    <div class="chapter-subtitle">قريباً...</div>
+                </div>
+            </div>
+
+            <button onclick="showPage('username-page')" class="btn">رجوع</button>
+        </div>
+
         <!-- صفحة اختيار الفصول -->
         <div id="chapters-page" class="page">
             <h2>اختر الفصل أو المنهج</h2>

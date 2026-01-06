@@ -77,8 +77,8 @@ async function submitUsername() {
 
         console.log('تم تسجيل الدخول بنجاح:', data.user);
 
-        // الانتقال للفصول
-        UI.showPage('chapters-page');
+        // الانتقال لاختيار المادة
+        UI.showPage('subject-selection-page');
     } catch (error) {
         console.error('Error creating user:', error);
         alert(error.message || 'حدث خطأ، حاول مرة أخرى');
@@ -210,6 +210,17 @@ async function changeUsername() {
     });
 }
 
+// دالة اختيار المادة
+window.selectSubject = function (subject) {
+    if (subject === 'design') {
+        // إذا اختار التصميم، نذهب لصفحة الفصول الحالية
+        UI.showPage('chapters-page');
+    } else if (subject === 'teaching') {
+        // إذا اختار مناهج وطرق التدريس
+        showToast('سيتم إضافة هذه المادة قريباً! 🚧', 'info');
+    }
+};
+
 // تهيئة التطبيق عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function () {
     console.log('🎓 تطبيق الاختبارات جاهز!');
@@ -230,9 +241,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (savedUsername && savedUsername !== 'مستخدم') {
         console.log('🔄 التحقق من صلاحية الجلسة للمستخدم:', savedUsername);
 
-        // ⚡ واجهة متفائلة: عرض الفصول فوراً بناءً على التخزين المحلي
+        // ⚡ واجهة متفائلة: عرض اختيار المادة فوراً بناءً على التخزين المحلي
         // هذا يمنع ظهور صفحة الترحيب أثناء انتظار السيرفر
-        UI.showPage('chapters-page');
+        UI.showPage('subject-selection-page');
 
         // التحقق من السيرفر في الخلفية
         fetch(`/api/users/${encodeURIComponent(savedUsername)}`)
