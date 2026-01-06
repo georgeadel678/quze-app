@@ -1588,26 +1588,39 @@ const Quiz = {
         if (this.subjects[subjectKey]) {
             this.state.currentSubject = subjectKey;
             localStorage.setItem('currentSubject', subjectKey);
-            // Reload questions/UI
-            this.loadQuestions(this.state.currentChapter);
+
+            // Refresh global question pool for the new subject
+            this.refreshGlobalQuestions();
+
             // Update UI title if needed
             document.getElementById('subject-title').textContent = this.subjects[subjectKey].name;
+
+            // NOTE: Do not navigate here. Navigation is handled by window.selectSubject
         }
+    },
+
+    // Refresh window.questions based on current subject
+    refreshGlobalQuestions() {
+        window.questions = [];
+        const subjectKey = this.state.currentSubject;
+
+        if (window.QuestionBank && window.QuestionBank[subjectKey]) {
+            const bank = window.QuestionBank[subjectKey];
+            for (let i = 1; i <= 5; i++) {
+                if (bank[`chapter${i}`]) {
+                    window.questions = window.questions.concat(bank[`chapter${i}`]);
+                }
+            }
+        }
+        console.log(`🔄 تم تحديث الأسئلة للمادة (${subjectKey}): ${window.questions.length}`);
     },
 
     loadQuestions(chapterId) {
         this.state.currentChapter = chapterId;
 
-        // Dynamic loading from QuestionBank
-        const subjectKey = this.state.currentSubject;
-        const bank = window.QuestionBank && window.QuestionBank[subjectKey];
+        // Ensure questions are refreshed just in case
+        // But mainly we rely on the global pool being correct
 
-        let chapterQs = [];
-        if (bank && bank[`chapter${chapterId}`]) {
-            chapterQs = bank[`chapter${chapterId}`];
-        }
-
-        const allQuestions = chapterQs || [];
         this.isReviewMode = false; // Reset review mode
         this.isNotesMode = false; // Reset notes mode
         UI.showPage('quiz-type-select-page');
@@ -3482,18 +3495,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Determine subject - default to 'design' if not set
     const subjectKey = (window.Quiz && window.Quiz.state && window.Quiz.state.currentSubject) || 'design';
 
-    // Make sure QuestionBank is available
-    if (window.QuestionBank && window.QuestionBank[subjectKey]) {
-        const bank = window.QuestionBank[subjectKey];
-        for (let i = 1; i <= 5; i++) {
-            if (bank[`chapter${i}`]) {
-                window.questions = window.questions.concat(bank[`chapter${i}`]);
-            }
-        }
+    // تجميع الأسئلة من جميع الفصول الاولي
+    if (window.Quiz && window.Quiz.refreshGlobalQuestions) {
+        window.Quiz.refreshGlobalQuestions();
     } else {
-        // Safe fallback - maybe retry or log
-        console.warn(`QuestionBank not found or empty for subject: ${subjectKey}. Waiting for lazy load or selection.`);
+        // Fallback if Quiz object is not fully ready (should not happen usually)
+        window.questions = [];
+        console.warn('Quiz object not ready for initial question loading');
     }
-
-    console.log(`📊 إجمالي الأسئلة المحملة (${subjectKey}): ${window.questions.length}`);
 });
