@@ -1571,7 +1571,7 @@ const Quiz = {
     },
 
     subjects: {
-        design: { name: "أساسيات التصميم", path: "design" },
+        design: { name: "الرسومات التعليمية", path: "design" },
         teaching: { name: "مناهج وطرق التدريس", path: "teaching" }
     },
 
