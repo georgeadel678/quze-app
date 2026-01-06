@@ -179,10 +179,10 @@ window.essayChapter2Questions = [
         chapter: 2,
         question: "اشرح لماذا يعتبر \"المنظار الإلكتروني\" (EVF) وسيلة فعالة لتعلم التصوير للمبتدئين؟",
         model_answer: "الإجابة: لأنه يعرض تأثر الصورة بالإعدادات (مثل التعريض والألوان) في الوقت الفعلي قبل الضغط على زر التصوير، مما يسهل فهم نتائج التغييرات اليدوية.\n\nسبب الإجابة (شرح مبسط): الرؤية المباشرة للنتيجة النهائية تلغي مبدأ \"التجربة والخطأ\" وتسرع عملية التعلم."
-    }
 ];
 
-if (typeof window.essayQuestions === 'undefined') {
-    window.essayQuestions = [];
-}
-window.essayQuestions = window.essayQuestions.concat(window.essayChapter2Questions);
+
+window.QuestionBank = window.QuestionBank || {};
+window.QuestionBank.design = window.QuestionBank.design || {};
+window.QuestionBank.design.essay = window.QuestionBank.design.essay || [];
+window.QuestionBank.design.essay = window.QuestionBank.design.essay.concat(window.essayChapter2Questions);

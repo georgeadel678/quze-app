@@ -179,10 +179,10 @@ window.essayChapter3Questions = [
         chapter: 3,
         question: "كيف يربط \"الوزن البصري\" بين العناصر المختلفة في التوازن غير المتماثل؟",
         model_answer: "الإجابة: يعتمد على قدرة العنصر (بلونه أو حجمه) على جذب العين؛ فعنصر صغير بلون صارخ قد \"يزن\" بصرياً بقدر عنصر كبير بلون باهت، مما يحقق التعادل.\n\nسبب الإجابة (شرح مبسط): الوزن البصري هو مقياس \"قوة الجذب\" وليس المساحة الفعلية."
-    }
 ];
 
-if (typeof window.essayQuestions === 'undefined') {
-    window.essayQuestions = [];
-}
-window.essayQuestions = window.essayQuestions.concat(window.essayChapter3Questions);
+
+window.QuestionBank = window.QuestionBank || {};
+window.QuestionBank.teaching = window.QuestionBank.teaching || {};
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay || [];
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay.concat(window.essayChapter3Questions);

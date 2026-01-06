@@ -179,10 +179,10 @@ window.essayChapter5Questions = [
         chapter: 5,
         question: "لماذا يعتبر برنامج (Adobe Lightroom) أداة لإدارة \"المكتبة\" وليس فقط لتحرير الصورة؟",
         model_answer: "الإجابة: لأنه مصمم لتنظيم وفهرسة مئات الآلاف من الصور وتطبيق التعديلات على مجموعات كبيرة دفعة واحدة، مما يسهل سير العمل الاحترافي.\n\nسبب الإجابة (شرح مبسط): البرنامج هو \"أرشيف ذكي\" ومعمل تحميض رقمي في آن واحد."
-    }
 ];
 
-if (typeof window.essayQuestions === 'undefined') {
-    window.essayQuestions = [];
-}
-window.essayQuestions = window.essayQuestions.concat(window.essayChapter5Questions);
+
+window.QuestionBank = window.QuestionBank || {};
+window.QuestionBank.teaching = window.QuestionBank.teaching || {};
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay || [];
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay.concat(window.essayChapter5Questions);

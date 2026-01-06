@@ -179,10 +179,10 @@ window.essayChapter4Questions = [
         chapter: 4,
         question: "اشرح كيف يُعد التصوير أداة لـ \"ضمان الجودة\" في المؤسسات التعليمية.",
         model_answer: "الإجابة: استخدامه كأدلة ملموسة لتوثيق أنشطة التدريس والتعلم ضمن معايير الاعتماد الأكاديمي وتقارير الأداء.\n\nسبب الإجابة (شرح مبسط): الصورة والفيديو هما الإثبات البصري الأكثر صدقية على حدوث التعلم وتطوره."
-    }
 ];
 
-if (typeof window.essayQuestions === 'undefined') {
-    window.essayQuestions = [];
-}
-window.essayQuestions = window.essayQuestions.concat(window.essayChapter4Questions);
+
+window.QuestionBank = window.QuestionBank || {};
+window.QuestionBank.teaching = window.QuestionBank.teaching || {};
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay || [];
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay.concat(window.essayChapter4Questions);

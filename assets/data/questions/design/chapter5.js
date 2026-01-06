@@ -2,7 +2,7 @@
 // أسئلة الفصل الخامس: آفاق مستقبلية وأدوات التصوير الرقمي
     // --- أسئلة الاختيار من متعدد ---
 // دمج أسئلة الفصل الخامس مع المصفوفة العامة
-window.chapter5Questions = [
+window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.design = window.QuestionBank.design || {}; window.QuestionBank.design.chapter5 = [
     {
         id: 1,
         chapter: 5,

@@ -1,7 +1,7 @@
 // تعريف الأسئلة كمتغير عام
 // أسئلة الفصل الثالث والرابع: مكونات الكاميرا والعدسات (90 سؤال)
 // دمج أسئلة الفصل الثاني مع المصفوفة العامة
-window.chapter2Questions = [
+window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = window.QuestionBank.teaching || {}; window.QuestionBank.teaching.chapter2 = [
     {
         id: 1,
         chapter: 2,

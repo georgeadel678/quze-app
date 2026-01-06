@@ -1100,6 +1100,13 @@ window.updateReviewButtonForCurrentChapter = updateReviewButtonForCurrentChapter
 window.updateReviewButtonForResultsPage = updateReviewButtonForResultsPage;
 window.startReviewModeFromQuestionCount = startReviewModeFromQuestionCount;
 window.startReviewModeFromResults = startReviewModeFromResults;
+window.selectSubject = (subject) => {
+    if (window.Quiz) {
+        window.Quiz.setSubject(subject);
+        // Navigate to chapters page
+        UI.showPage('chapters-page');
+    }
+};
 /* ====================================
    chapter-progress.js - شريط تقدم الفصل
    ==================================== */
@@ -1549,15 +1556,58 @@ const Quiz = {
     currentQuestions: [],
     userAnswers: [],
     currentQuestionIndex: 0,
-    selectedChapter: null,
-    questionCount: 0,
-    timerInterval: null,
-    timerSeconds: 0,
-    isReviewMode: false,
+    // State
+    state: {
+        currentSubject: 'design', // Default subject
+        currentChapter: 1,
+        score: 0,
+        timer: 0,
+        timerInterval: null,
+        userAnswers: {},
+        currentQuestionIndex: 0,
+        questions: [], // Loaded questions for current subject/chapter
+        reviewMode: false,
+        showingWrongOnly: false
+    },
 
-    // اختيار فصل
-    selectChapter(chapter) {
-        this.selectedChapter = chapter;
+    subjects: {
+        design: { name: "أساسيات التصميم", path: "design" },
+        teaching: { name: "مناهج وطرق التدريس", path: "teaching" }
+    },
+
+    init() {
+        // ... previous init code ...
+        // Load subject from storage or default
+        const savedSubject = localStorage.getItem('currentSubject');
+        if (savedSubject && this.subjects[savedSubject]) {
+            this.state.currentSubject = savedSubject;
+        }
+    },
+
+    setSubject(subjectKey) {
+        if (this.subjects[subjectKey]) {
+            this.state.currentSubject = subjectKey;
+            localStorage.setItem('currentSubject', subjectKey);
+            // Reload questions/UI
+            this.loadQuestions(this.state.currentChapter);
+            // Update UI title if needed
+            document.getElementById('subject-title').textContent = this.subjects[subjectKey].name;
+        }
+    },
+
+    loadQuestions(chapterId) {
+        this.state.currentChapter = chapterId;
+
+        // Dynamic loading from QuestionBank
+        const subjectKey = this.state.currentSubject;
+        const bank = window.QuestionBank && window.QuestionBank[subjectKey];
+
+        let chapterQs = [];
+        if (bank && bank[`chapter${chapterId}`]) {
+            chapterQs = bank[`chapter${chapterId}`];
+        }
+
+        const allQuestions = chapterQs || [];
         this.isReviewMode = false; // Reset review mode
         this.isNotesMode = false; // Reset notes mode
         UI.showPage('quiz-type-select-page');
@@ -2239,7 +2289,10 @@ class EssayQuizApp {
         countGroup.style.marginBottom = '2rem';
 
         // تحسين العداد
-        const maxQuestions = window.essayQuestions ? window.essayQuestions.length : 0;
+        const subjectKey = (window.Quiz && window.Quiz.state && window.Quiz.state.currentSubject) || 'design';
+        const bank = window.QuestionBank && window.QuestionBank[subjectKey];
+        const essayQs = (bank && bank.essay) || [];
+        const maxQuestions = essayQs.length;
 
         countGroup.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -2660,18 +2713,24 @@ class EssayQuizApp {
     }
 
     startQuiz() {
-        // استخدام المصفوفة المجمعة من الملفات المنفصلة
-        const allQuestions = window.essayQuestions || [];
+        const count = parseInt(document.getElementById('countRange').value);
+        this.state.questionCount = count;
 
-        // تصفية الأسئلة حسب الفصل
-        let filteredQuestions = allQuestions;
+        // جلب الأسئلة
+        const subjectKey = (window.Quiz && window.Quiz.state && window.Quiz.state.currentSubject) || 'design';
+        const bank = window.QuestionBank && window.QuestionBank[subjectKey];
+        const essayQs = (bank && bank.essay) || [];
 
+        // تصفية الأسئلة حسب الفصل المختار
+        let filteredQuestions;
         if (this.state.selectedChapter && this.state.selectedChapter !== 'full') {
-            filteredQuestions = allQuestions.filter(q => q.chapter == this.state.selectedChapter);
+            filteredQuestions = essayQs.filter(q => q.chapter == this.state.selectedChapter);
+        } else {
+            filteredQuestions = [...essayQs];
         }
 
         if (filteredQuestions.length === 0) {
-            alert('لا توجد أسئلة مقالية لهذا الفصل حالياً.');
+            alert('عفواً، لا توجد أسئلة متاحة لهذا الاختيار حالياً.');
             // العودة للصفحة الرئيسية
             if (window.UI) {
                 window.UI.showPage('chapters-page');
@@ -3420,25 +3479,22 @@ document.addEventListener('DOMContentLoaded', function () {
 // تجميع الأسئلة من جميع الفصول
 // ====================================
 document.addEventListener('DOMContentLoaded', function () {
+    // تجميع الأسئلة من جميع الفصول
     window.questions = [];
 
-    const chapters = [
-        window.chapter1Questions,
-        window.chapter2Questions,
-        window.chapter3Questions,
-        window.chapter4Questions,
-        window.chapter5Questions
-    ];
+    // Determine subject - default to 'design' if not set
+    const subjectKey = (window.Quiz && window.Quiz.state && window.Quiz.state.currentSubject) || 'design';
+    const bank = window.QuestionBank && window.QuestionBank[subjectKey];
 
-    chapters.forEach((chapterQs, index) => {
-        if (Array.isArray(chapterQs)) {
-            console.log(`✅ تم تحميل ${chapterQs.length} سؤال من الفصل ${index + 1}`);
-            window.questions = window.questions.concat(chapterQs);
-        } else {
-            console.warn(`⚠️ لم يتم العثور على أسئلة الفصل ${index + 1}`);
+    if (bank) {
+        for (let i = 1; i <= 5; i++) {
+            if (bank[`chapter${i}`]) {
+                window.questions = window.questions.concat(bank[`chapter${i}`]);
+            }
         }
-    });
-
-    console.log(`📊 إجمالي الأسئلة المحملة: ${window.questions.length}`);
+    } else {
+        console.warn('QuestionBank not found for subject:', subjectKey);
+    }
+    console.log(`📊 إجمالي الأسئلة المحملة (${subjectKey}): ${window.questions.length}`);
 });
 

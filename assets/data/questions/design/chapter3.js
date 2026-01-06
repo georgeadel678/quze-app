@@ -1,7 +1,7 @@
 // تعريف الأسئلة كمتغير عام
 // أسئلة الفصل الخامس والسادس: أساسيات الإضاءة والتكوين (110 سؤال)
 // دمج أسئلة الفصل الثالث مع المصفوفة العامة
-window.chapter3Questions = [
+window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.design = window.QuestionBank.design || {}; window.QuestionBank.design.chapter3 = [
     {
         id: 1,
         chapter: 3,

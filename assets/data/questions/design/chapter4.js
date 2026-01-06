@@ -1,7 +1,7 @@
 // تعريف الأسئلة كمتغير عام
 // أسئلة الفصل السابع والثامن: إعدادات التصوير والتصوير في التعليم (110 سؤال)
 // إضافة أسئلة الفصل الرابع إلى المصفوفة العامة
-window.chapter4Questions = [
+window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.design = window.QuestionBank.design || {}; window.QuestionBank.design.chapter4 = [
     {
         id: 1,
         chapter: 4,

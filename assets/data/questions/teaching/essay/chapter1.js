@@ -119,10 +119,10 @@ window.essayChapter1Questions = [
         chapter: 1,
         question: "فسر كيف يساهم \"نظام الترميز\" في البكسلة الواحد في تحديد جودة الصورة النهائية.",
         model_answer: "الإجابة: نظام الترميز هو الذي يحدد قيم اللون والإضاءة المخزنة في كل بكسل؛ فكلما كان الترميز دقيقاً (بعمق لوني عالٍ)، كانت الصورة أقدر على تمثيل الواقع بتفاصيل دقيقة وألوان صحيحة.\n\nسبب الإجابة (شرح مبسط): الترميز هو \"اللغة الرقمية\" التي تترجم الضوء إلى بيانات مفهومة للحاسوب."
-    }
 ];
 
-if (typeof window.essayQuestions === 'undefined') {
-    window.essayQuestions = [];
-}
-window.essayQuestions = window.essayQuestions.concat(window.essayChapter1Questions);
+
+window.QuestionBank = window.QuestionBank || {};
+window.QuestionBank.teaching = window.QuestionBank.teaching || {};
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay || [];
+window.QuestionBank.teaching.essay = window.QuestionBank.teaching.essay.concat(window.essayChapter1Questions);

@@ -1,7 +1,7 @@
 // تعريف الأسئلة كمتغير عام
 // تم تعديل صياغة الخيارات لتتقارب في الطول (Character Count Balancing)
 
-window.chapter1Questions = [
+window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.design = window.QuestionBank.design || {}; window.QuestionBank.design.chapter1 = [
     {
         id: 1,
         chapter: 1,
