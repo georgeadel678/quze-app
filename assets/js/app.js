@@ -1613,6 +1613,12 @@ const Quiz = {
         UI.showPage('quiz-type-select-page');
     },
 
+    // اختيار فصل
+    selectChapter(chapter) {
+        this.selectedChapter = chapter;
+        this.loadQuestions(chapter);
+    },
+
     // اختيار المنهج كامل
     selectFullCurriculum() {
         this.selectedChapter = 'full';
@@ -3136,16 +3142,7 @@ async function changeUsername() {
     });
 }
 
-// دالة اختيار المادة
-window.selectSubject = function (subject) {
-    if (subject === 'design') {
-        // إذا اختار التصميم، نذهب لصفحة الفصول الحالية
-        UI.showPage('chapters-page');
-    } else if (subject === 'teaching') {
-        // إذا اختار مناهج وطرق التدريس
-        showToast('سيتم إضافة هذه المادة قريباً! 🚧', 'info');
-    }
-};
+// Obsolete selectSubject removed. Using window.selectSubject defined earlier.;
 
 // تهيئة التطبيق عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function () {
@@ -3484,17 +3481,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Determine subject - default to 'design' if not set
     const subjectKey = (window.Quiz && window.Quiz.state && window.Quiz.state.currentSubject) || 'design';
-    const bank = window.QuestionBank && window.QuestionBank[subjectKey];
 
-    if (bank) {
+    // Make sure QuestionBank is available
+    if (window.QuestionBank && window.QuestionBank[subjectKey]) {
+        const bank = window.QuestionBank[subjectKey];
         for (let i = 1; i <= 5; i++) {
             if (bank[`chapter${i}`]) {
                 window.questions = window.questions.concat(bank[`chapter${i}`]);
             }
         }
     } else {
-        console.warn('QuestionBank not found for subject:', subjectKey);
+        // Safe fallback - maybe retry or log
+        console.warn(`QuestionBank not found or empty for subject: ${subjectKey}. Waiting for lazy load or selection.`);
     }
+
     console.log(`📊 إجمالي الأسئلة المحملة (${subjectKey}): ${window.questions.length}`);
 });
-
