@@ -1593,7 +1593,10 @@ const Quiz = {
             this.refreshGlobalQuestions();
 
             // Update UI title if needed
-            document.getElementById('subject-title').textContent = this.subjects[subjectKey].name;
+            const titleEl = document.getElementById('subject-title');
+            if (titleEl) {
+                titleEl.textContent = this.subjects[subjectKey].name;
+            }
 
             // NOTE: Do not navigate here. Navigation is handled by window.selectSubject
         }
