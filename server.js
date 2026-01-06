@@ -29,6 +29,13 @@ app.post('/api/actions', async (req, res) => {
     }
 });
 
+// 2. Users API (Unified)
+import usersHandler from './api/users.js';
+app.all('/api/users', async (req, res) => {
+    // console.log(`[API] ${req.method} /api/users`);
+    await usersHandler(req, res);
+});
+
 // Start Server
 app.listen(PORT, () => {
     console.log(`===============================================`);
