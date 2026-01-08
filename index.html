@@ -129,14 +129,6 @@
                     <div class="chapter-subtitle">جميع الفصول</div>
                 </div>
 
-                <!-- المخلصات -->
-                <div class="chapter-card" onclick="showSummariesModal()"
-                    style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                    <span class="chapter-icon">📄</span>
-                    <div class="chapter-title" style="color: white;">المخلصات</div>
-                    <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">ملفات PDF للفصول</div>
-                </div>
-
                 <!-- المتصدرين -->
                 <div class="chapter-card" onclick="showLeaderboard('chapters-page')"
                     style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
@@ -408,50 +400,7 @@
         </div>
     </div>
 
-    <!-- Summaries Modal -->
-    <div id="summaries-modal" class="modal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div style="position: absolute; top: 15px; left: 15px; cursor: pointer; font-size: 24px; color: #888;"
-                onclick="closeSummariesModal()">✕</div>
-            <div style="font-size: 50px; margin-bottom: 20px;">📄</div>
-            <h2 style="color: #2c3e50; font-size: 24px; font-weight: 700; margin-bottom: 20px;">المخلصات</h2>
-            <p style="color: #6b7280; margin-bottom: 2rem;">اختر الفصل لعرض المخلص</p>
 
-            <div class="summaries-grid"
-                style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                <button class="summary-btn" onclick="openSummaryPDF('الفصل الاول والثاني.pdf')">
-                    <span style="font-size: 2rem; margin-left: 1rem;">📚</span>
-                    <div style="text-align: right; flex: 1;">
-                        <div style="font-weight: 700; font-size: 1.1rem; color: #2c3e50;">الفصل الاول والثاني</div>
-                    </div>
-                </button>
-
-                <button class="summary-btn" onclick="openSummaryPDF('الفصل الثالث والرابع.pdf')">
-                    <span style="font-size: 2rem; margin-left: 1rem;">📖</span>
-                    <div style="text-align: right; flex: 1;">
-                        <div style="font-weight: 700; font-size: 1.1rem; color: #2c3e50;">الفصل الثالث والرابع</div>
-                    </div>
-                </button>
-
-                <button class="summary-btn" onclick="openSummaryPDF('الفصل الخامس والسادس.pdf')">
-                    <span style="font-size: 2rem; margin-left: 1rem;">📝</span>
-                    <div style="text-align: right; flex: 1;">
-                        <div style="font-weight: 700; font-size: 1.1rem; color: #2c3e50;">الفصل الخامس والسادس</div>
-                    </div>
-                </button>
-
-                <button class="summary-btn" onclick="openSummaryPDF('الفصل السابع والثامن والتاسع.pdf')">
-                    <span style="font-size: 2rem; margin-left: 1rem;">🎤</span>
-                    <div style="text-align: right; flex: 1;">
-                        <div style="font-weight: 700; font-size: 1.1rem; color: #2c3e50;">الفصل السابع والثامن والتاسع
-                        </div>
-                    </div>
-                </button>
-            </div>
-
-            <button class="btn" onclick="closeSummariesModal()">إغلاق</button>
-        </div>
-    </div>
 
     <!-- BDF Upload Modal -->
     <div id="bdf-upload-modal" class="modal" style="display: none;">
