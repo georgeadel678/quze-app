@@ -132,7 +132,7 @@ async function handleCreateUser(req, res) {
         });
 
         try {
-            const { notifyUserStatus } = await import('./utils/telegram-utils.js');
+            const { notifyUserStatus } = await import('../utils/telegram-utils.js');
             await notifyUserStatus(cleanUsername, 'new_user');
         } catch (e) { console.error('Telegram error:', e); }
 
@@ -200,7 +200,7 @@ async function handleToggleLike({ targetUsername }, res) {
 
 async function handleUpdateActivity({ username }, res) {
     try {
-        const { notifyUserStatus } = await import('./utils/telegram-utils.js');
+        const { notifyUserStatus } = await import('../utils/telegram-utils.js');
         await notifyUserStatus(username, 'online');
     } catch (e) { console.error('Activity notify error:', e); }
 
@@ -233,7 +233,7 @@ async function handleUpdateUsername({ currentUsername, newUsername }, res) {
     });
 
     try {
-        const { notifyUserStatus } = await import('./utils/telegram-utils.js');
+        const { notifyUserStatus } = await import('../utils/telegram-utils.js');
         await notifyUserStatus(cleanNew, 'name_change', { oldName: cleanCurrent, newName: cleanNew });
     } catch (e) { }
 
