@@ -1599,7 +1599,161 @@ const Quiz = {
             }
 
             // NOTE: Do not navigate here. Navigation is handled by window.selectSubject
+
+            // Render the chapters for the selected subject
+            this.renderChapters(subjectKey);
         }
+    },
+
+    // Render chapters based on subject configuration
+    renderChapters(subjectKey) {
+        const container = document.getElementById('chapters-list');
+        if (!container) return;
+
+        container.innerHTML = ''; // Clear existing
+
+        // Full Curriculum Button (Always added at the end, or part of list?)
+        // Let's create the specific list first.
+
+        let chapters = [];
+
+        if (subjectKey === 'design') {
+            // New Structure: 1 to 6, single names
+            chapters = [
+                { id: 1, title: 'الفصل الأول', icon: '📚' },
+                { id: 2, title: 'الفصل الثاني', icon: '📖' },
+                { id: 3, title: 'الفصل الثالث', icon: '📝' },
+                { id: 4, title: 'الفصل الرابع', icon: '🎤' },
+                { id: 5, title: 'الفصل الخامس', icon: '📻' },
+                { id: 6, title: 'الفصل السادس', icon: '🎨' } // New Chapter
+            ];
+        } else {
+            // Teaching (Old Structure): 1&2, 3&4 ...
+            // Mapping existing IDs to old Labels
+            chapters = [
+                { id: 1, title: 'الفصل الاول والثاني', icon: '📚' },
+                { id: 2, title: 'الفصل الثالث والرابع', icon: '📖' },
+                { id: 3, title: 'الفصل الخامس والسادس', icon: '📝' },
+                { id: 4, title: 'الفصل السابع والثامن', icon: '🎤' },
+                { id: 5, title: 'الفصل التاسع', icon: '📻' }
+            ];
+        }
+
+        // Appending Chapter buttons
+        chapters.forEach(ch => {
+            const div = document.createElement('div');
+            div.className = 'chapter-card';
+            div.onclick = () => this.selectChapter(ch.id);
+
+            div.innerHTML = `
+                <span class="chapter-icon">${ch.icon}</span>
+                <div class="chapter-title">${ch.title}</div>
+            `;
+            container.appendChild(div);
+        });
+
+        // Append Full Curriculum separately
+        const fullDiv = document.createElement('div');
+        fullDiv.className = 'chapter-card full-curriculum-card';
+        fullDiv.onclick = () => this.selectFullCurriculum();
+        fullDiv.innerHTML = `
+            <span class="chapter-icon">📋</span>
+            <div class="chapter-title">المنهج كامل</div>
+            <div class="chapter-subtitle">جميع الفصول</div>
+        `;
+        container.appendChild(fullDiv);
+
+        // Append Leaderboard (Moved from static HTML to dynamic loop to keep order?)
+        // In the original HTML, Leaderboard, ChangeName etc were AFTER Full Curriculum.
+        // It's cleaner to keep them static in HTML if possible?
+        // But I cleared `chapters-list` which contained everything.
+        // The original HTML had:
+        // Chapters ...
+        // Full Curriculum
+        // Leaderboard
+        // Change Name
+        // Feedback
+
+        // So I must re-append these utility cards as well!
+        // Or better: Restore them in `index.html` OUTSIDE `#chapters-list`.
+        // Let's check `index.html` structure again.
+        // The `replace_file_content` at Step 532 removed everything inside `.chapters-grid`.
+        // So I DO need to re-render Leaderboard, Change Name, Feedback here OR move them out in HTML.
+        // Moving them out in HTML is cleaner and safer.
+        // But the layout grid might expect them to be siblings.
+        // If `.chapters-grid` is a grid container, they should be siblings.
+        // So I should render them here.
+
+        /* 
+           <!-- المتصدرين -->
+           <div class="chapter-card" onclick="showLeaderboard('chapters-page')"
+               style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+               <span class="chapter-icon">🏆</span>
+               <div class="chapter-title" style="color: white;">المتصدرين</div>
+               <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">ترتيب الطلاب حسب النقاط</div>
+           </div>
+
+           <!-- تغيير الاسم -->
+           <div class="chapter-card" onclick="changeUsername()"
+               style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+               <span class="chapter-icon">📝</span>
+               <div class="chapter-title" style="color: white;">تغيير الاسم</div>
+               <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">تحديث اسم المستخدم</div>
+           </div>
+
+           <!-- الدعم والمقترحات -->
+           <div class="chapter-card" onclick="openFeedbackModal()"
+               style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+               <span class="chapter-icon">💬</span>
+               <div class="chapter-title" style="color: white;">الدعم والمقترحات</div>
+               <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">رأيك يهمنا</div>
+           </div>
+        */
+
+        // Helper to create utility card
+        const createUtilCard = (onClick, bg, icon, title, subtitle) => {
+            const div = document.createElement('div');
+            div.className = 'chapter-card';
+            if (typeof onClick === 'string') {
+                div.setAttribute('onclick', onClick);
+            } else {
+                div.onclick = onClick;
+            }
+            div.style.background = bg;
+            div.innerHTML = `
+                <span class="chapter-icon">${icon}</span>
+                <div class="chapter-title" style="color: white;">${title}</div>
+                <div class="chapter-subtitle" style="color: rgba(255,255,255,0.8);">${subtitle}</div>
+            `;
+            return div;
+        };
+
+        // Leaderboard
+        container.appendChild(createUtilCard(
+            "showLeaderboard('chapters-page')",
+            "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            "🏆",
+            "المتصدرين",
+            "ترتيب الطلاب حسب النقاط"
+        ));
+
+        // Change Name
+        container.appendChild(createUtilCard(
+            "changeUsername()",
+            "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            "📝",
+            "تغيير الاسم",
+            "تحديث اسم المستخدم"
+        ));
+
+        // Feedback
+        container.appendChild(createUtilCard(
+            "openFeedbackModal()",
+            "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+            "💬",
+            "الدعم والمقترحات",
+            "رأيك يهمنا"
+        ));
     },
 
     // Refresh window.questions based on current subject
@@ -1609,7 +1763,7 @@ const Quiz = {
 
         if (window.QuestionBank && window.QuestionBank[subjectKey]) {
             const bank = window.QuestionBank[subjectKey];
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 6; i++) {
                 if (bank[`chapter${i}`]) {
                     window.questions = window.questions.concat(bank[`chapter${i}`]);
                 }
