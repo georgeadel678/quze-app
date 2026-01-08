@@ -1126,13 +1126,52 @@ function openChapterSummary() {
         return;
     }
 
-    // Open the corresponding summary HTML file in a new window
-    const summaryPath = `ملخصات ماده الروسومات التعليميه/chapter${currentChapter}.html`;
-    const summaryWindow = window.open(summaryPath, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+    // Create or get modal
+    let modal = document.getElementById('chapter-summary-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'chapter-summary-modal';
+        modal.className = 'modal';
+        modal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;';
 
-    if (!summaryWindow) {
-        alert('تعذر فتح نافذة الملخص. يرجى التأكد من السماح بالنوافذ المنبثقة.');
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = 'width: 95%; height: 95%; max-width: 1400px; max-height: 90vh; background: white; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 10px 50px rgba(0,0,0,0.5);';
+
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '✕';
+        closeBtn.style.cssText = 'position: absolute; top: 15px; left: 15px; z-index: 10001; background: #dc3545; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.3);';
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        // Iframe to display summary
+        const iframe = document.createElement('iframe');
+        iframe.id = 'summary-iframe';
+        iframe.style.cssText = 'width: 100%; height: 100%; border: none; border-radius: 15px;';
+
+        modalContent.appendChild(closeBtn);
+        modalContent.appendChild(iframe);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        // Close on background click
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        };
     }
+
+    // Load the summary HTML file
+    const summaryPath = `ملخصات ماده الروسومات التعليميه/chapter${currentChapter}.html`;
+    document.getElementById('summary-iframe').src = summaryPath;
+
+    // Show modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 window.openChapterSummary = openChapterSummary;
