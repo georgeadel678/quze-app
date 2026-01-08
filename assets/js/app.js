@@ -23,6 +23,9 @@ const Storage = {
 
             // استعادة بيانات المستخدم الأساسية فقط (بدون نقاط)
             if (username && username !== 'مستخدم') {
+                // تصفير النقاط على السيرفر في الخلفية
+                this.resetServerPoints(username);
+
                 this.set('username', username);
                 if (userId) this.set('userId', userId);
             }
@@ -33,6 +36,38 @@ const Storage = {
             return true; // تم التحديث (يستدعي إعادة تحميل أو إشعار)
         }
         return false; // الإصدار متطابق
+    },
+
+    // تصفير نقاط السيرفر عند التحديث
+    async resetServerPoints(username) {
+        if (!username || username === 'مستخدم') return;
+
+        try {
+            console.log(`Attempting to reset server points for ${username}...`);
+            // 1. جلب النقاط الحالية
+            const userRes = await fetch(`/api/users/${encodeURIComponent(username)}`);
+            if (!userRes.ok) return;
+            const userData = await userRes.json();
+
+            if (userData && userData.user && userData.user.points > 0) {
+                console.log(`Resetting server points for ${username} (Current: ${userData.user.points})`);
+                // 2. خصم النقاط الحالية لتصبح 0
+                await fetch('/api/users/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'update-points',
+                        username,
+                        pointsToAdd: -userData.user.points
+                    })
+                });
+                console.log('Server points reset successfully.');
+            } else {
+                console.log('User has 0 points or invalid data, no reset needed.');
+            }
+        } catch (e) {
+            console.error('Failed to reset server points:', e);
+        }
     },
 
     // حفظ البيانات
