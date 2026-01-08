@@ -2,7 +2,7 @@
    storage.js - إدارة التخزين المحلي
    ==================================== */
 // الإصدار الحالي للتطبيق - تغيير هذا الرقم سيقوم بمسح بيانات المستخدمين
-const APP_VERSION = 'v4_new_subjectt_jan2026';
+const APP_VERSION = 'v5_final_reset_jan2026';
 
 const Storage = {
     // التحقق من إصدار التطبيق ومسح البيانات القديمة
@@ -51,17 +51,20 @@ const Storage = {
 
             if (userData && userData.user && userData.user.points > 0) {
                 console.log(`Resetting server points for ${username} (Current: ${userData.user.points})`);
-                // 2. خصم النقاط الحالية لتصبح 0
+
+                // 2. تعيين النقاط إلى 0 مباشرة باستخدام set-points
                 await fetch('/api/users/update', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'update-points',
+                        action: 'set-points',
                         username,
-                        pointsToAdd: -userData.user.points
+                        newPoints: 0
                     })
                 });
                 console.log('Server points reset successfully.');
+                // إظهار تنبيه للمستخدم
+                showToast('تم تصفير النقاط القديمة بنجاح', 'info');
             } else {
                 console.log('User has 0 points or invalid data, no reset needed.');
             }
