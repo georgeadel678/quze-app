@@ -3727,3 +3727,23 @@ document.addEventListener('DOMContentLoaded', function () {
         console.warn('Quiz object not ready for initial question loading');
     }
 });
+
+// ====================================
+// نافذة مناهج وطرق التدريس (لم يتم إضافة الأسئلة بعد)
+// ====================================
+window.openTeachingModal = function () {
+    const modal = document.getElementById('teaching-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        // إضافة كلاس للأنيميشن إذا أردت
+        setTimeout(() => modal.classList.add('visible'), 10);
+    }
+};
+
+window.closeTeachingModal = function () {
+    const modal = document.getElementById('teaching-modal');
+    if (modal) {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+};
