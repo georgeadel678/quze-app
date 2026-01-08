@@ -1026,6 +1026,7 @@ function updateReviewButtonForCurrentChapter() {
     const wrongCount = Quiz.getWrongAnswersCount(Quiz.selectedChapter);
     const btn = document.getElementById('review-mistakes-btn');
     const countText = document.getElementById('review-count-text');
+    const summaryBtn = document.getElementById('chapter-summary-btn');
 
     if (!btn || !countText) return;
 
@@ -1035,6 +1036,18 @@ function updateReviewButtonForCurrentChapter() {
     } else {
         btn.disabled = false;
         countText.textContent = `${wrongCount} سؤال تحتاج مراجعة`;
+    }
+
+    // Show/hide chapter summary button (Design subject only, not for full curriculum)
+    if (summaryBtn) {
+        const currentSubject = Quiz.state.currentSubject;
+        const currentChapter = Quiz.selectedChapter;
+
+        if (currentSubject === 'design' && currentChapter !== 'full' && currentChapter) {
+            summaryBtn.style.display = 'block';
+        } else {
+            summaryBtn.style.display = 'none';
+        }
     }
 }
 
@@ -1099,6 +1112,30 @@ function startReviewModeFromResults() {
 window.updateReviewButtonForCurrentChapter = updateReviewButtonForCurrentChapter;
 window.updateReviewButtonForResultsPage = updateReviewButtonForResultsPage;
 window.startReviewModeFromQuestionCount = startReviewModeFromQuestionCount;
+
+// ====================================
+// Chapter Summary
+// ====================================
+function openChapterSummary() {
+    const currentChapter = Quiz.selectedChapter;
+    const currentSubject = Quiz.state.currentSubject;
+
+    // Only works for design subject and specific chapters
+    if (currentSubject !== 'design' || currentChapter === 'full' || !currentChapter) {
+        alert('ملخص الفصل متاح فقط لفصول معينة في مادة الرسومات التعليمية');
+        return;
+    }
+
+    // Open the corresponding summary HTML file in a new window
+    const summaryPath = `ملخصات ماده الروسومات التعليميه/chapter${currentChapter}.html`;
+    const summaryWindow = window.open(summaryPath, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+
+    if (!summaryWindow) {
+        alert('تعذر فتح نافذة الملخص. يرجى التأكد من السماح بالنوافذ المنبثقة.');
+    }
+}
+
+window.openChapterSummary = openChapterSummary;
 window.startReviewModeFromResults = startReviewModeFromResults;
 window.selectSubject = (subject) => {
     if (window.Quiz) {

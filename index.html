@@ -205,13 +205,24 @@
             </div>
 
             <!-- Review Mistakes Button -->
-            <div style="margin-top: 2rem; text-align: center;">
+            <div
+                style="margin-top: 2rem; text-align: center; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <button id="review-mistakes-btn" class="review-mistakes-btn"
                     onclick="startReviewModeFromQuestionCount()" disabled>
                     <span class="review-icon">📝</span>
                     <div class="review-text">
                         <div class="review-title">مراجعة الأخطاء</div>
                         <div class="review-count" id="review-count-text">لا توجد أخطاء</div>
+                    </div>
+                </button>
+
+                <!-- Chapter Summary Button (Design Subject Only) -->
+                <button id="chapter-summary-btn" class="review-mistakes-btn" onclick="openChapterSummary()"
+                    style="display: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <span class="review-icon">📚</span>
+                    <div class="review-text">
+                        <div class="review-title">ملخص الفصل</div>
+                        <div class="review-count">اضغط لعرض الملخص</div>
                     </div>
                 </button>
             </div>
@@ -428,6 +439,7 @@
     <script src="assets/data/questions/design/essay/chapter3.js?v=2"></script>
     <script src="assets/data/questions/design/essay/chapter4.js"></script>
     <script src="assets/data/questions/design/essay/chapter5.js"></script>
+    <script src="assets/data/questions/design/essay/chapter6.js"></script>
 
     <!-- Teaching Subject Data -->
     <script src="assets/data/questions/teaching/chapter1.js?v=2"></script>

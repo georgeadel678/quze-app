@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصل الرابع: أساليب إنتاج الرسومات التعليمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #512E5F;    /* بنفسجي غامق وقور */
+            --secondary: #AF7AC5;  /* بنفسجي فاتح للعناوين */
+            --bg-light: #fdfefe;
+            --bg-gray: #f4f6f7;
+            --text-dark: #212F3D;
+            --accent: #E67E22;     /* برتقالي للتمييز */
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 280px;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        }
+
+        aside h2 {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 15px;
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: white;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--secondary);
+            color: white;
+            font-weight: bold;
+            padding-right: 20px;
+        }
+
+        /* Main Content */
+        main {
+            margin-right: 280px;
+            width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            border-right: 5px solid var(--accent);
+            padding-right: 15px;
+        }
+
+        h3 {
+            color: #5D6D7E;
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-right: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Specific Elements */
+        .style-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .style-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .style-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-box {
+            background: #e8f8f5;
+            border: 1px solid #d1f2eb;
+            color: #0e6251;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fdedec;
+            border: 1px solid #fadbd8;
+            color: #922b21;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-right: 40px;
+            margin-bottom: 15px;
+        }
+
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 10px; }
+            main { width: 100%; margin: 0; padding: 20px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>الفصل الرابع<br><span style="font-size:0.7em; opacity:0.8">أساليب الإنتاج والتكبير</span></h2>
+        <button class="nav-item active" onclick="switchTab('styles')">1. أساليب الإنتاج الفنية</button>
+        <button class="nav-item" onclick="switchTab('techniques')">2. التقنيات اليدوية (الجواش)</button>
+        <button class="nav-item" onclick="switchTab('sizing')">3. طرق تحديد المساحة</button>
+        <button class="nav-item" onclick="switchTab('enlarging')">4. طرق تكبير الرسومات</button>
+        <button class="nav-item" onclick="switchTab('errors')">5. الأخطاء الشائعة</button>
+    </aside>
+
+    <main>
+        <div id="styles" class="content-section active">
+            <h1>أساليب إنتاج الرسومات التعليمية</h1>
+            <p>تتنوع الأساليب الفنية التي يتبعها المصمم عند إنتاج الرسم، ولكل أسلوب تأثيره الخاص على المتعلم:</p>
+
+            <div class="style-card">
+                <h3>1. الأسلوب الواقعي (Realistic Style)</h3>
+                <p>وهو الأسلوب الغالب في الكتب الدراسية. يحاول المصمم نقل صورة "طبق الأصل" للواقع بدقة متناهية، مع الاهتمام بالظل والنور والنسب والأبعاد.</p>
+                <p><strong>الميزة:</strong> يساعد المتعلم على فهم الواقع كما هو.</p>
+            </div>
+
+            <div class="style-card">
+                <h3>2. الأسلوب غير المألوف (Unfamiliar Style)</h3>
+                <p>يصور المشهد بصورة جديدة كلياً وغير مألوفة (ألوان غريبة، أشكال خيالية). يكثر استخدامه في <strong>قصص الأطفال</strong> لإثارة الخيال.</p>
+                <div class="warning-box"><strong>عيبه:</strong> قد يفتقر للدقة العلمية ويولد مفاهيم خاطئة عن الواقع (مثل رسم فيل يطير).</div>
+            </div>
+
+            <div class="style-card">
+                <h3>3. الأسلوب التعبيري (Expressionist Style)</h3>
+                <p>يميل للمبالغة في إظهار الانفعالات والأحاسيس (مثل المبالغة في رسم ملامح الحزن، الفرح، الشفقة) للتأثير في مشاعر المتعلم.</p>
+            </div>
+
+            <div class="style-card">
+                <h3>4. الأسلوب الزخرفي (Decorative Style)</h3>
+                <p>يعتمد على تبسيط العناصر وترتيبها في نظام إيقاعي (تكرار منتظم) وتنوع المساحات والألوان بشكل جذاب للعين.</p>
+            </div>
+
+            <div class="style-card">
+                <h3>5. الأسلوب التجريدي (Abstract Style)</h3>
+                <p>يقوم باختزال العناصر وتلخيصها إلى أقصى حد (مجرد خطوط ورموز). يعتمد على خبرة المتعلم السابقة لفك الرموز.</p>
+                <div class="warning-box"><strong>نقد:</strong> قد يكون صعب الفهم للمتعلمين الصغار أو من ليس لديهم خبرة سابقة.</div>
+            </div>
+        </div>
+
+        <div id="techniques" class="content-section">
+            <h1>التقنيات اليدوية (خامات وأدوات)</h1>
+            <p>من أشهر الخامات المستخدمة "ألوان الجواش"، وهناك طرق مميزة لاستخدامها للحصول على ملامس (Textures) متنوعة:</p>
+
+            <div class="method-grid">
+                <div class="style-card" style="border-right: 5px solid var(--accent);">
+                    <h3>1. طريقة الرش (Spatter Method)</h3>
+                    <p>من أشهر الطرق. تتم بغمس "فرشاة أسنان" في اللون، ثم حك شعر الفرشاة لتتناثر الرذاذات على الورقة.</p>
+                    <p><strong>النتيجة:</strong> تعطي ملمساً منقطاً جميلاً.</p>
+                </div>
+
+                <div class="style-card" style="border-right: 5px solid var(--accent);">
+                    <h3>2. طريقة سكين البالتة (Palette Knife)</h3>
+                    <p>استخدام سكين الرسم لوضع طبقات سميكة من اللون (Impasto) مباشرة من الأنبوبة.</p>
+                    <p><strong>النتيجة:</strong> تعطي تأثيراً مجسماً وملمساً خشناً وبارزاً.</p>
+                </div>
+
+                <div class="style-card" style="border-right: 5px solid var(--accent);">
+                    <h3>3. طريقة الفرشاة الجافة (Dry Brush)</h3>
+                    <p>استخدام فرشاة بها قليل جداً من اللون (شبه جافة) وتمريرها بسرعة.</p>
+                    <p><strong>النتيجة:</strong> تعطي تأثيرات خطية خشنة وتدرجات ناعمة عند دمج الألوان.</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>4. الإيربراش (Air Brush)</h3>
+                <p>هو "قلم رش" يعمل بضغط الهواء. يعطي تلوين ناعم جداً وتدرجات لونية واقعية للغاية (يستخدم في رسم الظلال الناعمة).</p>
+            </div>
+        </div>
+
+        <div id="sizing" class="content-section">
+            <h1>طرق تحديد مساحة الرسم (قبل التكبير)</h1>
+            <p>قبل تكبير أي رسم، كيف نعرف أبعاده الجديدة (الطول والعرض) بدقة؟ هناك 3 طرق:</p>
+
+            <h3>1. الطريقة الحسابية (Mathematical)</h3>
+            <p>استخدام معادلة التناسب:</p>
+            <div style="background: #f4f6f7; padding: 15px; text-align: center; font-family: monospace; border: 1px dashed #333;">
+                (العرض الأصلي / العرض الجديد) = (الطول الأصلي / الطول الجديد)
+            </div>
+
+            <h3>2. الأجهزة الهندسية</h3>
+            <ul>
+                <li><strong>المسطرة الحاسبة (Slide Ruler):</strong> جهاز بسيط يوضح نسب التكبير.</li>
+                <li><strong>العجلة الحاسبة (Circular Scaler):</strong> عجلتان متداخلتان، عند تدويرهما تظهر الأبعاد الجديدة ونسبة التكبير المئوية.</li>
+            </ul>
+
+            <h3>3. الطريقة الهندسية (Diagonal Method) [الأشهر]</h3>
+            <p>تعتمد على رسم "قطر" المستطيل:</p>
+            <ol class="step-list">
+                <li>نرسم مستطيلاً حول الرسم الأصلي.</li>
+                <li>نرسم قطراً (وتراً) يمر بركني المستطيل ويمتد للخارج.</li>
+                <li>نحدد العرض الجديد المطلوب على الامتداد الأفقي.</li>
+                <li>نقيم عموداً من نقطة العرض الجديد حتى يتقاطع مع "خط القطر".</li>
+                <li>نقطة التقاطع تحدد الطول الجديد تلقائياً.</li>
+            </ol>
+        </div>
+
+        <div id="enlarging" class="content-section">
+            <h1>طرق تكبير الرسومات التعليمية</h1>
+            <p>كيف ننقل رسماً صغيراً من كتاب إلى لوحة كبيرة للفصل؟</p>
+
+            <div class="method-grid">
+                <div class="style-card">
+                    <h3>1. التكبير بالعين المجردة</h3>
+                    <p>يعتمد على مهارة الرسام في النقل المباشر. <strong>عيبها:</strong> غير دقيقة وتتطلب موهبة عالية.</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>2. طريقة المربعات (Grid Method)</h3>
+                    <p><strong>الأكثر شيوعاً يدوياً.</strong> نقسم الرسم الأصلي لمربعات صغيرة (مثلاً 1 سم)، ونقسم اللوحة الكبيرة لمربعات أكبر (مثلاً 5 سم)، ثم ننقل محتوى كل مربع.</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>3. أجهزة العروض الضوئية</h3>
+                    <p>استخدام جهاز <strong>الفانوس السحري (Opaque Projector)</strong> لعرض صورة الكتاب مباشرة على الحائط أو اللوحة، ثم "شف" الخطوط الخارجية بالقلم الرصاص.</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>4. البانتوجراف (Pantograph)</h3>
+                    <p>أداة هندسية خشبية أو معدنية مكونة من 4 أضلاع مفصلية. عند تحريك "سن" على الرسم الأصلي، يتحرك "قلم" آخر ليرسم الشكل مكبراً في نفس الوقت.</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>5. ماكينات التصوير</h3>
+                    <p>أسرع طريقة حديثة، تتيح التكبير بنسب مئوية دقيقة (Zoom).</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>6. التكبير الفوتوغرافي</h3>
+                    <p>استخدام جهاز "المكبر" (Enlarger) في الغرفة المظلمة لتكبير "النيجاتيف" (الصورة السلبية).</p>
+                </div>
+
+                <div class="style-card">
+                    <h3>7. الكمبيوتر (Computer)</h3>
+                    <p>استخدام الماسح الضوئي (Scanner) لإدخال الرسم، ثم تكبيره بالبرامج وطباعته (Plotter). هي <strong>الأدق والأسرع</strong> حالياً.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="errors" class="content-section">
+            <h1>الأخطاء الشائعة في الإنتاج</h1>
+            <p>الخطأ الشائع هو الخطأ الذي يظهر بنسبة 25% فأكثر لدى المتعلمين.</p>
+            
+            <div class="warning-box">
+                <h3>لماذا تعد أخطاء الرسومات التعليمية "خفية"؟</h3>
+                <p>في اللغة، يمكننا اكتشاف الخطأ الإملائي بسهولة. أما في الرسم التعليمي، يصعب على غير المتخصص اكتشاف الخطأ (مثل خطأ في نسب الرسم، أو ازدحام التفاصيل، أو استخدام لون خاطئ علمياً). هذه الأخطاء قد تؤدي إلى <strong>فهم خاطئ للمعلومة</strong> يرسخ في ذهن الطالب.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            // Show target
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // Scroll top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

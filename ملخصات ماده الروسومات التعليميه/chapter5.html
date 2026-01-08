@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصل الخامس: إنتاج الرسومات بالكمبيوتر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b3d91;    /* أزرق داكن تقني */
+            --secondary: #00b4d8;  /* تركواز فاتح */
+            --dark-bg: #1e272e;
+            --light-bg: #f0f4f8;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+            --accent: #ff006e;     /* لون مميز للنقاط المهمة */
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 280px;
+            background: #10151a; /* خلفية داكنة جداً للقائمة */
+            color: var(--white);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            border-left: 1px solid #333;
+        }
+
+        aside h2 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: #bdc3c7;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary);
+            color: var(--white);
+            border-right: 4px solid var(--secondary);
+            padding-right: 20px;
+        }
+
+        /* Main Content */
+        main {
+            margin-right: 280px;
+            width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            background: var(--white);
+            padding: 45px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 5px;
+            background: var(--secondary);
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin: 35px 0 15px 0;
+            border-right: 5px solid var(--secondary);
+            padding-right: 15px;
+            background: #f8f9fa;
+            padding: 10px 15px 10px 0;
+            border-radius: 4px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* Tech-styled Tables */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .tech-table thead tr {
+            background-color: var(--primary);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .tech-table th, .tech-table td {
+            padding: 15px;
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+        }
+
+        .tech-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .tech-table tbody tr:hover {
+            background-color: #e8f4fc;
+        }
+
+        /* Cards for Concepts */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .tech-card {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 25px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .tech-card h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background: var(--secondary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid var(--primary); /* Left border for LTR look, actually Right in RTL */
+            border-right: 5px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            background: #2d3436;
+            color: #a29bfe;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 10px; }
+            main { width: 100%; margin: 0; padding: 20px; }
+            .nav-item { display: inline-block; width: auto; margin: 5px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>الفصل الخامس<br><span style="font-size:0.7em; opacity:0.8">الإنتاج بالكمبيوتر (Graphics)</span></h2>
+        <button class="nav-item active" onclick="switchTab('intro')">1. المقدمة والمقارنة</button>
+        <button class="nav-item" onclick="switchTab('colors')">2. أنظمة الألوان (Color Modes)</button>
+        <button class="nav-item" onclick="switchTab('types')">3. أنواع الرسوم (Vector/Bitmap)</button>
+        <button class="nav-item" onclick="switchTab('3d')">4. التصميم ثلاثي الأبعاد (3D)</button>
+        <button class="nav-item" onclick="switchTab('software')">5. أشهر البرامج (Ps & Ai)</button>
+    </aside>
+
+    <main>
+        <div id="intro" class="content-section active">
+            [cite_start]<h1>مقدمة: الإنتاج باستخدام الكمبيوتر [cite: 400]</h1>
+            <p>أحدث الكمبيوتر ثورة في مجال إنتاج الرسومات التعليمية، ليس فقط كأداة للرسم، بل كوسيلة لزيادة كفاءة المصمم وإنتاج تصميمات معقدة بسرعة ودقة.</p>
+            
+            <div class="info-box">
+                <h3>مفهوم الرسومات التعليمية الكمبيوترية:</h3>
+                <p>هي جميع العناصر الرسومية والنصية التي تتكون من نقاط وخطوط وأشكال، يتم إنتاجها ومعالجتها بواسطة برامج متخصصة لتوضيح مفهوم تعليمي معين.</p>
+            </div>
+
+            [cite_start]<h3>مقارنة هامة: الإنتاج اليدوي vs الإنتاج بالكمبيوتر [cite: 410, 411]</h3>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>وجه المقارنة</th>
+                        <th>الطريقة اليدوية (Manual)</th>
+                        <th>الطريقة الكمبيوترية (Digital)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>الزمن</strong></td>
+                        <td>تتطلب زمناً طويلاً جداً في الإنتاج.</td>
+                        <td>فترة زمنية قصيرة (سرعة في الإنجاز).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>التكلفة</strong></td>
+                        <td>عالية (بسبب استهلاك خامات وأدوات مستمر).</td>
+                        <td>أقل (توفر الأدوات افتراضياً داخل البرنامج).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>التعديل</strong></td>
+                        <td>صعب جداً (غالباً يتطلب إعادة الرسم).</td>
+                        <td>مرونة عالية (بسبب نظام الطبقات Layers).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الألوان</strong></td>
+                        <td>محدودة بالألوان المتوفرة.</td>
+                        <td>ملايين الدرجات اللونية.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>النسخ</strong></td>
+                        <td>يوجد أصل واحد فقط.</td>
+                        <td>إمكانية طباعة عدد لا نهائي من النسخ الأصلية.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="colors" class="content-section">
+            <h1>أنظمة الألوان (Color Modes)</h1>
+            <p>من أهم المفاهيم التقنية التي يجب على المصمم معرفتها هي الفرق بين نظام ألوان الشاشة ونظام ألوان الطباعة.</p>
+
+            <div class="grid-container">
+                <div class="tech-card" style="border-top: 5px solid #ff0000;">
+                    <h4>1. [cite_start]نظام RGB (الضوئي) [cite: 416]</h4>
+                    <p><span class="badge">Red, Green, Blue</span></p>
+                    <ul>
+                        <li><strong>النوع:</strong> ألوان ضوئية (Additive).</li>
+                        <li><strong>المكان:</strong> يستخدم في <strong>الشاشات</strong> (كمبيوتر، تلفزيون، موبايل).</li>
+                        <li><strong>المبدأ:</strong> الشاشة سوداء، وإضافة الألوان تخلق الضوء (الأحمر + الأخضر + الأزرق = أبيض).</li>
+                        <li><strong>عدد الألوان:</strong> يصل إلى 16.7 مليون لون.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card" style="border-top: 5px solid #00ffff;">
+                    <h4>2. [cite_start]نظام CMYK (الطباعي) [cite: 422, 423]</h4>
+                    <p><span class="badge">Cyan, Magenta, Yellow, Black</span></p>
+                    <ul>
+                        <li><strong>النوع:</strong> ألوان أحبار/صبغات (Subtractive).</li>
+                        <li><strong>المكان:</strong> يستخدم في <strong>الطباعة</strong> والكتب والمجلات.</li>
+                        <li><strong>المبدأ:</strong> الورقة بيضاء، وإضافة الأحبار تحجب الضوء (خلطهم نظرياً يعطي أسود).</li>
+                        <li><strong>الرمز K:</strong> يرمز للأسود (Key Plate) لأن خلط C+M+Y يعطي بنياً داكناً وليس أسود صريحاً، لذا يضاف الأسود.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box" style="background-color: #fff3cd; border-color: #ffc107;">
+                <strong>قاعدة ذهبية:</strong> إذا كنت تصمم لتعرض على الشاشة (ويب، عرض تقديمي) استخدم <span class="code-snippet">RGB</span>. وإذا كنت تصمم لطباعة بوستر أو كتاب استخدم <span class="code-snippet">CMYK</span>.
+            </div>
+        </div>
+
+        <div id="types" class="content-section">
+            <h1>أنواع الرسوم: نقطية (Bitmap) vs متجهة (Vector)</h1>
+            <p>يصنف الكمبيوتر الرسومات إلى نوعين رئيسيين، الفرق بينهما جوهري في الجودة والحجم.</p>
+
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        [cite_start]<th style="width: 50%;">الرسوم النقطية (Bitmap / Raster) [cite: 445]</th>
+                        [cite_start]<th style="width: 50%;">الرسوم المتجهة (Vector) [cite: 448]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>التكوين:</strong> تتكون من شبكة من النقاط الملونة تسمى <span class="code-snippet">Pixels</span>.</td>
+                        <td><strong>التكوين:</strong> تتكون من خطوط ومعادلات رياضية (Vectors) تحدد البداية والنهاية والمنحنى.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>التكبير:</strong> <span style="color:red;">تتأثر بالتكبير</span> (تتبكسل) وتفقد جودتها وتصبح مشوشة.</td>
+                        <td><strong>التكبير:</strong> <span style="color:green;">لا تتأثر بالتكبير</span> أبداً. تظل حادة وناعمة مهما كبرت الحجم.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>حجم الملف:</strong> كبير نسبياً (لأن الكمبيوتر يحفظ معلومات كل بكسل).</td>
+                        <td><strong>حجم الملف:</strong> صغير جداً (يحفظ المعادلات فقط).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الاستخدام:</strong> الصور الفوتوغرافية، التأثيرات اللونية المعقدة، الظلال الواقعية.</td>
+                        <td><strong>الاستخدام:</strong> الشعارات (Logos)، الرسوم الخطية، الخرائط، الرسوم الهندسية.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>أشهر البرامج:</strong> Adobe Photoshop.</td>
+                        <td><strong>أشهر البرامج:</strong> Adobe Illustrator, Corel Draw.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="3d" class="content-section">
+            [cite_start]<h1>التصميم ثلاثي الأبعاد (3D Graphics) [cite: 449]</h1>
+            <p>هو التطور الطبيعي من الرسم ثنائي الأبعاد (2D). يتيح للمصمم بناء مجسمات تحاكي الواقع.</p>
+
+            <h3>لماذا نتجه للتصميم ثلاثي الأبعاد؟ (المميزات) [cite_start][cite: 451, 452]</h3>
+            <div class="grid-container">
+                <div class="tech-card">
+                    <h4>1. رؤية تصميمية أفضل</h4>
+                    <p>يتيح رؤية المجسم من جميع الزوايا، وكشف الأخطاء قبل التنفيذ الفعلي.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>2. المحاكاة (Simulation)</h4>
+                    <p>محاكاة الواقع ودراسة الظواهر (مثل حركة الكواكب، أو عمل محرك السيارة) دون مخاطر.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>3. سهولة التعديل</h4>
+                    <p>يمكن تغيير الأبعاد أو الخامات (خشب، زجاج) بضغطة زر دون إعادة الرسم.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>4. إنتاج المساقط تلقائياً</h4>
+                    <p>بمجرد بناء المجسم 3D، يمكن للكمبيوتر استخراج المساقط (الأمامي، الجانبي، الأفقي) أوتوماتيكياً.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="software" class="content-section">
+            <h1>أشهر برامج إنتاج الرسومات</h1>
+            <p>يستعرض الفصل برنامجين عملاقين من شركة Adobe هما العصب الرئيسي لأي مصمم:</p>
+
+            <div class="tech-card" style="border-right: 6px solid #3300ff; margin-bottom: 20px;">
+                <div style="display:flex; justify-content:space-between;">
+                    [cite_start]<h3>Adobe Photoshop [cite: 463]</h3>
+                    <span class="badge" style="background:#3300ff;">Pixel Based</span>
+                </div>
+                <p><strong>التخصص:</strong> معالجة الصور الفوتوغرافية، والرسوم النقطية.</p>
+                <ul>
+                    [cite_start]<li>يستخدم نظام <strong>الطبقات (Layers)</strong> لتنظيم العمل[cite: 469].</li>
+                    <li>يحتوي على <strong>فلاتر (Filters)</strong> ومؤثرات بصرية قوية.</li>
+                    <li>يستخدم في تعديل الصور، الدمج، وتصحيح الألوان.</li>
+                    <li>أدوات التحديد (Selection Tools) فيه قوية جداً لعزل أجزاء من الصورة.</li>
+                </ul>
+            </div>
+
+            <div class="tech-card" style="border-right: 6px solid #ff9900;">
+                <div style="display:flex; justify-content:space-between;">
+                    [cite_start]<h3>Adobe Illustrator [cite: 457]</h3>
+                    <span class="badge" style="background:#ff9900;">Vector Based</span>
+                </div>
+                <p><strong>التخصص:</strong> الرسم الخطي، الشعارات، والرسوم التوضيحية.</p>
+                <ul>
+                    <li>يعتمد على <strong>المتجهات (Vectors)</strong>.</li>
+                    <li>يتميز بالدقة المتناهية عند التكبير والطباعة.</li>
+                    <li>يحتوي على أدوات قوية لرسم المنحنيات (Pen Tool).</li>
+                    [cite_start]<li>يتميز بقدرته على إنشاء <strong>رسوم بيانية (Graphs)</strong> دقيقة وقابلة للتعديل[cite: 461].</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // إخفاء كل الأقسام
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار القسم المطلوب
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+
+            // تحديث حالة الأزرار
+            const buttons = document.querySelectorAll('.nav-item');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // العودة لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

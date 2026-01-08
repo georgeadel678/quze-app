@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصل السادس: تصنيف برامج الجرافيك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --primary: #bb86fc;    /* بنفسجي نيون */
+            --secondary: #03dac6;  /* تركواز نيون */
+            --text-main: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --adobe-ai: #ff9a00;   /* لون إليستريتور */
+            --adobe-ps: #31a8ff;   /* لون فوتوشوب */
+            --border: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg-dark);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 280px;
+            background: #000000;
+            border-left: 1px solid var(--border);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        aside h2 {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            text-align: right;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(187, 134, 252, 0.1);
+            color: var(--primary);
+            border-color: var(--primary);
+            padding-right: 20px;
+        }
+
+        .nav-item::before {
+            content: '#';
+            margin-left: 10px;
+            color: var(--secondary);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Main Content */
+        main {
+            margin-right: 280px;
+            width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to left, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin: 40px 0 20px 0;
+            border-right: 4px solid var(--secondary);
+            padding-right: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Cards & Grids */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .tech-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Comparison Table */
+        .compare-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .compare-table th {
+            background: #2c2c2c;
+            color: var(--primary);
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .compare-table td {
+            padding: 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid #2a2a2a;
+            color: var(--text-muted);
+            vertical-align: top;
+        }
+
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .compare-table td:first-child {
+            border-left: 1px solid #2a2a2a;
+            font-weight: bold;
+            color: var(--text-main);
+            width: 20%;
+        }
+
+        /* Code Snippet Style */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #333;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            margin-left: 5px;
+        }
+
+        /* Software Badge */
+        .sw-badge {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            font-family: 'Roboto Mono', monospace;
+            margin-left: 10px;
+            color: #121212;
+        }
+
+        .ai-badge { background: var(--adobe-ai); }
+        .ps-badge { background: var(--adobe-ps); }
+
+        /* Feature List */
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-right: 20px;
+            position: relative;
+            list-style: none;
+        }
+
+        .feature-list li::before {
+            content: '>';
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; border-left: none; border-bottom: 1px solid var(--border); }
+            main { width: 100%; margin: 0; padding: 20px; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>الفصل السادس<br><span style="font-size:0.7em; opacity:0.7">Software Classification</span></h2>
+        <div class="nav-item active" onclick="switchTab('intro')">1. تصنيف برامج الجرافيك</div>
+        <div class="nav-item" onclick="switchTab('bitmaps')">2. البرامج النقطية (Bitmaps)</div>
+        <div class="nav-item" onclick="switchTab('vectors')">3. البرامج المتجهة (Vectors)</div>
+        <div class="nav-item" onclick="switchTab('3d')">4. البرامج ثلاثية الأبعاد (3D)</div>
+        <div class="nav-item" onclick="switchTab('illustrator')">5. عملاق الفيكتور (Illustrator)</div>
+        <div class="nav-item" onclick="switchTab('photoshop')">6. عملاق البيكسل (Photoshop)</div>
+    </aside>
+
+    <main>
+        <div id="intro" class="content-section active">
+            <h1>مقدمة وتصنيف البرامج</h1>
+            <p>مع التطور التكنولوجي الهائل، أصبح من الممكن إنتاج تصميمات جرافيكية معقدة بدقة وسهولة. يصنف الكتاب برامج إنتاج الرسومات التعليمية بناءً على طريقة معالجتها للبيانات إلى نوعين رئيسيين:</p>
+            
+            <div class="tech-grid">
+                <div class="tech-card" style="border-top: 4px solid var(--adobe-ps);">
+                    <h4>1. برامج ثنائية الأبعاد (2D)</h4>
+                    <p>وتنقسم بدورها إلى نوعين مختلفين تماماً في التكوين:</p>
+                    <ul class="feature-list">
+                        <li>البرامج النقطية <span class="tag">Bitmaps</span></li>
+                        <li>البرامج المتجهة <span class="tag">Vectors</span></li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card" style="border-top: 4px solid var(--adobe-ai);">
+                    <h4>2. برامج ثلاثية الأبعاد (3D)</h4>
+                    <p>وهي الجيل الأحدث الذي يتيح النمذجة والمحاكاة الواقعية.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; background: #2a2a2a; padding: 20px; border-radius: 8px;">
+                <h4 style="color: var(--secondary); margin-bottom: 10px;">مصطلح تقني هام: المهشمات (Fractals)</h4>
+                <p style="margin: 0; font-size: 0.95rem;">ذكر الكتاب هذا المصطلح للإشارة إلى أشكال جيومترية وهمية ناتجة عن معادلات رياضية معقدة، تستخدم لمحاكاة الظواهر الطبيعية (مثل شكل السواحل، السحب، الجبال) وتكشف عن انتظام خفي ومدهش في الطبيعة.</p>
+            </div>
+        </div>
+
+        <div id="bitmaps" class="content-section">
+            <h1>البرامج النقطية (Bitmaps / Raster)</h1>
+            <p>تسمى أيضاً البرامج "الراسترية". هي البرامج المتخصصة في التعامل مع الصور الفوتوغرافية.</p>
+
+            <div class="tech-card">
+                <h4>كيف تعمل؟ (مبدأ الخريطة)</h4>
+                <p>تتعامل مع الصورة كخريطة من النقاط <span class="tag">Map of Bits</span>. كل نقطة تسمى <span class="tag">Pixel</span>. البرنامج يتعامل مع كل بيكسل بشكل مستقل من خلال معلومتين أساسيتين:</p>
+                <ol class="feature-list" style="margin-right: 20px;">
+                    <li><strong>الموقع (Where?):</strong> أين تقع النقطة؟ (الإحداثيات س، ص بالنسبة لنقطة مرجعية Reference Point عادة تكون أعلى يسار الصفحة).</li>
+                    <li><strong>اللون (What Color?):</strong> ما هي القيمة اللونية للنقطة؟ (RGB أو CMYK).</li>
+                </ol>
+            </div>
+
+            <h3 style="margin-top: 30px;">أمثلة على البرامج النقطية:</h3>
+            <div class="tech-grid">
+                <div class="tech-card">Adobe Photoshop</div>
+                <div class="tech-card">Corel Photo Paint</div>
+                <div class="tech-card">Paint Shop Pro</div>
+            </div>
+        </div>
+
+        <div id="vectors" class="content-section">
+            <h1>البرامج المتجهة (Vectors)</h1>
+            <p>تختلف جذرياً عن البرامج النقطية. هي برامج تعتمد على "الرياضيات" في الرسم.</p>
+
+            <div class="tech-card" style="border-color: var(--primary);">
+                <h4>كيف تعمل؟ (مبدأ المتجهات)</h4>
+                <p>لا تعرف شيئاً اسمه "بيكسل". هي تتعامل مع العناصر كمعادلات رياضية، تحددها معلومتان:</p>
+                <ul class="feature-list">
+                    <li><strong>حدود الشكل:</strong> نقطة البداية ونقطة النهاية (للمتجه).</li>
+                    <li><strong>المحتوى:</strong> نوع التعبئة (Fill) سواء كان لوناً مصمتاً أو تدرجاً.</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--secondary);">✨ <strong>الميزة القاتلة:</strong> عند تكبير الرسم، يقوم البرنامج "بإعادة حساب المعادلة" فوراً، فتظهر الخطوط ناعمة وحادة جداً مهما كان حجم التكبير.</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">أمثلة على البرامج المتجهة:</h3>
+            <div class="tech-grid">
+                <div class="tech-card">Adobe Illustrator</div>
+                <div class="tech-card">Macromedia Flash (سابقاً)</div>
+                <div class="tech-card">Corel Draw</div>
+                <div class="tech-card">Macromedia Freehand</div>
+            </div>
+        </div>
+
+        <div id="3d" class="content-section">
+            <h1>برامج التصميم ثلاثي الأبعاد (3D)</h1>
+            <p>شهد العقد الأخير تحول أكثر من 100 ألف مصمم من الرسم ثنائي الأبعاد إلى ثلاثي الأبعاد. لماذا؟</p>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>1. رؤية تصميمية أفضل</h4>
+                    <p>تتيح لك الدوران حول المجسم ورؤيته من كل الزوايا، وكشف العيوب، وإجراء تحليلات هندسية (مثل تحليل الإجهادات).</p>
+                </div>
+                <div class="tech-card">
+                    <h4>2. الإنتاج الأوتوماتيكي للمساقط</h4>
+                    <p>بدلاً من رسم المسقط الأمامي والجانبي والأفقي يدوياً (مما يستغرق وقتاً طويلاً)، يمكنك بناء المجسم 3D مرة واحدة، والبرنامج يستخرج منه جميع المساقط (2D Views) بضغطة زر وبدقة 100%.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>3. سهولة التعديل (Parametric)</h4>
+                    <p>التعديل في الـ 3D ليس "إعادة رسم". بل هو مجرد تغيير في الأرقام (تغيير قطر دائرة، طول ضلع)، وسيقوم البرنامج بتحديث كل المساقط المرتبطة فوراً.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>4. تقليل دورة الإنتاج</h4>
+                    <p>يساعد على سرعة الوصول للمنتج النهائي وتسويقه (حيث يمكن عرض صورة واقعية للمنتج قبل تصنيعه فعلياً).</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="illustrator" class="content-section">
+            <h1><span class="sw-badge ai-badge">Ai</span> Adobe Illustrator</h1>
+            <p>العملاق الأول في مجال الرسوم التعليمية المتجهة (Vector).</p>
+
+            <div class="tech-card" style="border-top: 4px solid var(--adobe-ai);">
+                <h3>أبرز المميزات (كما ورد في الفصل):</h3>
+                <ul class="feature-list">
+                    <li><strong>الرسم البياني (Graph Tools):</strong> الميزة الأهم لمصممي الرسوم التعليمية. يوفر البرنامج 9 أنواع جاهزة من الرسوم البيانية، يمكن إنشاؤها وتعديل بياناتها بسهولة، وحتى تغيير نوعها بعد الإنشاء.</li>
+                    <li><strong>نظام الطبقات (Layers):</strong> لتنظيم العمل في شفافيات فوق بعضها.</li>
+                    <li><strong>المؤثرات (Filters):</strong> مجموعة ضخمة من الفلاتر لتشويه أو تعديل الأشكال.</li>
+                    <li><strong>التكامل:</strong> يعمل بسلاسة مع برامج أدوبي الأخرى (مثل استيراد البيانات من Excel).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="photoshop" class="content-section">
+            <h1><span class="sw-badge ps-badge">Ps</span> Adobe Photoshop</h1>
+            <p>ملك برامج الجرافيك النقطي (Pixel Based)، ولا غنى عنه لأي مصمم.</p>
+
+            <table class="compare-table">
+                <tr>
+                    <td>التخصص</td>
+                    <td>معالجة الصور، الدمج، التلوين الرقمي، إنشاء الخلفيات.</td>
+                </tr>
+                <tr>
+                    <td>أدوات النصوص<br>(Text Tools)</td>
+                    <td>يدعم اللغة العربية بقوة. يتيح الكتابة داخل "إطارات"، ويوفر أدوات <strong>"تحوير النص" (Warp Text)</strong> لجعله مقوساً أو متموجاً.</td>
+                </tr>
+                <tr>
+                    <td>الأشكال الهندسية</td>
+                    <td>رغم أنه نقطي، أضافت الإصدارات الحديثة أدوات رسم أشكال (مستطيل، دائرة...) تحتفظ بخصائصها المتجهة (Shapes) لزيادة الدقة.</td>
+                </tr>
+                <tr>
+                    <td>الأنماط (Styles)</td>
+                    <td>قوالب جاهزة للتأثيرات (ظل، توهج، بروز) يمكن تطبيقها على أي طبقة بضغطة زر.</td>
+                </tr>
+                <tr>
+                    <td>أداة الإسالة<br>(Liquefy)</td>
+                    <td>أداة سحرية ذكرها الكتاب لأهميتها في <strong>رسم الكاريكاتير</strong>. تتيح تشويه الصورة (تكبير الأنف، تصغير العين) بمرونة عالية كأنك تتعامل مع سائل.</td>
+                </tr>
+            </table>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show target section
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+
+            // Update Nav Buttons
+            const buttons = document.querySelectorAll('.nav-item');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصل الثاني: معايير تصميم واختيار الرسومات التعليمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;    /* كحلي غامق */
+            --secondary: #e67e22;  /* برتقالي هادئ */
+            --bg-light: #fdfefe;
+            --bg-gray: #f4f6f6;
+            --text-dark: #2c3e50;
+            --accent: #27ae60;     /* أخضر للنجاح/الإيجابية */
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* القائمة الجانبية */
+        aside {
+            width: 260px;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        }
+
+        aside h2 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: white;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--secondary);
+            color: white;
+            font-weight: bold;
+            transform: translateX(-5px);
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            margin-right: 260px;
+            width: calc(100% - 260px);
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 30px;
+            background: var(--secondary);
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        ul {
+            margin-right: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* صناديق المعلومات */
+        .info-box {
+            background: #eaf2f8;
+            border-right: 5px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        /* الشبكة للخصائص */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--secondary);
+        }
+
+        .card-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 10px; }
+            main { width: 100%; margin: 0; padding: 20px; }
+            .nav-item { display: inline-block; width: auto; margin: 5px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>الفصل الثاني<br><span style="font-size:0.8em; opacity:0.8">المعايير وعوامل الإنتاج</span></h2>
+        <button class="nav-item active" onclick="switchTab('design-standards')">1. معايير التصميم الجيد</button>
+        <button class="nav-item" onclick="switchTab('elements')">2. عناصر التصميم (Elements)</button>
+        <button class="nav-item" onclick="switchTab('principles')">3. أسس التصميم (Principles)</button>
+        <button class="nav-item" onclick="switchTab('selection')">4. معايير اختيار الرسومات</button>
+        <button class="nav-item" onclick="switchTab('production')">5. العوامل المؤثرة في الإنتاج</button>
+    </aside>
+
+    <main>
+        <div id="design-standards" class="content-section active">
+            <h1>معايير التصميم الجيد للرسومات</h1>
+            <p class="info-box">للحكم على جودة الرسم التعليمي، يجب أن يستوفي ثلاثة أنواع من المعايير: معايير علمية، معايير فنية، ومعايير تربوية.</p>
+
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-title">1. الدقة العلمية</div>
+                    <p>يجب أن يكون المحتوى صحيحاً وحديثاً وخالياً من الأخطاء العلمية. (مثلاً: رسم القلب يجب أن يوضح الصمامات في أماكنها الصحيحة تشريحياً).</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">2. البساطة (Simplicity)</div>
+                    <p>الابتعاد عن التعقيد وحذف التفاصيل التي لا تخدم الهدف. "أفضل الرسومات هي أبسطها" التي توصل الفكرة بأقل عدد من الخطوط.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">3. مناسبة الجمهور</div>
+                    <p>مراعاة خصائص المتعلمين (العمر، المستوى الثقافي). رسومات الأطفال تتميز بألوان زاهية وتفاصيل قليلة، عكس رسومات الكبار.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">4. الإخراج الفني الجيد</div>
+                    <p>جودة الخطوط، وضوح الكتابة (Text Legibility)، والتوازن العام للتصميم.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="elements" class="content-section">
+            <h1>عناصر التصميم (Design Elements)</h1>
+            <p>هي "المكونات" أو "اللبنات" التي يستخدمها المصمم لبناء الرسم التعليمي.</p>
+            
+            <div class="grid-container">
+                <div class="card" style="border-top-color: #e74c3c;">
+                    <div class="card-title">1. الخط (Line)</div>
+                    <p>هو العنصر الأساسي. يستخدم لتحديد الأشكال، توجيه حركة العين، وتوضيح العلاقات.</p>
+                </div>
+                <div class="card" style="border-top-color: #9b59b6;">
+                    <div class="card-title">2. الشكل (Shape)</div>
+                    <p>مساحة محددة بخطوط. قد تكون هندسية (مربع، دائرة) أو عضوية (شكل ورقة شجر).</p>
+                </div>
+                <div class="card" style="border-top-color: #3498db;">
+                    <div class="card-title">3. اللون (Color)</div>
+                    <p>في الرسم التعليمي، وظيفته <strong>تمييز العناصر</strong> وجذب الانتباه، وليس مجرد التجميل. (الألوان الحارة تبرز العناصر الهامة، والباردة للخلفيات).</p>
+                </div>
+                <div class="card" style="border-top-color: #f1c40f;">
+                    <div class="card-title">4. الملمس (Texture)</div>
+                    <p>يعطي إيحاءً بسطح المادة (ناعم، خشن) مما يزيد من واقعية الرسم عند الحاجة.</p>
+                </div>
+                <div class="card" style="border-top-color: #34495e;">
+                    <div class="card-title">5. الفراغ (Space)</div>
+                    <p>المسافات البيضاء حول العناصر. الفراغ ضروري لراحة العين ومنع التكدس.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="principles" class="content-section">
+            <h1>أسس التصميم (Design Principles)</h1>
+            <p class="info-box">إذا كانت "العناصر" هي المكونات، فإن "الأسس" هي <span class="highlight">قوانين تنظيم</span> هذه المكونات لإنتاج تصميم ناجح.</p>
+
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-title">1. الاتزان (Balance)</div>
+                    <p>توزيع العناصر (الكتل، الألوان) بشكل متساوٍ بصرياً. قد يكون <strong>متماثلاً</strong> (رسمي وتقليدي) أو <strong>غير متماثل</strong> (أكثر حيوية).</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">2. مركز السيادة (Emphasis)</div>
+                    <p>أو "مركز الاهتمام". يجب أن يكون هناك جزء في الرسم يجذب عين المتعلم أولاً (عادة ما يكون الجزء المراد تعليمه)، ويتم إبرازه بالحجم أو اللون المختلف.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">3. الوحدة (Unity)</div>
+                    <p>أن تبدو جميع أجزاء الرسم مترابطة وتشكل "كلاً واحداً"، وليست أجزاء متناثرة مفككة.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">4. الإيقاع (Rhythm)</div>
+                    <p>تكرار العناصر (خطوط أو أشكال) بنسق معين يوحي بالحركة والاستمرارية.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">5. التباين (Contrast)</div>
+                    <p>استخدام المتضادات (أبيض وأسود، كبير وصغير) لتوضيح الفرق وإبراز العناصر.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="selection" class="content-section">
+            <h1>معايير اختيار الرسومات الجاهزة</h1>
+            <p>عندما يختار المعلم رسماً جاهزاً (من كتاب أو الإنترنت)، يجب أن يطرح الأسئلة التالية:</p>
+            
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li>✅ <strong>هل يحقق الهدف؟</strong> هل الرسم مرتبط مباشرة بموضوع الدرس؟</li>
+                <li>✅ <strong>هل المحتوى دقيق؟</strong> هل المعلومات الواردة في الرسم حديثة وصحيحة؟</li>
+                <li>✅ <strong>هل هو مناسب للمستوى؟</strong> هل اللغة والرموز المستخدمة مفهومة للطلاب في هذا الصف؟</li>
+                <li>✅ <strong>هل هو جيد فنياً؟</strong> هل الخطوط واضحة؟ هل الألوان متناسقة ولا تسبب تشويشاً؟</li>
+                <li>✅ <strong>هل يثير التفكير؟</strong> هل يدفع الطالب للتساؤل والاستنتاج أم يعطيه المعلومات جاهزة فقط؟</li>
+            </ul>
+        </div>
+
+        <div id="production" class="content-section">
+            <h1>العوامل المؤثرة في إنتاج الرسومات</h1>
+            <p>عند اتخاذ قرار بإنتاج رسم تعليمي جديد، تتأثر العملية بعدة عوامل:</p>
+
+            <div class="info-box">
+                <ol style="margin-right: 20px;">
+                    <li><strong>طبيعة الهدف التعليمي:</strong> هل نحتاج لرسم تفصيلي أم مخطط بسيط؟ الهدف هو الذي يحدد نوع الرسم.</li>
+                    <li><strong>خصائص المتعلمين:</strong> الأطفال يحتاجون لرسوم بسيطة وألوان زاهية، الكبار يتقبلون الرسوم البيانية المعقدة.</li>
+                    <li><strong>الإمكانات المادية (الميزانية):</strong> هل تتوفر خامات وأدوات (ألوان، ورق، برامج كمبيوتر)؟</li>
+                    <li><strong>مهارة المعلم (المنتج):</strong> مدى إجادة المعلم لمهارات الرسم أو استخدام برامج التصميم.</li>
+                    <li><strong>الوقت المتاح:</strong> الرسوم المعقدة تتطلب وقتاً طويلاً للإنتاج.</li>
+                </ol>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // إخفاء كل الأقسام
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار القسم المطلوب
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+
+            // تحديث حالة الأزرار
+            const buttons = document.querySelectorAll('.nav-item');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // العودة لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

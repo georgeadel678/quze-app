@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصل الأول: الرسومات التعليمية (الشرح الكامل)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a5276;    /* لون أزرق وقور */
+            --secondary: #d4ac0d;  /* لون ذهبي للعناوين الفرعية */
+            --bg-light: #fdfefe;
+            --bg-gray: #f2f3f4;
+            --text-dark: #2c3e50;
+            --accent: #e74c3c;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* القائمة الجانبية */
+        aside {
+            width: 260px;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        }
+
+        aside h2 {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: white;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--secondary);
+            color: var(--primary);
+            font-weight: bold;
+            transform: translateX(-5px);
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            margin-right: 260px;
+            width: calc(100% - 260px);
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 30px;
+            background: var(--secondary);
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* تصميم الخط الزمني للتاريخ */
+        .timeline {
+            position: relative;
+            margin: 20px 0;
+            padding-right: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .timeline-event {
+            position: relative;
+            margin-bottom: 25px;
+            background: #fcfcfc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            right: -29px;
+            top: 15px;
+            width: 15px;
+            height: 15px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        /* صناديق المعلومات */
+        .info-box {
+            background: #eaf2f8;
+            border-right: 5px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* الشبكة للخصائص */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .card-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* الجدول */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .comparison-table tr td:first-child {
+            font-weight: bold;
+            background: #f4f6f7;
+            width: 15%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 10px; }
+            main { width: 100%; margin: 0; padding: 20px; }
+            .nav-item { display: inline-block; width: auto; margin: 5px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>محتويات الفصل الأول</h2>
+        <button class="nav-item active" onclick="switchTab('history')">1. المقدمة التاريخية</button>
+        <button class="nav-item" onclick="switchTab('definition')">2. مفهوم الرسم التعليمي</button>
+        <button class="nav-item" onclick="switchTab('characteristics')">3. خصائص الرسومات</button>
+        <button class="nav-item" onclick="switchTab('features')">4. المميزات والأهمية</button>
+        <button class="nav-item" onclick="switchTab('comparison')">5. مقارنة الأنواع (هام)</button>
+    </aside>
+
+    <main>
+        <div id="history" class="content-section active">
+            <h1>المقدمة التاريخية والتطور</h1>
+            <p class="info-box">الرسوم التعليمية ليست وليدة العصر الحديث، بل هي لغة قديمة استخدمها الإنسان قبل اختراع الكتابة.</p>
+            
+            <div class="timeline">
+                <div class="timeline-event">
+                    <strong>الإنسان البدائي:</strong>
+                    <p>بدأ باستخدام الرسوم كوسيلة وحيدة للتعبير عن النفس، ولتسجيل الأفكار والمشاعر والأحداث اليومية على جدران الكهوف.</p>
+                </div>
+                
+                <div class="timeline-event">
+                    <strong>الحضارات القديمة (السومرية والمصرية):</strong>
+                    <p>تطورت الرسوم لتصبح لغة مكتوبة (مثل الهيروغليفية). استخدمت لتسجيل الانتصارات والحروب، والقصص الدينية والأسطورية. مثال بارز: <span class="highlight">"كتاب الموتى"</span> عند قدماء المصريين الذي كان مليئاً بالرسوم التوضيحية.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <strong>الإغريق:</strong>
+                    <p>استخدموا الرسوم لتسجيل ملاحمهم وشعرهم، مثل ملاحم <span class="highlight">هوميروس</span>.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <strong>العصر الإسلامي والمخطوطات:</strong>
+                    <p>مع انتقال صناعة الورق من <span class="highlight">الصين</span> إلى العالم الإسلامي، ازدهرت "المنمنات" والرسوم في المخطوطات. أشهر مثال: كتاب <span class="highlight">"كليلة ودمنة"</span> الذي احتوى على رسوم توضيحية للقصص.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <strong>أوروبا والعصور الوسطى:</strong>
+                    <p>انتقلت صناعة الورق والرسوم إلى أوروبا، حيث استخدمت الكنيسة الرسوم والزجاج المعشق لتوضيح القصص الدينية للعامة الذين كانوا لا يجيدون القراءة.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="definition" class="content-section">
+            <h1>تعريف ومفهوم الرسم التعليمي</h1>
+            
+            <div class="info-box">
+                <h3>التعريف الاصطلاحي</h3>
+                <p>هي مواد تعليمية بصرية، تُعرف بأنها: <strong>"تمثيل بصري حر للأشياء أو الأفكار أو المفاهيم"</strong>.</p>
+            </div>
+
+            <h3>شرح التعريف (تحليل المفهوم):</h3>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-title">تمثيل بصري حر</div>
+                    <p>أي أنها تعتمد على يد الرسام ومهارته، وليست نقلاً آلياً كالصور الفوتوغرافية. كلمة "حر" تعني أن للمصمم الحرية في حذف وإضافة عناصر لخدمة الفكرة.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">الاعتماد على الرموز</div>
+                    <p>تستخدم الخطوط، الأشكال، والرموز البصرية بدلاً من الكلمات لنقل المعنى وتلخيصه.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">عدم التقيد بالنسب</div>
+                    <p>لا يشترط في الرسم التعليمي أن يلتزم بالأبعاد والنسب الواقعية الدقيقة (كما في الصور)، بل قد يبالغ في حجم جزء معين لتوضيحه.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="characteristics" class="content-section">
+            <h1>خصائص الرسومات التعليمية</h1>
+            <p>لكي نطلق على الرسم مصطلح "تعليمي"، يجب أن يتسم بأربع خصائص رئيسية:</p>
+
+            <div class="grid-container">
+                <div class="card" style="border-top: 4px solid #e74c3c;">
+                    <div class="card-title">1. هادفة (Purposeful)</div>
+                    <p>الرسم التعليمي ليس للزينة أو الجمال الفني، بل هو وسيلة لتحقيق غاية. يجب أن يحمل رسالة تعليمية محددة ومقصودة.</p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #3498db;">
+                    <div class="card-title">2. تمثيل حر (Free Representation)</div>
+                    <p>تركز على الخطوط الرئيسية للشكل. يقوم الرسام باستبعاد التفاصيل غير الضرورية التي قد تشتت الانتباه. قد يتم استخدام "الكاريكاتير" والمبالغة لتأكيد المعنى.</p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #2ecc71;">
+                    <div class="card-title">3. التجريد (Abstraction)</div>
+                    <p>الرسومات تتفاوت في قربها من الواقع. قد تكون قريبة جداً من الواقع، وقد تكون مجردة (رموز). الرموز عالية التجريد تتطلب من المتعلم أن يمتلك <span class="highlight">"Visual Literacy" (ثقافة بصرية)</span> لفك شفرتها وفهمها.</p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #f1c40f;">
+                    <div class="card-title">4. بصرية (Visual)</div>
+                    <p>تعتمد في المقام الأول على حاسة البصر في استقبال المعلومات، وتخاطب العين كلغة عالمية.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="features" class="content-section">
+            <h1>الأهمية والمميزات التربوية</h1>
+            
+            <div class="info-box">
+                تعتبر الرسومات التعليمية وسيلة اتصال فعالة وسريعة ("رُب صورة تغني عن ألف كلمة").
+            </div>
+
+            <h3>أولاً: المميزات الفنية</h3>
+            <ul style="list-style-type: square; margin-right: 20px;">
+                <li><strong>تبسيط الواقع:</strong> تحويل الأنظمة المعقدة إلى رسوم خطية بسيطة سهلة الفهم.</li>
+                <li><strong>توضيح المجردات:</strong> الأشياء التي لا نراها (مثل الإلكترونات، المفاهيم النظرية) يمكن تحويلها لصور مرئية.</li>
+                <li><strong>جذب الانتباه:</strong> الألوان والخطوط تثير دافعية الطالب أكثر من النصوص المكتوبة.</li>
+                <li><strong>الذاكرة البصرية:</strong> تساعد على بقاء أثر التعلم لفترة أطول (نحن نتذكر ما نراه أفضل مما نسمعه).</li>
+                <li><strong>التحكم في الحجم والزمان:</strong> يمكن تكبير الجراثيم التي لا ترى بالعين، أو تصغير المجموعة الشمسية لتناسب صفحة الكتاب، أو رسم أحداث تاريخية مضت.</li>
+            </ul>
+
+            <h3>ثانياً: الأهمية في الموقف التعليمي</h3>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-title">للمتعلم</div>
+                    <p>تراعي الفروق الفردية، وتكسر الملل والجمود في الفصل الدراسي، وتجعل التعلم أكثر متعة.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">للمعلم</div>
+                    <p>توفر وقته وجهده في الشرح اللفظي، وتساعده في حل مشكلة ازدحام الفصول (تقليل الكلام وزيادة المشاهدة).</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">للمحتوى</div>
+                    <p>تعد بديلاً رخيصاً وآمناً للواقع (بدلاً من إحضار جهاز معقد أو حيوان خطير للفصل، نكتفي برسمه).</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="comparison" class="content-section">
+            <h1>مقارنة تفصيلية بين أنواع الرسوم</h1>
+            <p style="color: #c0392b; font-weight: bold;">هذا الجزء هو جوهر الفصل الأول، ويوضح الفروق الدقيقة التي يقع فيها الكثيرون.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">وجه المقارنة</th>
+                        <th style="width: 28%;">الرسومات التعليمية<br>(Instructional Graphics)</th>
+                        <th style="width: 28%;">الرسوم الفنية<br>(Artistic Drawings)</th>
+                        <th style="width: 28%;">الصور الفوتوغرافية<br>(Photographs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>الهدف الأساسي</td>
+                        <td>تحقيق هدف تعليمي (فهم، تذكر، استيعاب).</td>
+                        <td>التعبير عن مشاعر الفنان ورؤيته الذاتية (الفن للفن).</td>
+                        <td>نقل الواقع كما هو تماماً، وإعطاء إحساس بالمعايشة.</td>
+                    </tr>
+                    <tr>
+                        <td>التفاصيل</td>
+                        <td><strong>ملخصة ومختصرة:</strong> يتم حذف أي تفاصيل لا تخدم الدرس لمنع التشتت.</td>
+                        <td><strong>حرة:</strong> تتبع أسلوب الفنان ورغبته.</td>
+                        <td><strong>مزدحمة:</strong> تنقل كل تفاصيل الواقع (المهم وغير المهم) مما قد يشتت الانتباه.</td>
+                    </tr>
+                    <tr>
+                        <td>اللون</td>
+                        <td><strong>وظيفي:</strong> يُستخدم لتمييز الأجزاء عن بعضها (مثلا: الشرايين بالأحمر والأوردة بالأزرق).</td>
+                        <td><strong>جمالي وتعبيري:</strong> لخدمة التكوين الفني.</td>
+                        <td><strong>واقعي:</strong> كما هو في الطبيعة.</td>
+                    </tr>
+                    <tr>
+                        <td>علاقتها بالواقع</td>
+                        <td>قد تبالغ في النسب أو تغير الأحجام لتوضيح الفكرة (لا تتقيد بالواقع الحرفي).</td>
+                        <td>قد تكون خيالية تماماً ولا تمت للواقع بصلة.</td>
+                        <td>صورة طبق الأصل من الواقع (نسخ حرفي).</td>
+                    </tr>
+                    <tr>
+                        <td>المرحلة العمرية</td>
+                        <td><span class="highlight">الأنسب للأطفال (9-10 سنوات):</span> لأن بساطتها ووضوح خطوطها تناسب إدراكهم المحدود.</td>
+                        <td>تناسب جميع الأعمار حسب نوع الفن.</td>
+                        <td><span class="highlight">يصعب استخدامها مع الصغار (5-8 سنوات):</span> لأن كثرة التفاصيل والعمق (البعد الثالث) تسبب لهم إرباكاً وتشتتاً.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box" style="margin-top: 30px; background: #f9e79f; border-color: #f1c40f;">
+                <strong>خلاصة القول:</strong> الرسم التعليمي هو حل وسط ذكي؛ يأخذ من الواقع ما يفيد الطالب، ويحذف منه ما يشتت انتباهه، ويستخدم الفن لخدمة العلم وليس لخدمة الجمال فقط.
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // إخفاء كل الأقسام
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار القسم المطلوب
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+
+            // تحديث حالة الأزرار
+            const buttons = document.querySelectorAll('.nav-item');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // العودة لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
