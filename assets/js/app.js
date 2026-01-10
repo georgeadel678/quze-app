@@ -1868,6 +1868,33 @@ const Quiz = {
             "الدعم والمقترحات",
             "رأيك يهمنا"
         ));
+
+        // Notes
+        container.appendChild(createUtilCard(
+            "showNotesPage()",
+            "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            "📌",
+            "الملاحظات",
+            "الأسئلة المحفوظة"
+        ));
+
+        // Points
+        container.appendChild(createUtilCard(
+            "showPointsPage()",
+            "linear-gradient(135deg, #ffc107 0%, #ffb300 100%)",
+            "💎",
+            "النقاط والرتب",
+            "عرض الإنجازات"
+        ));
+
+        // BDF Upload
+        container.appendChild(createUtilCard(
+            "openBDFUploadModal()",
+            "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+            "📤",
+            "ارفع الاسئله اللي عايز تضيفها",
+            "ملفات BDF"
+        ));
     },
 
     // Refresh window.questions based on current subject
