@@ -612,3 +612,30 @@
         height: 50px;
     }
 }
+
+/* Keyboard Navigation Focus */
+.answer-option.keyboard-focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+    background: #f8f9fa;
+    position: relative;
+    z-index: 10;
+}
+
+.answer-option.keyboard-focus::before {
+    content: '⌨️';
+    /* Optional: indicator */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    font-size: 0.8rem;
+}
+
+/* Dark mode adjustment for keyboard focus */
+body.dark-mode .answer-option.keyboard-focus {
+    background: #2d3748;
+    border-color: #a78bfa;
+}

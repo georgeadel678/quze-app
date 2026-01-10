@@ -2007,6 +2007,7 @@ const Quiz = {
         // تهيئة المتغيرات
         this.userAnswers = Array(this.currentQuestions.length).fill(null);
         this.currentQuestionIndex = 0;
+        this.keyboardFocusedIndex = -1;
 
         // بدء المؤقت إذا طُلب
         if (withTimer) {
@@ -2022,6 +2023,9 @@ const Quiz = {
     displayCurrentQuestion() {
         const question = this.currentQuestions[this.currentQuestionIndex];
         const userAnswer = this.userAnswers[this.currentQuestionIndex];
+
+        // Reset keyboard focus when showing new question
+        this.keyboardFocusedIndex = -1;
 
         UI.displayQuestion(question, this.currentQuestionIndex, userAnswer);
         UI.updateProgress(this.currentQuestionIndex + 1, this.currentQuestions.length);
@@ -2333,6 +2337,83 @@ const Quiz = {
         if (timerDisplay) {
             timerDisplay.style.display = 'none';
         }
+    },
+
+    // Keyboard Navigation
+    handleKeyboardInput(e) {
+        // Only active if quiz page is visible
+        if (!document.getElementById('quiz-page').classList.contains('active')) return;
+
+        // Number keys 1-4
+        if (['1', '2', '3', '4'].includes(e.key)) {
+            const index = parseInt(e.key) - 1;
+            // Check if option exists
+            if (index < 4) { // Assuming max 4 options
+                this.selectAnswer(index);
+            }
+        }
+
+        // Arrow Keys
+        switch (e.key) {
+            case 'ArrowRight': // Previous Question (RTL: Right means back)
+                this.prevQuestion();
+                break;
+            case 'ArrowLeft': // Next Question (RTL: Left means forward)
+                this.nextQuestion();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this.navigateOptions(-1);
+                break;
+            case 'ArrowDown':
+                e.preventDefault();
+                this.navigateOptions(1);
+                break;
+            case ' ': // Spacebar
+                e.preventDefault();
+                if (this.keyboardFocusedIndex !== -1) {
+                    this.selectAnswer(this.keyboardFocusedIndex);
+                }
+                break;
+            case 'Enter':
+                e.preventDefault();
+                // If on last question, submit. Else next.
+                if (this.currentQuestionIndex === this.currentQuestions.length - 1) {
+                    this.submitQuiz();
+                } else {
+                    this.nextQuestion();
+                }
+                break;
+        }
+    },
+
+    navigateOptions(direction) {
+        const options = document.querySelectorAll('.answer-option');
+        if (options.length === 0) return;
+
+        // Update index
+        if (this.keyboardFocusedIndex === -1) {
+            this.keyboardFocusedIndex = direction > 0 ? 0 : options.length - 1;
+        } else {
+            this.keyboardFocusedIndex += direction;
+            if (this.keyboardFocusedIndex < 0) this.keyboardFocusedIndex = options.length - 1;
+            if (this.keyboardFocusedIndex >= options.length) this.keyboardFocusedIndex = 0;
+        }
+
+        this.updateKeyboardFocus();
+    },
+
+    updateKeyboardFocus() {
+        const options = document.querySelectorAll('.answer-option');
+        options.forEach((opt, idx) => {
+            if (idx === this.keyboardFocusedIndex) {
+                opt.classList.add('keyboard-focus');
+                // Ensure visible
+                opt.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                opt.classList.remove('keyboard-focus');
+            }
+        });
     }
 };
 
@@ -3747,3 +3828,14 @@ window.closeTeachingModal = function () {
         setTimeout(() => modal.style.display = 'none', 300);
     }
 };
+
+// Keyboard Shortcuts Listener
+document.addEventListener('keydown', (e) => {
+    // Only handle if on quiz page
+    const quizPage = document.getElementById('quiz-page');
+    if (quizPage && quizPage.classList.contains('active')) {
+        if (window.Quiz && typeof Quiz.handleKeyboardInput === 'function') {
+            Quiz.handleKeyboardInput(e);
+        }
+    }
+});
