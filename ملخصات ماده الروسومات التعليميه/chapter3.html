@@ -574,6 +574,153 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(180deg, #c0392b, #e74c3c);
         }
+
+        /* --- Dark Mode Styles --- */
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --text-light: #cbd5e1;
+            --white: #1e293b;
+            --primary-color: #e2e8f0;
+            --secondary-color: #94a3b8;
+            background: #0f172a;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(192, 57, 43, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+        }
+
+        body.dark-mode .sidebar {
+            background: linear-gradient(180deg, #0a0f1f 0%, #1e293b 100%);
+        }
+
+        body.dark-mode section {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode section::before {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.1));
+        }
+
+        body.dark-mode h1 {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode h1::after {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        body.dark-mode h2 {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode h2::before {
+            background: linear-gradient(180deg, #e74c3c, #c0392b);
+        }
+
+        body.dark-mode h3 {
+            color: #fca5a5;
+            background: linear-gradient(135deg, #3d1a1a, #5a2d2d);
+            border-right-color: #ef4444;
+        }
+
+        body.dark-mode p {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode li {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .def-box {
+            background: linear-gradient(135deg, #3d1a1a 0%, #5a2d2d 100%);
+            color: #fca5a5;
+            border-right-color: #ef4444;
+        }
+
+        body.dark-mode .def-box::before {
+            opacity: 0.05;
+        }
+
+        body.dark-mode .highlight-box {
+            background: linear-gradient(135deg, #3d2f1a 0%, #5a4a2d 100%);
+            color: #fde68a;
+            border-right-color: #fbbf24;
+        }
+
+        body.dark-mode .highlight-box::before {
+            opacity: 0.08;
+        }
+
+        body.dark-mode .step-box {
+            background: linear-gradient(135deg, #1a3d2f 0%, #2d5a4a 100%);
+            color: #86efac;
+            border-right-color: #34d399;
+        }
+
+        body.dark-mode .term {
+            background: linear-gradient(135deg, #3d1a1a, #5a2d2d);
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        body.dark-mode .comparison-table th {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+
+        body.dark-mode .comparison-table tbody tr:nth-child(odd) {
+            background-color: #1e293b;
+        }
+
+        body.dark-mode .comparison-table tbody tr:nth-child(even) {
+            background-color: #2d3b4e;
+        }
+
+        body.dark-mode .comparison-table tbody tr:hover {
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.2), transparent);
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+
+        body.dark-mode strong {
+            color: #fca5a5;
+        }
+
+        /* --- Dark Mode Toggle Button --- */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 6px 25px rgba(231, 76, 60, 0.6);
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+        }
+
+        body.dark-mode .dark-mode-toggle:hover {
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
+        }
     </style>
 </head>
 
@@ -999,6 +1146,9 @@
             &#8679;
         </button>
 
+        <!-- Dark Mode Toggle Button -->
+        <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+
     </div>
 
     <script>
@@ -1046,6 +1196,30 @@
                 }
             });
         }
+
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const bodyEl = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            bodyEl.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            bodyEl.classList.toggle('dark-mode');
+
+            // Update icon
+            if (bodyEl.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
     </script>
 
 </body>
