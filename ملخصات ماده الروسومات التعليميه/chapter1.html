@@ -4,898 +4,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الفصل الأول: الرسومات التعليمية (الشرح الكامل)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>شرح الفصل الأول: المنهج وأسسه</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #f59e0b;
-            --secondary-dark: #d97706;
-            --accent: #ec4899;
-            --accent-light: #f472b6;
-            --success: #10b981;
-            --info: #3b82f6;
-            --bg-gradient-start: #0f172a;
-            --bg-gradient-end: #1e293b;
-            --text-dark: #1e293b;
-            --text-light: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --light-bg: #f8f9fa;
+            --text-color: #333;
+            --border-radius: 8px;
         }
 
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
         }
 
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            line-height: 1.8;
-            display: flex;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* القائمة الجانبية */
-        aside {
-            width: 280px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            padding: 25px;
-            position: fixed;
+        /* Sidebar Navigation */
+        .sidebar {
             height: 100vh;
+            width: 280px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            padding-top: 20px;
             overflow-y: auto;
-            z-index: 100;
-            box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+            color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
-        aside::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
-            pointer-events: none;
-        }
-
-        aside h2 {
+        .sidebar h2 {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 35px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary);
-            background: linear-gradient(135deg, #f59e0b, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            position: relative;
-            z-index: 2;
-            animation: slideDown 0.6s ease;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .nav-item {
+        .sidebar a {
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            color: #bdc3c7;
             display: block;
-            width: 100%;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            text-align: right;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
-            font-size: 1.05rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
+            transition: 0.3s;
+            border-right: 4px solid transparent;
         }
 
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-right-color: var(--accent-color);
         }
 
-        .nav-item:hover::before,
-        .nav-item.active::before {
-            width: 100%;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            transform: translateX(-8px) scale(1.02);
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
-            border-color: var(--primary-light);
-        }
-
-        .nav-item.active {
-            font-weight: 600;
-            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.5);
-        }
-
-        /* المحتوى الرئيسي */
-        main {
+        /* Main Content */
+        .main-content {
             margin-right: 280px;
-            width: calc(100% - 280px);
-            padding: 50px;
-            position: relative;
-            z-index: 2;
+            padding: 40px;
+            max-width: 1000px;
         }
 
-        .content-section {
-            display: none;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .content-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        .content-section.active {
-            display: block;
-            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            scroll-margin-top: 20px;
         }
 
         h1 {
-            color: var(--primary-dark);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-            position: relative;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--accent-color);
             display: inline-block;
-            animation: slideRight 0.8s ease;
+            padding-bottom: 5px;
         }
 
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            border-radius: 2px;
-            animation: expandWidth 0.8s ease 0.3s both;
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.6rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-right: 15px;
+            border-right: 4px solid var(--accent-color);
         }
 
         h3 {
-            color: var(--primary-dark);
-            font-size: 1.6rem;
-            margin: 35px 0 20px 0;
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            animation: fadeInRight 0.6s ease;
-        }
-
-        h3::before {
-            content: '';
-            display: block;
-            width: 6px;
-            height: 36px;
-            background: linear-gradient(180deg, var(--primary), var(--accent));
-            margin-left: 12px;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-            animation: pulse 2s ease-in-out infinite;
+            color: #555;
+            font-size: 1.3rem;
+            margin-top: 25px;
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         p {
-            margin-bottom: 18px;
-            font-size: 1.15rem;
+            margin-bottom: 15px;
             text-align: justify;
-            line-height: 1.9;
-            color: #334155;
-            animation: fadeIn 0.8s ease;
         }
 
-        /* تصميم الخط الزمني للتاريخ */
-        .timeline {
-            position: relative;
-            margin: 30px 0;
-            padding-right: 30px;
-            border-right: 3px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                linear-gradient(180deg, var(--primary), var(--accent)) border-box;
-            background-clip: padding-box, border-box;
+        ul,
+        ol {
+            margin-bottom: 20px;
+            padding-right: 25px;
         }
 
-        .timeline-event {
-            position: relative;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
-            backdrop-filter: blur(10px);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: slideInRight 0.6s ease both;
-        }
-
-        .timeline-event:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .timeline-event:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .timeline-event:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .timeline-event:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .timeline-event:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .timeline-event:hover {
-            transform: translateX(-8px) scale(1.02);
-            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2);
-            border-color: var(--primary);
-        }
-
-        .timeline-event::before {
-            content: '';
-            position: absolute;
-            right: -36px;
-            top: 20px;
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3), 0 0 15px rgba(99, 102, 241, 0.5);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .timeline-event strong {
-            color: var(--primary-dark);
-            font-size: 1.15rem;
-            display: block;
+        li {
             margin-bottom: 8px;
         }
 
-        /* صناديق المعلومات */
-        .info-box {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.05));
-            border-right: 5px solid var(--primary);
-            padding: 24px;
-            margin: 25px 0;
-            border-radius: 16px;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.6s ease;
+        /* Highlight Boxes */
+        .highlight-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
         }
 
-        .info-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-            animation: rotate 15s linear infinite;
+        .def-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
         }
 
-        .highlight {
-            color: var(--accent);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        /* الشبكة للخصائص */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-            animation: scaleIn 0.6s ease both;
-        }
-
-        .card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.25);
-            border-color: var(--primary);
-        }
-
-        .card-title {
-            color: var(--primary-dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(99, 102, 241, 0.2);
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* الجدول */
         .comparison-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 30px;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            animation: fadeInUp 0.8s ease;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: right;
         }
 
         .comparison-table th {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background-color: var(--primary-color);
             color: white;
-            padding: 20px;
-            font-size: 1.15rem;
-            font-weight: 600;
-            position: relative;
         }
 
-        .comparison-table th::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        .comparison-table td {
-            padding: 20px;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-            vertical-align: top;
-            transition: all 0.3s ease;
+        /* Terminology Tags */
+        .term {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #d63384;
+            font-weight: bold;
         }
 
-        .comparison-table tr {
-            transition: all 0.3s ease;
-        }
-
-        .comparison-table tbody tr:hover {
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
-            transform: scale(1.01);
-        }
-
-        .comparison-table tr td:first-child {
-            font-weight: 700;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.05));
-            color: var(--primary-dark);
-            width: 15%;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-
-            aside {
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
                 width: 100%;
                 height: auto;
                 position: relative;
+            }
+
+            .sidebar a {
+                float: none;
+            }
+
+            .main-content {
+                margin-right: 0;
                 padding: 20px;
-                border-left: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            main {
-                width: 100%;
-                margin: 0;
-                padding: 25px;
-            }
-
-            .nav-item {
-                display: inline-block;
-                width: auto;
-                margin: 5px;
-                font-size: 0.95rem;
-                padding: 12px 16px;
-            }
-
-            .content-section {
-                padding: 30px 25px;
-                border-radius: 16px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .grid-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
             }
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideRight {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes expandWidth {
-            from {
-                width: 0;
-            }
-
-            to {
-                width: 100%;
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.1);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary), var(--accent));
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--primary-dark), var(--accent-light));
+        /* Back to top button */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: none;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 18px;
         }
     </style>
 </head>
 
 <body>
 
-    <aside>
-        <h2>محتويات الفصل الأول</h2>
-        <button class="nav-item active" onclick="switchTab('history')">1. المقدمة التاريخية</button>
-        <button class="nav-item" onclick="switchTab('definition')">2. مفهوم الرسم التعليمي</button>
-        <button class="nav-item" onclick="switchTab('characteristics')">3. خصائص الرسومات</button>
-        <button class="nav-item" onclick="switchTab('features')">4. المميزات والأهمية</button>
-        <button class="nav-item" onclick="switchTab('comparison')">5. مقارنة الأنواع (هام)</button>
-    </aside>
+    <div class="sidebar">
+        <h2>فهرس الفصل الأول</h2>
+        <a href="#intro" class="active">1. تعريف المنهج ومفهومه اللغوي</a>
+        <a href="#evolution">2. تطور مفهوم المنهج</a>
+        <a href="#modern-concepts">3. التصورات الحديثة للمنهج</a>
+        <a href="#operational-def">4. التعريف الإجرائي للمنهج</a>
+        <a href="#related-concepts">5. المنهج والمفاهيم ذات الصلة</a>
+        <a href="#foundations">6. أسس بناء المنهج</a>
+        <a href="#development">7. تطوير المنهج (المفهوم والأسس)</a>
+        <a href="#obstacles">8. معوقات تطوير المنهج</a>
+        <a href="#types">9. أنواع المناهج</a>
+    </div>
 
-    <main>
-        <div id="history" class="content-section active">
-            <h1>المقدمة التاريخية والتطور</h1>
-            <p class="info-box">الرسوم التعليمية ليست وليدة العصر الحديث، بل هي لغة قديمة استخدمها الإنسان قبل اختراع
-                الكتابة.</p>
+    <div class="main-content">
 
-            <div class="timeline">
-                <div class="timeline-event">
-                    <strong>الإنسان البدائي:</strong>
-                    <p>بدأ باستخدام الرسوم كوسيلة وحيدة للتعبير عن النفس، ولتسجيل الأفكار والمشاعر والأحداث اليومية على
-                        جدران الكهوف.</p>
-                </div>
+        <header style="text-align: center; margin-bottom: 50px;">
+            <h1>الفصل الأول: المنهج وأسسه</h1>
+            <p style="font-size: 1.1rem; color: #666;">شرح تفصيلي شامل لجميع المواضع الواردة في الكتاب الجامعي</p>
+        </header>
 
-                <div class="timeline-event">
-                    <strong>الحضارات القديمة (السومرية والمصرية):</strong>
-                    <p>تطورت الرسوم لتصبح لغة مكتوبة (مثل الهيروغليفية). استخدمت لتسجيل الانتصارات والحروب، والقصص
-                        الدينية والأسطورية. مثال بارز: <span class="highlight">"كتاب الموتى"</span> عند قدماء المصريين
-                        الذي كان مليئاً بالرسوم التوضيحية.</p>
-                </div>
+        <section id="intro">
+            <h2>1. تعريف المنهج والمفهوم اللغوي</h2>
+            <p>استُخدم مصطلح "منهج" بمعانٍ كثيرة منذ بدايته، ولفهم طبيعته يجب استعراض المفهوم اللغوي والأصل الاشتقاقي:
+            </p>
 
-                <div class="timeline-event">
-                    <strong>الإغريق:</strong>
-                    <p>استخدموا الرسوم لتسجيل ملاحمهم وشعرهم، مثل ملاحم <span class="highlight">هوميروس</span>.</p>
-                </div>
-
-                <div class="timeline-event">
-                    <strong>العصر الإسلامي والمخطوطات:</strong>
-                    <p>مع انتقال صناعة الورق من <span class="highlight">الصين</span> إلى العالم الإسلامي، ازدهرت
-                        "المنمنات" والرسوم في المخطوطات. أشهر مثال: كتاب <span class="highlight">"كليلة ودمنة"</span>
-                        الذي احتوى على رسوم توضيحية للقصص.</p>
-                </div>
-
-                <div class="timeline-event">
-                    <strong>أوروبا والعصور الوسطى:</strong>
-                    <p>انتقلت صناعة الورق والرسوم إلى أوروبا، حيث استخدمت الكنيسة الرسوم والزجاج المعشق لتوضيح القصص
-                        الدينية للعامة الذين كانوا لا يجيدون القراءة.</p>
-                </div>
+            <h3>المفهوم اللغوي (عربيًا)</h3>
+            <p>الأصل الثلاثي للكلمة هو (نَهَجَ) بفتح الحروف الثلاثة. ومن معانيها:</p>
+            <ul>
+                <li><strong>نهج الطريق:</strong> أي وضُح واستبان.</li>
+                <li><strong>نهج فلان الطريق:</strong> أي بيّنه ووضّحه.</li>
+                <li><strong>النهج:</strong> الطريق المستقيم.</li>
+                <li><strong>المنهاج:</strong> الطريق الواضح والخطة المرسومة.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>ملاحظة لغوية:</strong> صيغة "المنهاج" تشير لاسم الآلة، وصيغة "المنهج" تشير لاسم المكان. وكلاهما
+                يشير إلى الوظيفة (يحدث التعليم من خلاله) والوضوح (معالم الطريق واضحة) والاستقامة (الاعتدال وعدم
+                الاضطراب).
             </div>
-        </div>
+            <p>في التربية، <strong>الوضوح</strong> يعني وضوح الأهداف (أين ينتهي الطريق)، و<strong>الاستقامة</strong>
+                تعني ترابط عناصر المنهج وتجانسها لتحقيق هدف واحد.</p>
 
-        <div id="definition" class="content-section">
-            <h1>تعريف ومفهوم الرسم التعليمي</h1>
+            <h3>الأصل اللاتيني</h3>
+            <p>كلمة منهج <span class="term">Curriculum</span> تعود لأصل لاتيني وتعني ميدان السباق <span
+                    class="term">Race Course</span> الذي يجري فيه المتسابقون. ومع الزمن تحول المعنى من "ميدان السباق"
+                إلى "مقرر دراسي" أو "محتوى المواد الدراسية".</p>
+        </section>
 
-            <div class="info-box">
-                <h3>التعريف الاصطلاحي</h3>
-                <p>هي مواد تعليمية بصرية، تُعرف بأنها: <strong>"تمثيل بصري حر للأشياء أو الأفكار أو المفاهيم"</strong>.
-                </p>
+        <section id="evolution">
+            <h2>2. تطور مفهوم المنهج</h2>
+            <p>مر مفهوم المنهج بتطورات عديدة بتطور المجتمعات. في البداية، كانت التعريفات <strong>تقليدية وضيقة</strong>:
+            </p>
+            <div class="def-box">
+                التعريف القديم للمنهج: "مجموعة من المواد الدراسية أو المقررات التي يدرسها التلاميذ".
             </div>
+            <p><strong>عيوب هذا المفهوم الضيق (التقليدي):</strong></p>
+            <ul>
+                <li>ركز على الجانب العقلي فقط (المعرفة) وأهمل النمو الشامل (وجداني، مهاري، اجتماعي).</li>
+                <li>اقتصرت المعرفة على الحفظ والتلقين لاجتياز الامتحانات، مما جعلها عرضة للنسيان.</li>
+                <li>عزل المدرسة عن المجتمع.</li>
+                <li>جعل وظيفة المعلم مقتصرة على نقل المعلومات، ودور المتعلم سلبيًا (الحفظ).</li>
+            </ul>
+        </section>
 
-            <h3>شرح التعريف (تحليل المفهوم):</h3>
-            <div class="grid-container">
-                <div class="card">
-                    <div class="card-title">تمثيل بصري حر</div>
-                    <p>أي أنها تعتمد على يد الرسام ومهارته، وليست نقلاً آلياً كالصور الفوتوغرافية. كلمة "حر" تعني أن
-                        للمصمم الحرية في حذف وإضافة عناصر لخدمة الفكرة.</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">الاعتماد على الرموز</div>
-                    <p>تستخدم الخطوط، الأشكال، والرموز البصرية بدلاً من الكلمات لنقل المعنى وتلخيصه.</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">عدم التقيد بالنسب</div>
-                    <p>لا يشترط في الرسم التعليمي أن يلتزم بالأبعاد والنسب الواقعية الدقيقة (كما في الصور)، بل قد يبالغ
-                        في حجم جزء معين لتوضيحه.</p>
-                </div>
-            </div>
-        </div>
+        <section id="modern-concepts">
+            <h2>3. التصورات الحديثة للمنهج</h2>
+            <p>نتيجة قصور المفهوم التقليدي، ظهرت تصورات متعددة للمنهج، وهي:</p>
 
-        <div id="characteristics" class="content-section">
-            <h1>خصائص الرسومات التعليمية</h1>
-            <p>لكي نطلق على الرسم مصطلح "تعليمي"، يجب أن يتسم بأربع خصائص رئيسية:</p>
+            <h3>أ- تصور المنهج كموضوعات دراسية (المعرفة)</h3>
+            <p>وهو التصور السائد قديمًا وما زال موجودًا في "منهج المواد المنفصلة". يرى المنهج مرادفًا للمقرر الدراسي
+                <span class="term">Syllabus</span>. يركز على المحتوى المعرفي فقط.</p>
 
-            <div class="grid-container">
-                <div class="card" style="border-top: 4px solid #e74c3c;">
-                    <div class="card-title">1. هادفة (Purposeful)</div>
-                    <p>الرسم التعليمي ليس للزينة أو الجمال الفني، بل هو وسيلة لتحقيق غاية. يجب أن يحمل رسالة تعليمية
-                        محددة ومقصودة.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #3498db;">
-                    <div class="card-title">2. تمثيل حر (Free Representation)</div>
-                    <p>تركز على الخطوط الرئيسية للشكل. يقوم الرسام باستبعاد التفاصيل غير الضرورية التي قد تشتت الانتباه.
-                        قد يتم استخدام "الكاريكاتير" والمبالغة لتأكيد المعنى.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #2ecc71;">
-                    <div class="card-title">3. التجريد (Abstraction)</div>
-                    <p>الرسومات تتفاوت في قربها من الواقع. قد تكون قريبة جداً من الواقع، وقد تكون مجردة (رموز). الرموز
-                        عالية التجريد تتطلب من المتعلم أن يمتلك <span class="highlight">"Visual Literacy" (ثقافة
-                            بصرية)</span> لفك شفرتها وفهمها.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #f1c40f;">
-                    <div class="card-title">4. بصرية (Visual)</div>
-                    <p>تعتمد في المقام الأول على حاسة البصر في استقبال المعلومات، وتخاطب العين كلغة عالمية.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="features" class="content-section">
-            <h1>الأهمية والمميزات التربوية</h1>
-
-            <div class="info-box">
-                تعتبر الرسومات التعليمية وسيلة اتصال فعالة وسريعة ("رُب صورة تغني عن ألف كلمة").
-            </div>
-
-            <h3>أولاً: المميزات الفنية</h3>
-            <ul style="list-style-type: square; margin-right: 20px;">
-                <li><strong>تبسيط الواقع:</strong> تحويل الأنظمة المعقدة إلى رسوم خطية بسيطة سهلة الفهم.</li>
-                <li><strong>توضيح المجردات:</strong> الأشياء التي لا نراها (مثل الإلكترونات، المفاهيم النظرية) يمكن
-                    تحويلها لصور مرئية.</li>
-                <li><strong>جذب الانتباه:</strong> الألوان والخطوط تثير دافعية الطالب أكثر من النصوص المكتوبة.</li>
-                <li><strong>الذاكرة البصرية:</strong> تساعد على بقاء أثر التعلم لفترة أطول (نحن نتذكر ما نراه أفضل مما
-                    نسمعه).</li>
-                <li><strong>التحكم في الحجم والزمان:</strong> يمكن تكبير الجراثيم التي لا ترى بالعين، أو تصغير المجموعة
-                    الشمسية لتناسب صفحة الكتاب، أو رسم أحداث تاريخية مضت.</li>
+            <h3>ب- تصور المنهج كأهداف ومخرجات</h3>
+            <p>يرى أن المنهج هو "النتائج النهائية" أو "مخرجات التعلم المقصودة".</p>
+            <ul>
+                <li><strong>النقد:</strong> هذا التصور يهتم بالنتيجة ويهمل "العمليات" التي تحدث بين الأهداف والمخرجات
+                    (مثل طرق التدريس والأنشطة).</li>
             </ul>
 
-            <h3>ثانياً: الأهمية في الموقف التعليمي</h3>
-            <div class="grid-container">
-                <div class="card">
-                    <div class="card-title">للمتعلم</div>
-                    <p>تراعي الفروق الفردية، وتكسر الملل والجمود في الفصل الدراسي، وتجعل التعلم أكثر متعة.</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">للمعلم</div>
-                    <p>توفر وقته وجهده في الشرح اللفظي، وتساعده في حل مشكلة ازدحام الفصول (تقليل الكلام وزيادة
-                        المشاهدة).</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">للمحتوى</div>
-                    <p>تعد بديلاً رخيصاً وآمناً للواقع (بدلاً من إحضار جهاز معقد أو حيوان خطير للفصل، نكتفي برسمه).</p>
-                </div>
+            <h3>ج- تصور المنهج كموقف تعليمي</h3>
+            <p>يرى المنهج كـ "كل دراسة أو نشاط يكتسبه التلميذ تحت إشراف المدرسة".</p>
+            <ul>
+                <li><strong>النقد:</strong> يركز على العمليات ويهمل الأهداف، ويخلط بين مفهوم المنهج ومفهوم التدريس.</li>
+            </ul>
+
+            <h3>د- تصور المنهج كخطة تعليمية</h3>
+            <p>يعرف المنهج بأنه "خطة لتزويد الفرد بفرص تعليمية". يركز على التخطيط.</p>
+            <ul>
+                <li><strong>النقد:</strong> تصور مثالي وتجريدي (فلسفي) يهمل عمليتي التنفيذ والتقويم الفعلي.</li>
+            </ul>
+
+            <h3>هـ- تصور المنهج كخبرات (المفهوم الحديث والشامل)</h3>
+            <p>ظهر هذا المفهوم ليعالج القصور السابق. يعتمد على مصطلح <strong>الخبرة <span
+                        class="term">Experience</span></strong>.</p>
+            <div class="def-box">
+                الخبرة: هي ناتج التفاعل بين الفرد وبيئته. وهي عملية تأثير وتأثر تؤدي لتعديل السلوك.
             </div>
-        </div>
+            <p><strong>مميزات استخدام مصطلح "الخبرة" في تعريف المنهج:</strong></p>
+            <ul>
+                <li><strong>الشمول:</strong> يتضمن المنهج المعلومات، المهارات، الاتجاهات، الأنشطة، وطرق التدريس ككل
+                    متكامل (مثل تركيبة الدواء لا يمكن فصل عناصرها).</li>
+                <li><strong>التفاعل والاستمرار:</strong> التعلم ناتج عن تفاعل مستمر، والخبرة الحالية تبنى على السابقة
+                    وتمهد للاحقة.</li>
+                <li><strong>اتساع المجال:</strong> يشمل الخبرات داخل المدرسة وخارجها (طالما تحت إشراف المدرسة).</li>
+            </ul>
+        </section>
 
-        <div id="comparison" class="content-section">
-            <h1>مقارنة تفصيلية بين أنواع الرسوم</h1>
-            <p style="color: #c0392b; font-weight: bold;">هذا الجزء هو جوهر الفصل الأول، ويوضح الفروق الدقيقة التي يقع
-                فيها الكثيرون.</p>
+        <section id="operational-def">
+            <h2>4. التعريف الإجرائي للمنهج</h2>
+            <p>بعد استعراض المفاهيم السابقة التي غلب عليها الطابع الفلسفي، قدم الكتاب تعريفات إجرائية دقيقة تساعد في
+                التخطيط والتنفيذ:</p>
 
+            <h3>تعريف أحمد المهدي عبد الحليم:</h3>
+            <p>"مجموعة مشروعة وصادقة من المعتقدات والقيم والمعارف والمهارات... تدفع من يكتسبونها إلى القيام بأنماط معينة
+                في التفكير والسلوك... يعهد بها إلى مؤسسة ثقافية (المدرسة)...".</p>
+
+            <h3>التعريف الإجرائي الشامل (الخلاصة):</h3>
+            <div class="def-box">
+                "مجموعة مشروعة وصادقة من المعارف والمهارات والقيم... تختار في ضوء أهداف محددة... وتنظم كخبرات تعليمية
+                مقصودة... يخطط لها وينفذها ويقوم أثرها معلمون متخصصون... لتدفع المتعلمين لاتباع أنماط سلوكية معينة."
+            </div>
+
+            <h3>تحليل التعريف الإجرائي:</h3>
+            <ol>
+                <li><strong>أسس البناء:</strong> أشار للعوامل المؤثرة (معرفية، اجتماعية، نفسية).</li>
+                <li><strong>العناصر:</strong> حدد الأهداف، المحتوى، الطرق، الأنشطة، والتقويم.</li>
+                <li><strong>العمليات:</strong> شمل التخطيط، التنفيذ، والتقويم.</li>
+                <li><strong>دور المعلم:</strong> هو المنفذ والمخطط.</li>
+                <li><strong>التمييز:</strong> ميز بين المنهج المخطط (الوثيقة) والمنهج المنفذ (الواقع) والمنهج المحقق
+                    (الأثر).</li>
+            </ol>
+            <p><strong>الخلاصة:</strong> المنهج هو نسيج متكامل من الأهداف والمحتوى والأنشطة وطرق التدريس والتقويم، وليس
+                مجرد كتاب أو خطة.</p>
+        </section>
+
+        <section id="related-concepts">
+            <h2>5. المنهج والمفاهيم ذات الصلة (إزالة اللبس)</h2>
             <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th style="width: 15%;">وجه المقارنة</th>
-                        <th style="width: 28%;">الرسومات التعليمية<br>(Instructional Graphics)</th>
-                        <th style="width: 28%;">الرسوم الفنية<br>(Artistic Drawings)</th>
-                        <th style="width: 28%;">الصور الفوتوغرافية<br>(Photographs)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>الهدف الأساسي</td>
-                        <td>تحقيق هدف تعليمي (فهم، تذكر، استيعاب).</td>
-                        <td>التعبير عن مشاعر الفنان ورؤيته الذاتية (الفن للفن).</td>
-                        <td>نقل الواقع كما هو تماماً، وإعطاء إحساس بالمعايشة.</td>
-                    </tr>
-                    <tr>
-                        <td>التفاصيل</td>
-                        <td><strong>ملخصة ومختصرة:</strong> يتم حذف أي تفاصيل لا تخدم الدرس لمنع التشتت.</td>
-                        <td><strong>حرة:</strong> تتبع أسلوب الفنان ورغبته.</td>
-                        <td><strong>مزدحمة:</strong> تنقل كل تفاصيل الواقع (المهم وغير المهم) مما قد يشتت الانتباه.</td>
-                    </tr>
-                    <tr>
-                        <td>اللون</td>
-                        <td><strong>وظيفي:</strong> يُستخدم لتمييز الأجزاء عن بعضها (مثلا: الشرايين بالأحمر والأوردة
-                            بالأزرق).</td>
-                        <td><strong>جمالي وتعبيري:</strong> لخدمة التكوين الفني.</td>
-                        <td><strong>واقعي:</strong> كما هو في الطبيعة.</td>
-                    </tr>
-                    <tr>
-                        <td>علاقتها بالواقع</td>
-                        <td>قد تبالغ في النسب أو تغير الأحجام لتوضيح الفكرة (لا تتقيد بالواقع الحرفي).</td>
-                        <td>قد تكون خيالية تماماً ولا تمت للواقع بصلة.</td>
-                        <td>صورة طبق الأصل من الواقع (نسخ حرفي).</td>
-                    </tr>
-                    <tr>
-                        <td>المرحلة العمرية</td>
-                        <td><span class="highlight">الأنسب للأطفال (9-10 سنوات):</span> لأن بساطتها ووضوح خطوطها تناسب
-                            إدراكهم المحدود.</td>
-                        <td>تناسب جميع الأعمار حسب نوع الفن.</td>
-                        <td><span class="highlight">يصعب استخدامها مع الصغار (5-8 سنوات):</span> لأن كثرة التفاصيل
-                            والعمق (البعد الثالث) تسبب لهم إرباكاً وتشتتاً.</td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <th>المصطلح</th>
+                    <th>الفرق بينه وبين المنهج</th>
+                </tr>
+                <tr>
+                    <td><strong>البرنامج الدراسي <br> <span class="term">Scholastic Program</span></strong></td>
+                    <td>أعم من المنهج. هو المخطط العام لمرحلة كاملة (مثل برنامج إعداد المعلم) ويشمل المقررات، شروط
+                        القبول، الإدارة، واللوائح.</td>
+                </tr>
+                <tr>
+                    <td><strong>المقرر الدراسي <br> <span class="term">Course</span></strong></td>
+                    <td>مجموعة موضوعات تدرس في فترة محددة (فصل دراسي) للحصول على درجة. المنهج أوسع منه.</td>
+                </tr>
+                <tr>
+                    <td><strong>الخطة الدراسية <br> <span class="term">Syllabus</span></strong></td>
+                    <td>توصيف شامل للمقرر (اسم المعلم، الساعات، توزيع الموضوعات، المراجع). هي وثيقة تنظيمية فقط.</td>
+                </tr>
+                <tr>
+                    <td><strong>المادة الدراسية <br> <span class="term">Subject Matter</span></strong></td>
+                    <td>الحقائق والمفاهيم الخاصة بعلم معين (فيزياء، تاريخ). المنهج يقوم بترجمتها وتجسيدها تعليميًا.</td>
+                </tr>
+                <tr>
+                    <td><strong>المحتوى الدراسي <br> <span class="term">Content</span></strong></td>
+                    <td>هو مضمون المنهج (معارف، مهارات، قيم) المراد إكسابها للمتعلم. هو جزء من المنهج وليس المنهج كله.
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>الكتاب المدرسي <br> <span class="term">Text Book</span></strong></td>
+                    <td>الوعاء أو الشكل التقليدي الذي يضم المحتوى. هو أداة من أدوات المنهج وليس المنهج نفسه.</td>
+                </tr>
             </table>
+        </section>
 
-            <div class="info-box" style="margin-top: 30px; background: #f9e79f; border-color: #f1c40f;">
-                <strong>خلاصة القول:</strong> الرسم التعليمي هو حل وسط ذكي؛ يأخذ من الواقع ما يفيد الطالب، ويحذف منه ما
-                يشتت انتباهه، ويستخدم الفن لخدمة العلم وليس لخدمة الجمال فقط.
-            </div>
-        </div>
+        <section id="foundations">
+            <h2>6. أسس بناء المنهج</h2>
+            <p>يبنى المنهج على أربعة أسس رئيسية (معايير):</p>
 
-    </main>
+            <h3>1. الأسس الفلسفية</h3>
+            <p>الأطر الفكرية التي تعكس عقيدة المجتمع وتراثه وحقوق الأفراد. (علاقة المنهج بفلسفة المجتمع).</p>
+
+            <h3>2. الأسس الاجتماعية</h3>
+            <p>تتعلق بحاجات المجتمع، ثقافته، قيمه الدينية والأخلاقية والوطنية، والمشكلات الاقتصادية والتقنية.</p>
+
+            <h3>3. الأسس النفسية</h3>
+            <p>تتعلق بطبيعة <strong>المتعلم</strong>: خصائصه النفسية، مراحل نموه، قدراته، حاجاته، وميوله، ومراعاة نظريات
+                التعلم.</p>
+
+            <h3>4. الأسس المعرفية</h3>
+            <p>تتعلق بـ <strong>المادة الدراسية</strong>: طبيعة المعرفة، مصادرها، تطورها ومستجداتها، وعلاقتها بالعلوم
+                الأخرى.</p>
+        </section>
+
+        <section id="development">
+            <h2>7. تطوير المنهج (المفهوم والأسس)</h2>
+            <h3>الفرق بين التغيير والتطوير</h3>
+            <ul>
+                <li><strong>التغيير:</strong> قد يكون للأفضل أو للأسوأ، قد يكون بإرادة الإنسان أو مفروضًا عليه، قد يكون
+                    جزئيًا.</li>
+                <li><strong>التطوير:</strong> عملية <strong>علمية هادفة</strong> تؤدي دائمًا للأفضل (تحسين الكفاءة)، تتم
+                    بإرادة الإنسان، وتكون شاملة لجميع الجوانب. التطوير يستلزم التغيير، ولكن ليس كل تغيير تطويرًا.</li>
+            </ul>
+
+            <h3>تعريف تطوير المنهج</h3>
+            <p>عملية تحسين شاملة لعناصر المنهج (الأهداف، المحتوى، الطرق، الأنشطة، التقويم) لرفع كفاءته في تحقيق الأهداف
+                المنشودة.</p>
+
+            <h3>أسس (مبادئ) تطوير المنهج</h3>
+            <ol>
+                <li>أن يبنى على نتائج التقويم (لا تطوير عشوائي).</li>
+                <li>أن يكون هادفًا ومرنًا ومستمرًا.</li>
+                <li>أن يكون شاملاً (لكل العناصر) ومتكاملاً وتعاونيًا.</li>
+                <li>مراعاة خصائص المتعلمين وحاجات المجتمع.</li>
+                <li>الاستفادة من التقدم العلمي والتكنولوجي والبحث التربوي.</li>
+                <li>استشراف المستقبل وحاجاته.</li>
+                <li>توفير الإمكانات البشرية والمادية اللازمة.</li>
+            </ol>
+        </section>
+
+        <section id="obstacles">
+            <h2>8. معوقات تطوير المنهج</h2>
+            <p>تواجه عملية التطوير صعوبات تحد من فاعليتها:</p>
+            <ul>
+                <li><strong>معوقات مادية:</strong> نقص المباني، المعامل، الوسائل التكنولوجية، الميزانيات الضعيفة.</li>
+                <li><strong>معوقات فنية:</strong> نقص الكوادر المؤهلة (معلمين، موجهين، فنيين)، ونقص الدراسات والبحوث
+                    اللازمة.</li>
+                <li><strong>معوقات الاتجاهات الحديثة:</strong> مقاومة التغيير أو صعوبة مواكبة الاتجاهات المتسارعة (مثل
+                    التعلم الذاتي، التعليم الإلكتروني).</li>
+            </ul>
+
+            <h3>مقترحات لمواجهة المعوقات:</h3>
+            <ul>
+                <li>زيادة ميزانية التعليم.</li>
+                <li>إعداد كوادر فنية متخصصة.</li>
+                <li>توفير الإمكانيات قبل التعميم (التجريب أولاً).</li>
+                <li>المتابعة المستمرة من لجان متخصصة.</li>
+            </ul>
+        </section>
+
+        <section id="types">
+            <h2>9. أنواع المناهج</h2>
+            <p>توجد تنظيمات مختلفة للمناهج الدراسية، أهمها:</p>
+
+            <h3>1. منهج المواد الدراسية المنفصلة</h3>
+            <p>تنظم الخبرات في صورة مواد مستقلة (فيزياء، تاريخ، رياضيات). يركز على <strong>الترتيب المنطقي
+                    للمعرفة</strong> والأهداف المعرفية. (عيوبه: يضع حواجز بين العلوم، يهمل جوانب النمو الأخرى).</p>
+
+            <h3>2. المنهج المترابط</h3>
+            <p>محاولة لتحسين المنهج المنفصل عن طريق إيجاد ربط بين الموضوعات المختلفة (دون دمجها كليًا).</p>
+
+            <h3>3. منهج الدمج</h3>
+            <p>إزالة الحواجز تمامًا بين موضوعين أو أكثر (من ميدانين مختلفين) ودمجهما في منهج واحد يدرسه معلم واحد.</p>
+
+            <h3>4. منهج المجالات الواسعة</h3>
+            <p>تجميع المواد المتشابهة في مجال واحد (مثل مجال "العلوم" بدلاً من فيزياء وكيمياء وأحياء). يهدف لإزالة
+                الحواجز وإظهار العلاقات بين المعارف وربطها بالحياة والمشكلات.</p>
+
+            <h3>5. المنهج الحلزوني</h3>
+            <p>يركز على <strong>العلاقة الرأسية</strong> (الاستمرار والتتابع). تقدم المفاهيم وتكرر في كل صف دراسي ولكن
+                بمستوى أعمق وأوسع (تزداد اتساعًا وعمقًا كلما تقدم الطالب).</p>
+
+            <h3>6. منهج النشاط</h3>
+            <p>يقوم على <strong>فاعلية المتعلم</strong> ونشاطه الذاتي. لا يتعلم الطالب إلا إذا كان لديه سؤال أو مشكلة.
+                ينظم في اتجاهين: التركيز على ميول المتعلمين، أو التركيز على المواقف الاجتماعية الحياتية.</p>
+        </section>
+
+        <button type="button" id="btn-back-to-top">
+            &#8679;
+        </button>
+
+    </div>
 
     <script>
-        function switchTab(tabId) {
-            // إخفاء كل الأقسام
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
+        // Script for scroll-to-top button and Sidebar active state
+        let mybutton = document.getElementById("btn-back-to-top");
+        let sections = document.querySelectorAll("section");
+        let navLinks = document.querySelectorAll(".sidebar a");
 
-            // إظهار القسم المطلوب
-            const activeSection = document.getElementById(tabId);
-            if (activeSection) {
-                activeSection.classList.add('active');
+        window.onscroll = function () {
+            scrollFunction();
+            highlightSidebar();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
             }
+        }
 
-            // تحديث حالة الأزرار
-            const buttons = document.querySelectorAll('.nav-item');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        function highlightSidebar() {
+            let scrollY = window.pageYOffset;
+
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 100;
+                const sectionId = current.getAttribute("id");
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href").includes(sectionId)) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
             });
-            event.currentTarget.classList.add('active');
-
-            // العودة لأعلى الصفحة
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
+
 </body>
 
 </html>
