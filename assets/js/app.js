@@ -555,17 +555,14 @@ const UI = {
         questions.forEach((q, index) => {
             const div = document.createElement('div');
             div.className = 'review-item';
-            div.style.cssText = `
-                background: #f8f9fa;
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-                border-radius: 12px;
-                text-align: right;
-                border: 2px solid ${userAnswers[index] === q.correctAnswer ? '#28a745' : '#dc3545'};
-                position: relative;
-            `;
-
             const isCorrect = userAnswers[index] === q.correctAnswer;
+
+            if (isCorrect) {
+                div.classList.add('correct');
+            } else {
+                div.classList.add('incorrect');
+            }
+
             // توليد questionId موحد - استخدام id إذا كان موجوداً، وإلا استخدام نص السؤال
             // لا نستخدم index أبداً لأنه يتغير حسب ترتيب الأسئلة
             // إضافة رقم الفصل لضمان التفرقة بين الفصول
@@ -610,30 +607,31 @@ const UI = {
             }
 
             let btnText = '📌 أضف للملاحظات';
-            let btnBg = '#007bff';
+            let btnClass = 'btn-primary'; // Default class
             let btnDisabled = false;
 
             if (noteStatus === 'added') {
                 btnText = '✅ تم الإضافة';
-                btnBg = '#28a745';
+                btnClass = 'btn-success';
                 btnDisabled = true;
             } else if (noteStatus === 'stale') {
                 btnText = '🔄 تحديث الملاحظة';
-                btnBg = '#fd7e14'; // Orange
+                btnClass = 'btn-warning';
                 btnDisabled = false;
             }
 
+            // We keep specific button styling inline or use existing utility classes if available
+            // For now, using inline for specific button needs as it was slightly complex before
+            // BUT, better to use classes. Let's try to minimalize inline styles.
+            addButton.className = `btn ${btnClass} btn-sm`;
+            // Override some btn styles for this specific context
             addButton.style.cssText = `
-                background: ${btnBg};
-                color: white;
-                border: none;
                 padding: 0.5rem 1rem;
-                border-radius: 8px;
-                cursor: ${!btnDisabled ? 'pointer' : 'not-allowed'};
+                min-width: auto;
                 font-size: 0.9rem;
-                white-space: nowrap;
-                opacity: ${!btnDisabled ? '1' : '0.6'};
+                margin: 0;
             `;
+
             addButton.textContent = btnText;
             addButton.disabled = btnDisabled;
 
@@ -647,10 +645,10 @@ const UI = {
 
             // إنشاء العنوان مع الزر
             const headerDiv = document.createElement('div');
-            headerDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;';
+            headerDiv.className = 'review-header';
 
             const titleH3 = document.createElement('h3');
-            titleH3.style.cssText = `color: ${isCorrect ? '#28a745' : '#dc3545'}; margin: 0;`;
+            titleH3.className = `review-title ${isCorrect ? 'correct' : 'incorrect'}`;
             titleH3.textContent = `${isCorrect ? '✅' : '❌'} السؤال ${index + 1}`;
 
             headerDiv.appendChild(titleH3);
@@ -658,13 +656,13 @@ const UI = {
 
             // إنشاء محتوى السؤال
             const questionP = document.createElement('p');
-            questionP.style.cssText = 'font-weight: 600; margin-bottom: 1rem; color: #2c3e50;';
+            questionP.className = 'review-question-text';
             questionP.textContent = q.question;
 
             // إجابتك
             const userAnswerDiv = document.createElement('div');
-            userAnswerDiv.style.cssText = 'background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
-            userAnswerDiv.innerHTML = `<strong style="color: ${isCorrect ? '#28a745' : '#dc3545'};">إجابتك:</strong> ${q.answers[userAnswers[index]] || 'لم تجب'}`;
+            userAnswerDiv.className = 'review-answer-box review-user-answer';
+            userAnswerDiv.innerHTML = `<strong class="review-label ${isCorrect ? 'correct' : 'incorrect'}">إجابتك:</strong> ${q.answers[userAnswers[index]] || 'لم تجب'}`;
 
             div.appendChild(headerDiv);
             div.appendChild(questionP);
@@ -673,15 +671,15 @@ const UI = {
             // الإجابة الصحيحة (إذا كانت خاطئة)
             if (!isCorrect) {
                 const correctAnswerDiv = document.createElement('div');
-                correctAnswerDiv.style.cssText = 'background: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;';
-                correctAnswerDiv.innerHTML = `<strong style="color: #28a745;">الإجابة الصحيحة:</strong> ${q.answers[q.correctAnswer]}`;
+                correctAnswerDiv.className = 'review-answer-box review-correct-answer';
+                correctAnswerDiv.innerHTML = `<strong class="review-label correct">الإجابة الصحيحة:</strong> ${q.answers[q.correctAnswer]}`;
                 div.appendChild(correctAnswerDiv);
             }
 
             // التوضيح (إذا كان موجوداً)
             if (q.explanation) {
                 const explanationDiv = document.createElement('div');
-                explanationDiv.style.cssText = 'background: #e7f3ff; padding: 1rem; border-radius: 8px; border-right: 4px solid #007bff;';
+                explanationDiv.className = 'review-explanation';
                 explanationDiv.innerHTML = `<strong>💡 توضيح:</strong> ${q.explanation}`;
                 div.appendChild(explanationDiv);
             }
