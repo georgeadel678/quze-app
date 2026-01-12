@@ -33,28 +33,50 @@
         // التحقق من الحماية فوراً
         (function () {
             const modal = document.getElementById('security-modal');
-            if (sessionStorage.getItem('access_granted') === 'true') {
+            const STORAGE_KEY = 'site_access_unlocked';
+
+            // 1. Check Previous Access (Permanent)
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
                 modal.style.display = 'none';
             }
 
+            // 2. Unlock Function
             window.checkSecurityPassword = function () {
                 const password = document.getElementById('security-password').value;
                 const error = document.getElementById('security-error');
 
                 if (password === '6666') {
-                    sessionStorage.setItem('access_granted', 'true');
+                    localStorage.setItem(STORAGE_KEY, 'true');
                     modal.style.display = 'none';
                 } else {
                     error.style.display = 'block';
                 }
             }
 
-            // دعم مفتاح Enter
+            // Support Enter Key
             document.getElementById('security-password').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     checkSecurityPassword();
                 }
             });
+
+            // 3. Auto Reload Logic (Polling)
+            setInterval(() => {
+                fetch('assets/version.json?t=' + new Date().getTime())
+                    .then(r => r.json())
+                    .then(data => {
+                        const savedVersion = localStorage.getItem('app_deployment_version');
+                        if (savedVersion && savedVersion !== data.version) {
+                            // Version changed! Force reload.
+                            localStorage.setItem('app_deployment_version', data.version);
+                            location.reload();
+                        } else if (!savedVersion) {
+                            // First tracking
+                            localStorage.setItem('app_deployment_version', data.version);
+                        }
+                    })
+                    .catch(e => { /* Ignore errors (offline etc) */ });
+            }, 5000); // Check every 5 seconds
         })();
     </script>
     <!-- زر الوضع الداكن -->
