@@ -4,12 +4,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يرجع الأصل الاشتقاقي لكلمة (Curriculum) إلى اللغة اللاتينية، ويقصد بها:",
         answers: [
-            "أ) الطريق المستقيم الواضح.",
-            "ب) ميدان السباق أو مضمار الجري.",
             "ج) الخطة المكتوبة للتعليم.",
-            "د) مجموع الخبرات المربية."
+            "د) مجموع الخبرات المربية.",
+            "ب) ميدان السباق أو مضمار الجري.",
+            "أ) الطريق المستقيم الواضح."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: المصطلح اللاتيني يشير تاريخياً إلى المجرى أو المسار الذي يسلكه المتسابق."
     },
     {
@@ -19,10 +19,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         answers: [
             "أ) المنهج كخبرات.",
             "ب) المنهج كموقف تعليمي.",
-            "ج) المنهج كأهداف ومخرجات.",
-            "د) المنهج كخطة تعليمية."
+            "د) المنهج كخطة تعليمية.",
+            "ج) المنهج كأهداف ومخرجات."
         ],
-        correctAnswer: 2,
+        correctAnswer: 3,
         explanation: "الشرح: هذا المنظور يركز على ما ينجزه الطالب في النهاية كأثر للتعلم فقط."
     },
     {
@@ -30,12 +30,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنظور الذي يرى المنهج \"نسيجاً متكاملاً من الأهداف والمحتوى والتقويم\" هو:",
         answers: [
+            "د) تصور المنهج كخطة.",
             "أ) التصور التقليدي.",
             "ب) التصور الإجرائي.",
-            "ج) تصور المنهج كموضوعات دراسية.",
-            "د) تصور المنهج كخطة."
+            "ج) تصور المنهج كموضوعات دراسية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: التعريف الإجرائي يربط العناصر والعمليات والعوامل المؤثرة في بناء المنهج معاً."
     },
     {
@@ -43,12 +43,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "عندما تركز المناهج على \"تراث المجتمع وحقوق أفراده وواجباتهم\"، فهي تنطلق من الأساس:",
         answers: [
-            "أ) النفسي.",
-            "ب) المعرفي.",
+            "د) الاجتماعي.",
             "ج) الفلسفي.",
-            "د) الاجتماعي."
+            "أ) النفسي.",
+            "ب) المعرفي."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: الأطر الفكرية التي تعكس خصوصية المجتمع وقيمه وتراثه تندرج تحت الأسس الفلسفية."
     },
     {
@@ -56,12 +56,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الفرق الجوهري بين \"التغيير\" و\"التطوير\" في المنهج هو:",
         answers: [
-            "أ) التغيير يكون كلياً دائماً.",
-            "ب) التطوير عملية عشوائية.",
+            "د) لا يوجد فرق بينهما.",
             "ج) التطوير دائماً إيجابي ونحو الأفضل وبإرادة الإنسان.",
-            "د) لا يوجد فرق بينهما."
+            "ب) التطوير عملية عشوائية.",
+            "أ) التغيير يكون كلياً دائماً."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: التطوير عملية مقصودة تهدف للتحسين، بينما التغيير قد يكون سلبياً أو عفوياً."
     },
     {
@@ -69,12 +69,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي نوع من المناهج يلغي الحواجز \"تماماً\" بين موضوعين أو أكثر ليدرسهما معلم واحد؟",
         answers: [
-            "أ) المنهج المترابط.",
-            "ب) منهج الدمج.",
             "ج) منهج المجاالت الواسعة.",
-            "د) منهج المواد المنفصلة."
+            "د) منهج المواد المنفصلة.",
+            "أ) المنهج المترابط.",
+            "ب) منهج الدمج."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: منهج الدمج يزيل الفواصل ويصهر مادتين في مقرر أكاديمي واحد."
     },
     {
@@ -82,10 +82,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي يقدم المفاهيم في دورات تزداد عمقاً واتساعاً كلما تقدم الطالب دراسياً هو:",
         answers: [
+            "د) المنهج المندمج.",
             "أ) المنهج المترابط.",
-            "ب) منهج النشاط.",
             "ج) المنهج الحلزوني.",
-            "د) المنهج المندمج."
+            "ب) منهج النشاط."
         ],
         correctAnswer: 2,
         explanation: "الشرح: يعتمد المنهج الحلزوني على التراكمية الرأسية للمفاهيم (الاستمرار والتتابع)."
@@ -95,10 +95,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يعد \"الكتاب المدرسي\" بالنسبة للمنهج:",
         answers: [
-            "أ) مرادفاً له.",
+            "د) خطة دراسية شاملة.",
             "ب) جزءاً من المحتوى التعليمي.",
             "ج) وعاءً يضم المادة الدراسية المطلوبة.",
-            "د) خطة دراسية شاملة."
+            "أ) مرادفاً له."
         ],
         correctAnswer: 2,
         explanation: "الشرح: الكتاب هو الوسيلة التقليدية التي تجسد المادة الدراسية لنقلها للطلاب."
@@ -108,10 +108,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الأساس الذي يركز على \"طبيعة المتعلم وخصائصه وميوله\" هو:",
         answers: [
-            "أ) الأساس الفلسفي.",
+            "د) الأساس المعرفي.",
             "ب) الأساس النفسي.",
-            "ج) الأساس الاجتماعي.",
-            "د) الأساس المعرفي."
+            "أ) الأساس الفلسفي.",
+            "ج) الأساس الاجتماعي."
         ],
         correctAnswer: 1,
         explanation: "الشرح: الأسس النفسية تهتم بمراحل النمو واحتياجات المتعلم وقدراته."
@@ -122,11 +122,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "عندما نقول إن المنهج هو \"مجموعة الخبرات التي يمر بها المتعلم تحت إشراف المدرسة\"، نحن نتبنى المنظور:",
         answers: [
             "أ) التقليدي.",
-            "ب) الحديث.",
             "ج) السلوكي.",
-            "د) التكنولوجي."
+            "د) التكنولوجي.",
+            "ب) الحديث."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: المنظور الحديث يركز على الخبرة والنشاط وتعديل السلوك وليس مجرد حفظ المعلومات."
     },
     {
@@ -134,12 +134,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "\"التوسع والعمق\" هما بعدان أساسيان في المنهج:",
         answers: [
-            "أ) المترابط.",
-            "ب) النشاط.",
             "ج) الحلزوني.",
-            "د) المنفصل."
+            "ب) النشاط.",
+            "د) المنفصل.",
+            "أ) المترابط."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "الشرح: يكرر المفاهيم بزيادة في العمق (رأسياً) والاتساع (أفقياً)."
     },
     {
@@ -148,11 +148,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "المصطلح الذي يشير إلى \"مجموعة القواعد والمبادئ التي تخص مجالاً دراسياً معيناً كالكيمياء\" هو:",
         answers: [
             "أ) المنهج.",
-            "ب) المادة الدراسية.",
             "ج) المقرر الدراسي.",
+            "ب) المادة الدراسية.",
             "د) البرنامج الدراسي."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: المادة الدراسية تعني الحقائق والقوانين والنظريات الخاصة بتخصص علمي محدد."
     },
     {
@@ -161,11 +161,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "أهم ما يميز \"منهج النشاط\" هو:",
         answers: [
             "أ) التركيز على المادة العلمية.",
-            "ب) دور المعلم كناقل للمعلومات.",
             "ج) إيجابية المتعلم وحل المشكلات.",
+            "ب) دور المعلم كناقل للمعلومات.",
             "د) الفصل التام بين المواد."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: يقوم على أساس أن التلميذ يجب أن يكون فاعلاً ويكتشف الحقائق بنفسه."
     },
     {
@@ -173,10 +173,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "معوقات تطوير المنهج التي تتعلق بـ \"المباني المدرسية والمعامل\" تسمى معوقات:",
         answers: [
-            "أ) فنية.",
-            "ب) مادية.",
             "ج) نفسية.",
-            "د) اجتماعية."
+            "ب) مادية.",
+            "د) اجتماعية.",
+            "أ) فنية."
         ],
         correctAnswer: 1,
         explanation: "الشرح: تشمل كل الإمكانيات الفيزيائية الملموسة كالأجهزة والكتب والمباني."
@@ -186,12 +186,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "التصور الذي يرى المنهج \"خطة مكتوبة تهدف لتزويد المتعلمين بفرص تعليمية\" هو:",
         answers: [
-            "أ) المنهج كخبرات.",
-            "ب) المنهج كموقف.",
+            "د) المنهج كأهداف.",
             "ج) المنهج كخطة تعليمية.",
-            "د) المنهج كأهداف."
+            "ب) المنهج كموقف.",
+            "أ) المنهج كخبرات."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: يركز على مستوى \"التخطيط\" قبل التنفيذ الفعلي في الفصل."
     },
     {
@@ -199,12 +199,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الأساس الذي يهتم بـ \"التطورات العلمية والمستجدات في المادة الدراسية\" هو:",
         answers: [
-            "أ) النفسي.",
             "ب) المعرفي.",
+            "د) الفلسفي.",
             "ج) الاجتماعي.",
-            "د) الفلسفي."
+            "أ) النفسي."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الشرح: الأسس المعرفية تتعلق بطبيعة المادة ومصادرها ومستجداتها."
     },
     {
@@ -212,12 +212,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "من شروط \"الخبرة\" في المنهج الحديث أنها:",
         answers: [
-            "أ) تنتهي بانتهاء الموقف.",
-            "ب) مستمرة وتؤدي لتعديل السلوك.",
             "ج) مقتصرة على الفصل الدراسي.",
-            "د) تعتمد على الحفظ الآلي."
+            "د) تعتمد على الحفظ الآلي.",
+            "أ) تنتهي بانتهاء الموقف.",
+            "ب) مستمرة وتؤدي لتعديل السلوك."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: الخبرة ناتجة عن تفاعل الفرد مع بيئته وتأثيرها يمتد لتوجيه سلوكه مستقبلاً."
     },
     {
@@ -225,10 +225,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "\"منهج المجالات الواسعة\" جاء كحل لمشكلة:",
         answers: [
-            "أ) صعوبة الاختبارات.",
+            "د) قلة المعلمين.",
             "ب) تفتت المعرفة في المواد المنفصلة.",
             "ج) زيادة نشاط الطالب.",
-            "د) قلة المعلمين."
+            "أ) صعوبة الاختبارات."
         ],
         correctAnswer: 1,
         explanation: "الشرح: يهدف لتجميع الموضوعات المتشابهة في مجال واحد لإيجاد نوع من التكامل."
@@ -238,12 +238,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي مما يلي ليس من أسس \"تطوير المنهج\"؟",
         answers: [
-            "أ) الاستناد لنتائج التقويم.",
-            "ب) الشمول والتكامل.",
+            "د) مراعاة حاجات المجتمع.",
             "ج) الاعتماد على الارتجال.",
-            "د) مراعاة حاجات المجتمع."
+            "أ) الاستناد لنتائج التقويم.",
+            "ب) الشمول والتكامل."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: التطوير يجب أن يقوم على البحث العلمي والتجريب لا العشوائية."
     },
     {
@@ -251,12 +251,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "عندما يوصف المنهج بأنه \"موقف تعليمي\"، فإنه يركز على:",
         answers: [
-            "أ) الكتاب المدرسي فقط.",
-            "ب) العمليات والتفاعلات داخل الفصل.",
             "ج) الاختبارات النهائية.",
-            "د) التخطيط المسبق."
+            "د) التخطيط المسبق.",
+            "أ) الكتاب المدرسي فقط.",
+            "ب) العمليات والتفاعلات داخل الفصل."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: ينظر للمنهج كأنشطة وتفاعلات يكتسبها التلميذ تحت إشراف المدرسة."
     },
     {
@@ -264,12 +264,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "مفهوم \"الاستمرار والتتابع\" يظهر بوضوح في المنهج:",
         answers: [
+            "د) المنفصل.",
             "أ) المترابط.",
             "ب) الحلزوني.",
-            "ج) المندمج.",
-            "د) المنفصل."
+            "ج) المندمج."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: تكرار المفاهيم بزيادة العمق يضمن الاستمرار والتتابع في التعلم."
     },
     {
@@ -277,12 +277,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المعوقات \"الفنية\" لتطوير المنهج تشمل:",
         answers: [
-            "أ) نقص الميزانية.",
             "ب) ضيق الفصول.",
             "ج) إعداد المعلم والتوجيه الفني.",
+            "أ) نقص الميزانية.",
             "د) قدم المعامل."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الشرح: العوامل الفنية ترتبط بالكادر البشري المتخصص وعمليات التوجيه والتدريب."
     },
     {
@@ -290,12 +290,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي العوامل التالية تندرج تحت \"الأسس الاجتماعية\" لبناء المنهج؟",
         answers: [
-            "أ) نظريات التعلم.",
-            "ب) حاجات المجتمع وتطوره الاقتصادي.",
+            "د) بنية المادة العلمية.",
             "ج) طبيعة التفكير البشري.",
-            "د) بنية المادة العلمية."
+            "ب) حاجات المجتمع وتطوره الاقتصادي.",
+            "أ) نظريات التعلم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: تتعلق بمتطلبات المجتمع وثقافته وقيمه وتنميته."
     },
     {
@@ -303,12 +303,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي \"يربط بين الموضوعات الدراسية\" دون صهرها تماماً هو:",
         answers: [
-            "أ) المنهج المترابط.",
-            "ب) منهج الدمج.",
+            "د) المنهج المنفصل.",
             "ج) منهج النشاط.",
-            "د) المنهج المنفصل."
+            "ب) منهج الدمج.",
+            "أ) المنهج المترابط."
         ],
-        correctAnswer: 0,
+        correctAnswer: 3,
         explanation: "الشرح: يهدف لإيجاد صلات بين المواد مع الحفاظ على استقلاليتها النسبية."
     },
     {
@@ -316,12 +316,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يطلق مصطلح (Course) في المنهج على:",
         answers: [
-            "أ) البرنامج الدراسي الكامل.",
-            "ب) المقرر الدراسي المرتبط بفترة زمنية.",
             "ج) الخطة الدراسية (Syllabus).",
-            "د) محتوى الكتاب فقط."
+            "د) محتوى الكتاب فقط.",
+            "ب) المقرر الدراسي المرتبط بفترة زمنية.",
+            "أ) البرنامج الدراسي الكامل."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: المقرر هو مجموعة موضوعات دراسية يلتزم بها الطالب في فصل أو عام دراسي."
     },
     {
@@ -330,11 +330,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "المنظور \"السلوكي\" للمنهج يركز على:",
         answers: [
             "أ) الحشو المعرفي.",
-            "ب) التغيير في شخصية المتعلم نتيجة الخبرة.",
             "ج) حفظ الكتاب المدرسي.",
-            "د) التخطيط الورقي فقط."
+            "د) التخطيط الورقي فقط.",
+            "ب) التغيير في شخصية المتعلم نتيجة الخبرة."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: يرى المنهج كوسيلة لإحداث تعديل في سلوك التلاميذ ونموهم الشامل."
     },
     {
@@ -342,12 +342,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "من أسس تطوير المنهج \"مراعاة خصائص المتعلمين\"، وهذا يربط التطوير بالأساس:",
         answers: [
+            "د) التقني.",
             "أ) الفلسفي.",
-            "ب) النفسي.",
             "ج) المعرفي.",
-            "د) التقني."
+            "ب) النفسي."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: خصائص المتعلم النفسية والاجتماعية هي محور الأساس النفسي."
     },
     {
@@ -355,12 +355,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي مما يلي يعد من \"العمليات\" في تعريف المنهج؟",
         answers: [
-            "أ) الأهداف.",
-            "ب) المحتوى.",
             "ج) طرق التدريس والأنشطة.",
-            "د) المخرجات."
+            "د) المخرجات.",
+            "ب) المحتوى.",
+            "أ) الأهداف."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "الشرح: العمليات هي الأفعال التي تتم لتحقيق الأهداف مثل التدريس والنشاط."
     },
     {
@@ -368,12 +368,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي يعتمد على \"ميول التلاميذ وحاجاتهم\" ويجعلهم يكتشفون المعرفة بأنفسهم هو:",
         answers: [
-            "أ) منهج المواد المنفصلة.",
-            "ب) منهج النشاط.",
+            "د) المنهج الحلزوني.",
             "ج) المنهج المندمج.",
-            "د) المنهج الحلزوني."
+            "أ) منهج المواد المنفصلة.",
+            "ب) منهج النشاط."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: يركز على إيجابية الطالب ونشاطه الذاتي المرتبط بميوله."
     },
     {
@@ -382,11 +382,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "تطوير المنهج عملية \"تعاونية\"، يقصد بها:",
         answers: [
             "أ) قيام المعلم وحده بالتطوير.",
+            "د) تغيير الكتب المدرسية فقط.",
             "ب) مشاركة أطراف متعددة (معلمين، خبراء، مجتمع).",
-            "ج) نقل المناهج من دول أخرى.",
-            "د) تغيير الكتب المدرسية فقط."
+            "ج) نقل المناهج من دول أخرى."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الشرح: التطوير يتطلب تكاتف جهود الخبراء والممارسين لضمان النجاح."
     },
     {
@@ -395,9 +395,9 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "\"المنهاج\" لغوياً يعني:",
         answers: [
             "أ) الطريق المستقيم.",
-            "ب) البحث العلمي.",
             "ج) العلم الغزير.",
-            "د) السباق السريع."
+            "د) السباق السريع.",
+            "ب) البحث العلمي."
         ],
         correctAnswer: 0,
         explanation: "الشرح: في اللغة العربية، النهج والمنهاج هو الطريق الواضح المستقيم."
@@ -407,12 +407,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنظور الذي يرى أن المنهج هو \"مجموعة المواد الدراسية\" فقط هو منظور:",
         answers: [
-            "أ) حديث.",
-            "ب) تقليدي (قديم).",
+            "د) متكامل.",
             "ج) شامل.",
-            "د) متكامل."
+            "أ) حديث.",
+            "ب) تقليدي (قديم)."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: هذا التصور ضيق يركز على الجانب المعرفي فقط."
     },
     {
@@ -420,12 +420,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أهمية \"التقويم\" في عملية التطوير تكمن في:",
         answers: [
-            "أ) رصد درجات الطلاب فقط.",
-            "ب) كونه الأساس الذي يبنى عليه قرار التطوير.",
             "ج) إنهاء العام الدراسي.",
-            "د) توزيع الكتب."
+            "أ) رصد درجات الطلاب فقط.",
+            "د) توزيع الكتب.",
+            "ب) كونه الأساس الذي يبنى عليه قرار التطوير."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الشرح: التطوير السليم يبنى على نتائج تقويم واقعية وشاملة."
     },
     {
@@ -433,12 +433,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "\"منهج المجالات الواسعة\" يساعد المتعلم على:",
         answers: [
-            "أ) الحفظ السريع.",
             "ب) فهم طبيعة المجالات وربطها بالحياة.",
             "ج) التخصص الدقيق المبكر.",
+            "أ) الحفظ السريع.",
             "د) إهمال الأنشطة."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الشرح: يظهر الدور الوظيفي للمعرفة ويربطها بمشكلات المجتمع."
     },
     {
@@ -446,19 +446,22 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "عندما يخطط المنهج في ضوء \"المستقبل ومشكلاته\"، فهو يراعي أساس التطوير:",
         answers: [
+            "د) الثابت.",
             "أ) الاستشرافي.",
             "ب) الماضي.",
-            "ج) العشوائي.",
-            "د) الثابت."
+            "ج) العشوائي."
         ],
-        correctAnswer: 0,
+        correctAnswer: 1,
         explanation: "الشرح: من أسس التطوير استشراف حاجات المستقبل ومشكلاته."
     },
     {
         id: 36,
         chapter: 1,
         question: "المنهج بمفهومه التقليدي يركز على النمو الشامل للمتعلم (معرفياً ووجدانياً ومهارياً).",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: المنهج التقليدي يركز على الجانب المعرفي وحشو المعلومات فقط."
     },
@@ -466,7 +469,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 37,
         chapter: 1,
         question: "تطوير المنهج هو مجرد عملية استبدال كتب قديمة بأخرى جديدة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: التطوير عملية شاملة تمس كل مكونات المنهج (أهداف، محتوى، طرق، تقويم)."
     },
@@ -474,7 +480,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 38,
         chapter: 1,
         question: "يعد الأساس النفسي مسؤولاً عن تحديد حاجات المجتمع وتطوره الاقتصادي.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: هذا من اختصاص الأساس الاجتماعي."
     },
@@ -482,7 +491,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 39,
         chapter: 1,
         question: "منهج الدمج يزيل الحواجز تماماً بين مادتين دراسيتين ويصهرهم في مقرر واحد.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -490,7 +502,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 40,
         chapter: 1,
         question: "المنهج الحلزوني يرفض تكرار المفاهيم الدراسية في المراحل المختلفة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: يقوم أساساً على تكرارها بمستويات أعمق وأوسع."
     },
@@ -498,7 +513,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 41,
         chapter: 1,
         question: "المعوقات المادية لتطوير المنهج تشمل ضعف إعداد المعلم مهنياً.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: ضعف إعداد المعلم من المعوقات الفنية."
     },
@@ -506,7 +524,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 42,
         chapter: 1,
         question: "كلمة \"نهج\" في اللغة تعني الطريق الواضح.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -514,7 +535,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 43,
         chapter: 1,
         question: "الخبرة في المنهج الحديث هي مجرد تأثر المتعلم بالموقف دون الحاجة للقيام بعمل.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: الخبرة تتطلب القيام بعمل (فعل) ثم التأثر بالنتيجة."
     },
@@ -522,7 +546,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 44,
         chapter: 1,
         question: "المنهج المدرسي أعم من المقرر الدراسي (Course).",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -530,7 +557,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 45,
         chapter: 1,
         question: "تطوير المنهج يجب أن يكون مستمراً ومرناً وليس مجرد إجراء مؤقت.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -538,7 +568,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 46,
         chapter: 1,
         question: "منهج المواد المنفصلة يسهل عملية ربط المعرفة بالحياة الواقعية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: هو يفصل المعرفة في جزر منعزلة مما يصعب ربطها بالواقع."
     },
@@ -546,7 +579,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 47,
         chapter: 1,
         question: "الأساس الفلسفي يعكس قيم المجتمع الدينية والأخلاقية والوطنية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -554,7 +590,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 48,
         chapter: 1,
         question: "يمكن أن يحدث \"تغيير\" في المنهج نحو الأسوأ.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -562,7 +601,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 49,
         chapter: 1,
         question: "منهج النشاط يجعل المعلم هو المحور الأساسي للعملية التعليمية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: المتعلم هو محور منهج النشاط."
     },
@@ -570,7 +612,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 50,
         chapter: 1,
         question: "الخطة الدراسية (Syllabus) هي مرادف شامل لكل مفهوم المنهج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: هي مجرد توصيف للموضوعات والأهداف والجدول الزمني لمقرر ما."
     },
@@ -578,7 +623,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 51,
         chapter: 1,
         question: "الاستناد لنتائج البحث العلمي هو أحد أسس تطوير المناهج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -586,7 +634,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 52,
         chapter: 1,
         question: "المنهج كخطة تعليمية يركز على ما يحدث فعلياً داخل الفصل.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: يركز على التصور المسبق والتخطيط الورقي."
     },
@@ -594,7 +645,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 53,
         chapter: 1,
         question: "التطور التاريخي للمنهج نقل التركيز من \"المادة\" إلى \"المتعلم\".",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -602,7 +656,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 54,
         chapter: 1,
         question: "المناهج الحديثة تكتفي بالنمو العقلي للطالب.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: تهدف للنمو المتكامل (عقلي، جسمي، نفسي، اجتماعي)."
     },
@@ -610,7 +667,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 55,
         chapter: 1,
         question: "منهج المجالات الواسعة هو أكثر أنواع المناهج تفتيتاً للمعرفة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: بل هو يحاول تجميع المعرفة وتكاملها."
     },
@@ -618,7 +678,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 56,
         chapter: 1,
         question: "الأساس المعرفي يهتم بمصادر المادة الدراسية وتطبيقاتها.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -626,7 +689,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 57,
         chapter: 1,
         question: "إرادة الإنسان شرط أساسي في عملية \"التطوير\" وليس \"التغيير\".",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -634,7 +700,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 58,
         chapter: 1,
         question: "المنهج التقليدي ينمي قدرة الطالب على النقد والابتكار.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: يعتمد على التلقين والحفظ الآلي."
     },
@@ -642,7 +711,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 59,
         chapter: 1,
         question: "التطوير الكلي للمنهج يتناول الهيكل التنظيمي والمسلمات القيمية للنظام.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -650,7 +722,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 60,
         chapter: 1,
         question: "المعوقات الفنية تشمل نقص الوسائل التكنولوجية في المعامل.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: نقص الوسائل من المعوقات المادية."
     },
@@ -658,7 +733,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 61,
         chapter: 1,
         question: "الخبرة التعليمية الفعالة يجب أن تكون قابلة للتطبيق ومنطقية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -666,7 +744,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 62,
         chapter: 1,
         question: "المنهج كـ \"أهداف ومخرجات\" يركز على العمليات التعليمية أكثر من النتائج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: يركز على النتائج النهائية فقط."
     },
@@ -674,7 +755,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 63,
         chapter: 1,
         question: "المنهج الحلزوني يراعي \"الاستمرارية\" في بناء المعرفة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -682,7 +766,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 64,
         chapter: 1,
         question: "منهج النشاط يركز فقط على ميول الطالب ويهمل المواقف الاجتماعية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: يركز على الميول وأيضاً على مواقف الحياة والمجتمع."
     },
@@ -690,7 +777,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 65,
         chapter: 1,
         question: "زيادة ميزانية التعليم هي إحدى المقترحات لمواجهة معوقات التطوير.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -698,7 +788,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 66,
         chapter: 1,
         question: "التعليم المبرمج والتعلم بالحاسب يعد من الاتجاهات الحديثة التي قد تعيق المطورين غير المستعدين.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -706,7 +799,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 67,
         chapter: 1,
         question: "المنهج المترابط يلغي الفواصل بين المواد الدراسية تماماً.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: الدمج هو من يلغي الفواصل تماماً، المترابط يكتفي بالربط بينها."
     },
@@ -714,7 +810,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 68,
         chapter: 1,
         question: "المنهج في اللغة العربية يشير إلى المسلك أو الطريق.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -722,7 +821,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 69,
         chapter: 1,
         question: "الكتاب المدرسي هو المنهج بكل عناصره وعملياته.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "الشرح: الكتاب أداة أو وعاء للمحتوى، بينما المنهج منظومة أوسع."
     },
@@ -730,7 +832,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 70,
         chapter: 1,
         question: "التطوير عملية شاملة تتطلب تقويماً مستمراً.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب"
     },
@@ -739,12 +844,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الفرق الجوهري بين صيغتي \"المنهج\" و\"المنهاج\" من الناحية الوظيفية هو:",
         answers: [
-            "الأولى تشير إلى مكان حدوث التعلم والثانية إلى الخطة.",
             "الأولى تشير إلى مكان حدوث التعلم والثانية إلى الآلة التي يحدث بها.",
-            "الأولى تشير إلى استقامة الطريق والثانية إلى وضوح المعالم.",
-            "الأولى تشير إلى الأهداف النهائية والثانية إلى الوسائل التعليمية."
+            "الأولى تشير إلى الأهداف النهائية والثانية إلى الوسائل التعليمية.",
+            "الأولى تشير إلى مكان حدوث التعلم والثانية إلى الخطة.",
+            "الأولى تشير إلى استقامة الطريق والثانية إلى وضوح المعالم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "النص يوضح أن \"المنهج\" اسم مكان و\"المنهاج\" اسم آلة، وكلاهما يكمل وظيفة التعلم."
     },
     {
@@ -752,12 +857,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي من المفاهيم التالية يعكس \"قصدية\" المنهج التعليمي وفق المدلول اللغوي؟",
         answers: [
-            "الاستقامة والاعتدال.",
             "التجانس والترابط.",
             "الوضوح والبيان (الأهداف).",
+            "الاستقامة والاعتدال.",
             "اسم المكان والآلة."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الوضوح والبيان يقتضيان معرفة الحدود والنهايات، وهو ما يعبر عنه بالأهداف التي تمثل دليل القصدية."
     },
     {
@@ -765,12 +870,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "وفقاً للمفهوم اللاتيني الأصلي (Race)، فإن المنهج يركز بالأساس على:",
         answers: [
-            "المحتوى المعرفي.",
-            "نواتج التعلم.",
             "المسار أو متطلب الجري الدراسي.",
-            "التفاعل الاجتماعي."
+            "نواتج التعلم.",
+            "التفاعل الاجتماعي.",
+            "المحتوى المعرفي."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "المصطلح اللاتيني (Curriculum) يعني مضمار السباق، والذي تحول لاحقاً إلى مسار دراسي تدريبي."
     },
     {
@@ -778,12 +883,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تسبب تعريف المنهج بوصفه \"مجموعة مواد دراسية\" في أثر تربوي سلبي هو:",
         answers: [
+            "تعقيد إجراءات الامتحان السنوي.",
             "إهمال دور المعلم تماماً.",
             "نمو التلميذ في الناحية العقلية فقط وبأدنى مستوياتها.",
-            "تعقيد إجراءات الامتحان السنوي.",
             "زيادة الأنشطة المدرسية اللاصفية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "المفهوم الضيق للمنهج ركز على تحصيل المعلومات لاجتياز الامتحان، مما أدى لنمو عقلي قاصر."
     },
     {
@@ -791,10 +896,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "في تصور المنهج بوصفه \"موضوعات دراسية\"، يُنظر للمادة الدراسية على أنها:",
         answers: [
-            "وسيلة لتحقيق النمو الشامل.",
             "أداة لتعديل السلوك.",
+            "وسيط للتفاعل الاجتماعي.",
             "غاية في ذاتها.",
-            "وسيط للتفاعل الاجتماعي."
+            "وسيلة لتحقيق النمو الشامل."
         ],
         correctAnswer: 2,
         explanation: "هذا التصور التقليدي يجعل المادة الدراسية هي الهدف النهائي، ويقتصر دور المعلم على نقلها."
@@ -804,12 +909,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الانتقاد الرئيسي لتصور المنهج بوصفه \"أهدافاً ومخرجات\" هو:",
         answers: [
+            "صعوبة قياس المخرجات التعليمية.",
             "عدم وضوح النتائج المرتقبة.",
-            "إغفال العمليات التعليمية والوسائط (الجوهر).",
             "التركيز المبالغ فيه على نشاط الطالب.",
-            "صعوبة قياس المخرجات التعليمية."
+            "إغفال العمليات التعليمية والوسائط (الجوهر)."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "هذا المنظور يهتم بالنتائج ويهمل العمليات التي تتم بين الأهداف والمخرجات."
     },
     {
@@ -818,11 +923,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "يحدث الخلط بين مفهومي \"المنهج\" و\"التدريس\" بوضوح عند تعريفه كـ:",
         answers: [
             "خبرات تعليمية.",
-            "خطة تعليمية.",
             "موقف تعليمي.",
+            "خطة تعليمية.",
             "نسيج متكامل."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "التركيز على العمليات وما يمارسه المعلم داخل الفصل يجعل المنهج مرادفاً للتدريس."
     },
     {
@@ -830,12 +935,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يوصف المنهج بأنه \"تصور عقلي مجرد لما ينبغي أن يكون\" عندما يُعرف كـ:",
         answers: [
-            "خبرات.",
             "مادة دراسية.",
             "خطة تعليمية.",
-            "برنامج دراسي."
+            "برنامج دراسي.",
+            "خبرات."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "مستوى التخطيط هو تصور عقلي مثالي لما يجب أن يكون عليه المنهج."
     },
     {
@@ -843,12 +948,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "العنصر الذي يربط بين \"التأثير\" و\"التأثر\" في الموقف الخبري هو:",
         answers: [
-            "الكتاب المدرسي.",
             "القيام بالعمل والإحساس بالنتيجة.",
-            "المعلم الناقل للمعلومات.",
-            "الزمن المخصص للسباق."
+            "الكتاب المدرسي.",
+            "الزمن المخصص للسباق.",
+            "المعلم الناقل للمعلومات."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الموقف الخبري يتضمن العمل، الإحساس برد الفعل، ثم الربط بينهما."
     },
     {
@@ -856,12 +961,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "استخدام مصطلح \"الخبرة\" في تعريف المنهج يمنحه صفة:",
         answers: [
-            "السكون والجمود.",
             "الشمول والتفاعل والاستمرار.",
+            "الفصل بين المدرسة والمجتمع.",
             "الاختزال في المقرر الدراسي.",
-            "الفصل بين المدرسة والمجتمع."
+            "السكون والجمود."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الخبرة تعني تفاعل المتعلم مع المواقف بشكل مستمر ومتكامل."
     },
     {
@@ -882,9 +987,9 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج \"المحقق\" في التعريف الإجرائي يظهر في عبارة:",
         answers: [
-            "ينجحون في ذلك بمستويات مختلفة.",
-            "يتفاعل معها المتعلمون بدرجات مختلفة.",
             "تصاغ تحت تأثير عوامل معرفية.",
+            "يتفاعل معها المتعلمون بدرجات مختلفة.",
+            "ينجحون في ذلك بمستويات مختلفة.",
             "مجموعة مشروعة وصادقة."
         ],
         correctAnswer: 1,
@@ -895,12 +1000,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الفرق بين \"البرنامج الدراسي\" و\"المنهج\" هو أن البرنامج:",
         answers: [
-            "أعم وأشمل من المنهج.",
-            "يركز على الحقائق العلمية المجردة فقط.",
+            "مرادف للكتاب المدرسي.",
             "مخطط عام يحدد متطلبات القبول والجدول الزمني لفئة معينة.",
-            "مرادف للكتاب المدرسي."
+            "يركز على الحقائق العلمية المجردة فقط.",
+            "أعم وأشمل من المنهج."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "البرنامج يتضمن مقررات وساعات محددة لفئة معينة ومرتبط بالتنظيم الإداري."
     },
     {
@@ -908,12 +1013,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تعتبر \"الخطة الدراسية (Syllabus)\" متميزة عن المنهج بأنها:",
         answers: [
-            "نسيج متكامل من الأهداف والتقويم.",
             "توصيف شامل للمقرر يشمل الساعات المكتبية والمراجع.",
             "مجموعة الحقائق والقوانين الفيزيائية.",
-            "الوعاء المطبوع الموزع على الطلاب."
+            "الوعاء المطبوع الموزع على الطلاب.",
+            "نسيج متكامل من الأهداف والتقويم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الخطة (Syllabus) هي توصيف إجرائي للمقرر الدراسي ومتطلباته."
     },
     {
@@ -922,11 +1027,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "المادة الدراسية (Subject Matter) تمثل:",
         answers: [
             "المحتوى التعليمي المنظم في الكتاب.",
-            "المعارف والاتجاهات المراد إكسابها للمتعلم.",
             "الحقائق والمبادئ التي تخص مجالاً معيناً قبل ترجمتها لواقع.",
+            "المعارف والاتجاهات المراد إكسابها للمتعلم.",
             "نتاج التفاعل بين الفرد وبيئته."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "هي المادة الخام من مفاهيم وقوانين تخص تخصصاً معيناً كالفيزياء."
     },
     {
@@ -934,12 +1039,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الوعاء الذي يضم محتوى أحد المقررات الدراسية في شكل مطبوع هو:",
         answers: [
-            "المنهاج.",
             "البرنامج الدراسي.",
-            "الكتاب المدرسي.",
-            "المادة الدراسية."
+            "المادة الدراسية.",
+            "المنهاج.",
+            "الكتاب المدرسي."
         ],
-        correctAnswer: 2,
+        correctAnswer: 3,
         explanation: "الكتاب المدرسي هو الشكل التقليدي والوعاء الذي يحوي المادة الدراسية."
     },
     {
@@ -947,12 +1052,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تُصنف \"الأسس التي تعكس عقيدة المجتمع وتراثه\" ضمن الأسس:",
         answers: [
-            "النفسية.",
-            "الاجتماعية.",
+            "المعرفية.",
             "الفلسفية.",
-            "المعرفية."
+            "الاجتماعية.",
+            "النفسية."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "الأسس الفلسفية هي الأطر الفكرية التي تعكس خصوصية وعقيدة المجتمع."
     },
     {
@@ -960,10 +1065,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "ربط المنهج بمشكلات المتعلمين وحاجاتهم يمثل مراعاة للأسس:",
         answers: [
-            "المعرفية.",
             "الفلسفية.",
+            "التاريخية.",
             "النفسية.",
-            "التاريخية."
+            "المعرفية."
         ],
         correctAnswer: 2,
         explanation: "الأسس النفسية تتعلق بطبيعة المتعلم، قدراته، حاجاته، ومشكلاته."
@@ -973,10 +1078,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الأسس المعرفية لبناء المنهج تركز بشكل رئيسي على:",
         answers: [
-            "ثقافة المجتمع وقيمه الدينية.",
+            "الميزانية المادية للمباني المدرسية.",
             "طبيعة المادة الدراسية ومستجداتها وعلاقتها بالمجالات الأخرى.",
-            "الخصائص السيكولوجية للمتعلم.",
-            "الميزانية المادية للمباني المدرسية."
+            "ثقافة المجتمع وقيمه الدينية.",
+            "الخصائص السيكولوجية للمتعلم."
         ],
         correctAnswer: 1,
         explanation: "الأسس المعرفية تهتم بمصدر المادة وتطورها وعلاقتها العضوية بالمهارات."
@@ -986,12 +1091,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الفرق الجوهري بين \"التغيير\" و\"التطوير\" في المنهج هو أن التطوير:",
         answers: [
-            "قد يكون سلبياً أو إيجابياً.",
-            "يتم بعوامل خارجية دون إرادة الإنسان.",
             "عملية مقصودة هادفة تؤدي دائماً للأفضل.",
+            "يتم بعوامل خارجية دون إرادة الإنسان.",
+            "قد يكون سلبياً أو إيجابياً.",
             "يقتصر على جزء بسيط من النظام."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "التطوير عملية علمية هادفة للتقدم، بينما التغيير قد يكون للأسوأ."
     },
     {
@@ -999,12 +1104,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "عندما ينصب التطوير على \"تحسين العناصر دون المساس بالهيكل التنظيمي\"، فإنه يختلف عن التغيير الذي قد يكون:",
         answers: [
-            "كيفياً فقط.",
             "جذرياً يشمل الهيكل والمسلمات.",
             "مستمراً وتلقائياً.",
+            "كيفياً فقط.",
             "نتاج تقويم المنهج."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "التغيير قد يكون جذرياً يعيد بناء النظام من جديد، أما التطوير فيحسن الجوانب القائمة."
     },
     {
@@ -1012,12 +1117,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تُعد \"المباني المدرسية والمعامل\" من معوقات التطوير:",
         answers: [
-            "الفنية.",
-            "النفسية.",
             "المادية.",
-            "الثقافية."
+            "النفسية.",
+            "الثقافية.",
+            "الفنية."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "المعوقات المادية تشمل التجهيزات، المباني، والميزانيات."
     },
     {
@@ -1026,11 +1131,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "إعداد المعلم والتوجيه الفني يندرجان تحت معوقات التطوير:",
         answers: [
             "المادية.",
-            "الفنية.",
             "الشكلية.",
+            "الفنية.",
             "الاقتصادية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "المعوقات الفنية تتعلق بالكوادر البشرية المتخصصة كالمعلمين والموجهين."
     },
     {
@@ -1038,12 +1143,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "اللتزام بـ \"التعلم الذاتي والتعلم بالحاسب\" يمثل تحدياً في التطوير من ناحية:",
         answers: [
-            "المعوقات المادية.",
             "الاتجاهات التربوية الحديثة.",
-            "الأسس الفلسفية التقليدية.",
-            "الميزانية العامة للتعليم."
+            "الميزانية العامة للتعليم.",
+            "المعوقات المادية.",
+            "الأسس الفلسفية التقليدية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الاتجاهات الحديثة تفرض صيغاً معينة يجب أن يواكبها مطورو المناهج."
     },
     {
@@ -1051,12 +1156,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "منهج \"المواد الدراسية المنفصلة\" يركز غالباً على الأهداف:",
         answers: [
-            "الوجدانية.",
             "المهارية.",
             "المعرفية.",
+            "الوجدانية.",
             "الاجتماعية."
         ],
-        correctAnswer: 2,
+        correctAnswer: 1,
         explanation: "هذا المنهج يهتم بالمعرفة الأكاديمية والترتيب المنطقي للمادة."
     },
     {
@@ -1064,12 +1169,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي \"يزيل الحواجز تماماً بين ميدانين مختلفين ليدمجا في مادة واحدة\" هو:",
         answers: [
+            "المنهج الحلزوني.",
             "المنهج المترابط.",
             "منهج الدمج.",
-            "المنهج الحلزوني.",
             "منهج النشاط."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "منهج الدمج يزيل الحواجز تماماً ويدرس الميدانين معلم واحد."
     },
     {
@@ -1077,12 +1182,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يختلف \"منهج المجالات الواسعة\" عن \"المنهج المترابط\" في أن الأول:",
         answers: [
+            "يركز على ميول المتعلم فقط.",
             "يحافظ على استقلال المواد.",
             "يمزج الموضوعات المتشابهة في مجال واحد (تزول الحواجز).",
-            "يركز على ميول المتعلم فقط.",
             "يعتمد على الترتيب التاريخي."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "المجالات الواسعة تمزج المواد المتشابهة لتزول الحواجز بينها."
     },
     {
@@ -1090,12 +1195,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي يبحث في \"العلاقة الرأسية\" للمفاهيم عبر الصفوف الدراسية هو:",
         answers: [
-            "منهج الدمج.",
-            "منهج المجالات الواسعة.",
             "المنهج الحلزوني.",
-            "منهج المواد المنفصلة."
+            "منهج المواد المنفصلة.",
+            "منهج المجالات الواسعة.",
+            "منهج الدمج."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "المنهج الحلزوني يكرر المفاهيم بزيادة العمق والاتساع رأسياً."
     },
     {
@@ -1103,12 +1208,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "\"كل درس جواب عن سؤال، وكل تعلم حل لمشكلة\"؛ هذه القاعدة تمثل:",
         answers: [
+            "المنهج التقليدي.",
             "المنهج المترابط.",
             "المنهج الحلزوني.",
-            "منهج النشاط.",
-            "المنهج التقليدي."
+            "منهج النشاط."
         ],
-        correctAnswer: 2,
+        correctAnswer: 3,
         explanation: "منهج النشاط يقوم على إيجابية المتعلم وبحثه عن الحلول لمشكلاته."
     },
     {
@@ -1116,12 +1221,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تُبنى الأسس الاجتماعية للمنهج على أساس:",
         answers: [
-            "نظريات التعلم والتعليم.",
             "حاجات المجتمع وتطوره التقني وقيمه.",
-            "طبيعة المادة الدراسية فقط.",
-            "الاستعداد النفسي للمتعلم."
+            "الاستعداد النفسي للمتعلم.",
+            "نظريات التعلم والتعليم.",
+            "طبيعة المادة الدراسية فقط."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "الأسس الاجتماعية ترتبط بالمجتمع، ثقافته، قيمه، وتطوره."
     },
     {
@@ -1129,10 +1234,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "الخبرة في المنهج تُشبه بـ \"تركيبة الدواء\" لأنها:",
         answers: [
-            "تُصرف للمتعلم وقت الحاجة فقط.",
+            "تُحفظ في الكتب المدرسية.",
             "تتكون من عناصر متكاملة لا يمكن فصلها لتحقيق الشفاء (الهدف).",
-            "تقتصر على الجانب المعرفي.",
-            "تُحفظ في الكتب المدرسية."
+            "تُصرف للمتعلم وقت الحاجة فقط.",
+            "تقتصر على الجانب المعرفي."
         ],
         correctAnswer: 1,
         explanation: "تكامل عناصر الخبرة (مادة، طريقة، وسيلة) يجعلها وحدة واحدة كالدواء."
@@ -1142,10 +1247,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي من البدائل يمثل الترتيب الصحيح لعمليات المنهج الثلاثة؟",
         answers: [
-            "التنفيذ، التخطيط، التقويم.",
             "التقويم، التنفيذ، التخطيط.",
+            "التنفيذ، التقويم، التخطيط.",
             "التخطيط، التنفيذ، التقويم.",
-            "التنفيذ، التقويم، التخطيط."
+            "التنفيذ، التخطيط، التقويم."
         ],
         correctAnswer: 2,
         explanation: "تبدأ بصناعة الأهداف (تخطيط)، ثم الموقف التعليمي (تنفيذ)، ثم النتائج (تقويم)."
@@ -1156,11 +1261,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "المنهج الذي يساعد على \"الربط بين المدرسة والمجتمع\" من خلال دراسة المشكلات هو:",
         answers: [
             "المواد المنفصلة.",
+            "التقليدي.",
             "المجالات الواسعة.",
-            "الحلزوني.",
-            "التقليدي."
+            "الحلزوني."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "المجالات الواسعة تعرض المشكلات بصورتها الواقعية في المجتمع."
     },
     {
@@ -1168,10 +1273,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "مصطلح (Syllabus) يركز بشكل أساسي على:",
         answers: [
-            "نواتج التعلم النهائية فقط.",
+            "التفاعل المستمر بين الفرد وبيئته.",
             "توصيف المقرر، الموضوعات، المراجع، والتقويم.",
             "الخبرات غير المخططة خارج المدرسة.",
-            "التفاعل المستمر بين الفرد وبيئته."
+            "نواتج التعلم النهائية فقط."
         ],
         correctAnswer: 1,
         explanation: "الـ Syllabus هو وثيقة تشمل تفاصيل تدريس المقرر ومراجعه."
@@ -1181,12 +1286,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يتحقق \"النمو الشامل المتكامل\" للمتعلم عندما يكون المنهج:",
         answers: [
+            "فاصلاً بين المعرفة والنشاط.",
             "مجرد قائمة معلومات.",
-            "نسيجاً متكاملاً من الأهداف والمحتوى والمواقف والتقويم.",
             "مركزاً على الاختبارات التحصيلية فقط.",
-            "فاصلاً بين المعرفة والنشاط."
+            "نسيجاً متكاملاً من الأهداف والمحتوى والمواقف والتقويم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "المنهج الحديث نسيج متكامل يهدف للنمو الشامل في كافة الجوانب."
     },
     {
@@ -1195,11 +1300,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "العلاقة الأفقية (التكامل) بين الموضوعات هي السمة الغالبة في:",
         answers: [
             "المنهج الحلزوني.",
-            "التنظيمات المنهجية المترابطة والدمج والمجالات.",
             "منهج المواد المنفصلة.",
-            "البرنامج الدراسي."
+            "البرنامج الدراسي.",
+            "التنظيمات المنهجية المترابطة والدمج والمجالات."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "التكامل يبحث في العلاقة الأفقية، بينما الحلزوني يبحث في الرأسية."
     },
     {
@@ -1207,12 +1312,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "من شروط \"صدق المحتوى ومشروعيته\" الواردة في تعريف أحمد المهدي:",
         answers: [
-            "أن يكون من اختيار الطلاب فقط.",
             "أن يعكس القيم والمعتقدات المعتمدة من المجتمع.",
-            "أن يخلو من المهارات العملية.",
-            "أن يُدرس خارج أسوار المدرسة."
+            "أن يكون من اختيار الطلاب فقط.",
+            "أن يُدرس خارج أسوار المدرسة.",
+            "أن يخلو من المهارات العملية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "المشروعية والصدق تعني ارتباط المحتوى بالقيم والمعارف الصحيحة مجتمعياً."
     },
     {
@@ -1220,12 +1325,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يُعد \"التعلم الدائم\" هدفاً للتربية الحديثة، وهو ما يفشل فيه المنهج التقليدي بسبب:",
         answers: [
+            "الانفتاح على المجتمع.",
             "كثرة الأنشطة.",
-            "الاقتصار على تحصيل المعلومات للامتحان فقط (النسيان).",
             "التركيز على المهارات المهنية.",
-            "الانفتاح على المجتمع."
+            "الاقتصار على تحصيل المعلومات للامتحان فقط (النسيان)."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "الحفظ من أجل الامتحان يؤدي للنسيان، مما يتنافى مع التعلم المستمر."
     },
     {
@@ -1233,12 +1338,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "\"المنهج أداة المدرسة ووسيلتها لتحقيق أهداف المجتمع\"؛ يشير هذا إلى الأسس:",
         answers: [
-            "النفسية.",
             "الاجتماعية والفلسفية.",
             "المعرفية الصرفة.",
-            "التقنية."
+            "التقنية.",
+            "النفسية."
         ],
-        correctAnswer: 1,
+        correctAnswer: 0,
         explanation: "المنهج يحقق غايات المجتمع ويعكس هويته وقيمه."
     },
     {
@@ -1247,11 +1352,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "في منهج \"النشاط\"، يتم التركيز في الاتجاه الثاني على:",
         answers: [
             "ميول وحاجات المتعلمين.",
-            "مواقف اجتماعية مرتبطة بحياة المتعلمين.",
             "المادة الدراسية المنفصلة.",
+            "مواقف اجتماعية مرتبطة بحياة المتعلمين.",
             "الترتيب المنطقي للحقائق."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "الاتجاه الأول للميول، والثاني للمواقف الاجتماعية الحياتية."
     },
     {
@@ -1259,12 +1364,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "أي مما يلي يُعد من \"أسس تطوير المنهج\"؟",
         answers: [
-            "الاعتماد على التغيير العشوائي.",
-            "أن يُبنى التطوير على نتائج التقويم.",
+            "إهمال التقدم التكنولوجي.",
             "أن يكون التطوير جزئياً ومنفصلاً.",
-            "إهمال التقدم التكنولوجي."
+            "الاعتماد على التغيير العشوائي.",
+            "أن يُبنى التطوير على نتائج التقويم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "التطوير العلمي الصحيح يبدأ من نتائج التقويم المستمر."
     },
     {
@@ -1273,11 +1378,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "يُقصد بـ \"المنهاج\" في اللغة:",
         answers: [
             "الطريق المستقيم فقط.",
-            "الخطة المرسومة والطريق الواضح.",
             "الغابة الموحشة.",
+            "الخطة المرسومة والطريق الواضح.",
             "المادة العلمية الصعبة."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "المنهاج لغةً هو الخطة المرسومة والطريق الواضح المستبين."
     },
     {
@@ -1285,12 +1390,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "في تعريف المنهج إجرائياً، تظهر \"عوامل المعرفة والمجتمع والمتعلم\" كـ:",
         answers: [
+            "مواد دراسية منفصلة.",
             "أهداف نهائية.",
             "مؤثرات في بناء المنهج واشتقاق أهدافه.",
-            "عوائق للتطوير.",
-            "مواد دراسية منفصلة."
+            "عوائق للتطوير."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "هذه العوامل هي الأسس التي يُبنى عليها المنهج وتُشتق منها أهدافه."
     },
     {
@@ -1299,11 +1404,11 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         question: "\"المساهمة في إثراء حصيلة المتعلمين في اللغة العربية الفصحى\" هي من أسس:",
         answers: [
             "بناء المنهج النفسية.",
+            "الكتاب المدرسي.",
             "تطوير المنهج.",
-            "المنهج الخفي.",
-            "الكتاب المدرسي."
+            "المنهج الخفي."
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
         explanation: "إثراء اللغة الفصحى أحد الأسس العشرة المذكورة لتطوير المنهج."
     },
     {
@@ -1311,12 +1416,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "المنهج الذي يتسم بوجود \"حواجز فاصلة بين مجالات المعرفة\" هو:",
         answers: [
+            "المواد الدراسية المنفصلة.",
             "المترابط.",
             "المجالات الواسعة.",
-            "المواد الدراسية المنفصلة.",
             "الدمج."
         ],
-        correctAnswer: 2,
+        correctAnswer: 0,
         explanation: "المواد المنفصلة تُنظم المعرفة في موضوعات مستقلة بينها حواجز."
     },
     {
@@ -1324,10 +1429,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "دور المتعلم في منهج \"المواد المنفصلة\" هو:",
         answers: [
-            "فاعل ومكتشف.",
-            "سلبي يقتصر على حفظ ما يُقدم إليه.",
             "قائد لمجموعات العمل.",
-            "مخطط للعملية التعليمية."
+            "سلبي يقتصر على حفظ ما يُقدم إليه.",
+            "مخطط للعملية التعليمية.",
+            "فاعل ومكتشف."
         ],
         correctAnswer: 1,
         explanation: "في المنهج التقليدي (المواد المنفصلة) يكون المتعلم مستقبلاً وحافظاً."
@@ -1337,9 +1442,9 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "لكي يكون الطريق \"مستقيماً\" في المنهج، يجب أن:",
         answers: [
-            "تكثر فيه المرتفعات والمنخفضات.",
-            "تتجانس مكوناته وتتضح معالمه لمرمى البصر.",
             "يكون غامضاً لإثارة التفكير.",
+            "تتجانس مكوناته وتتضح معالمه لمرمى البصر.",
+            "تكثر فيه المرتفعات والمنخفضات.",
             "يقتصر على جانب واحد من التربة."
         ],
         correctAnswer: 1,
@@ -1350,12 +1455,12 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "يُعرف المنهج بأنه \"نسيج متكامل\" لأنه:",
         answers: [
-            "يُصنع من مواد قماشية.",
-            "يجمع الأهداف والمحتوى والمواقف والتقويم في تفاعل مستمر.",
             "يركز على المهارات اليدوية فقط.",
-            "يفصل بين النظرية والتطبيق."
+            "يفصل بين النظرية والتطبيق.",
+            "يُصنع من مواد قماشية.",
+            "يجمع الأهداف والمحتوى والمواقف والتقويم في تفاعل مستمر."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "المنهج ليس عنصراً واحداً بل ترابط وتفاعل بين كافة مكوناته."
     },
     {
@@ -1365,8 +1470,8 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         answers: [
             "يهتم بالتقويم أكثر من اللازم.",
             "أسقط عمليتي التنفيذ والتقويم من محددات المفهوم.",
-            "ركز على نشاط الطالب الميداني.",
-            "جعل المنهج مرادفاً للكتاب."
+            "جعل المنهج مرادفاً للكتاب.",
+            "ركز على نشاط الطالب الميداني."
         ],
         correctAnswer: 1,
         explanation: "حصر المنهج في الخطة يجعله مجرداً ويسقط واقع التنفيذ والنتائج."
@@ -1376,19 +1481,22 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         chapter: 1,
         question: "تُعتبر \"الموضوعية والصدق والثبات\" من مبادئ:",
         answers: [
-            "بناء المنهج.",
-            "النشاط العلمي في التقويم.",
+            "المنهج الحلزوني.",
             "الكتاب المدرسي.",
-            "المنهج الحلزوني."
+            "بناء المنهج.",
+            "النشاط العلمي في التقويم."
         ],
-        correctAnswer: 1,
+        correctAnswer: 3,
         explanation: "التقويم الجيد عملية علمية تتقيد بمبادئ الموضوعية والصدق والثبات."
     },
     {
         id: 121,
         chapter: 1,
         question: "يشير المفهوم اللغوي للمنهج (اسم مكان) إلى الوسيلة أو الآلة التي يتم بها التعليم.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. اسم المكان يشير إلى مكان الحدوث، بينما اسم الآلة (منهاج) هو الوسيلة."
     },
@@ -1396,7 +1504,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 122,
         chapter: 1,
         question: "الأهداف هي التي تكسب المنهج صفة الوضوح وتبين حدود الطريق ومعالمه.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. الأهداف تعبر عن الوضوح والبيان وتبين نهاية الطريق التعليمي."
     },
@@ -1404,7 +1515,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 123,
         chapter: 1,
         question: "مصطلح (Curriculum) يعود في أصله اللاتيني إلى مقررات المادة الدراسية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. يعود في الأصل إلى دورات السباق (Race) ثم تحول لاحقاً لمقرر."
     },
@@ -1412,7 +1526,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 124,
         chapter: 1,
         question: "المنهج المدرسي في التصور التقليدي هو مجموعة المواد الدراسية المقررة على صف معين.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هذا هو التعريف التقليدي الضيق الذي يختزل المنهج في المواد."
     },
@@ -1420,7 +1537,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 125,
         chapter: 1,
         question: "أدى التقدم في العلوم التربوية إلى إدراك الآثار السلبية لتحديد المنهج كمعلومات فقط.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المربون أدركوا أن هذا التحديد يؤدي لنمو قاصر يقتصر على الحفظ."
     },
@@ -1428,7 +1548,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 126,
         chapter: 1,
         question: "في المنهج التقليدي، تُعد المعلومات وسيلة لتحقيق التعلم الدائم للمتعلم.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. في المنهج التقليدي تكون المعلومات عرضة للنسيان وليست دائمة."
     },
@@ -1436,7 +1559,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 127,
         chapter: 1,
         question: "منهج المواد الدراسية المنفصلة يحظى بالتأييد من قبل المسؤولين عن التعليم حتى اليوم.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. النص يشير إلى أنه ما زال شائعاً ويحظى بتأييد المسؤولين."
     },
@@ -1444,7 +1570,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 128,
         chapter: 1,
         question: "يرى \"آرثر وميل\" أن المنهج والمقرر الدراسي مصطلحان مترادفان تماماً.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التعريفات التقليدية تختزل المنهج وتحصره في المقرر كمرادف له."
     },
@@ -1452,7 +1581,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 129,
         chapter: 1,
         question: "المقرر الدراسي يشير إلى المحتوى المعرفي والوجداني والمهاري معاً.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. المقرر يشير أساساً للمحتوى المعرفي (معارف ومفاهيم) فقط."
     },
@@ -1460,7 +1592,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 130,
         chapter: 1,
         question: "وظيفة المعلم في تصور المنهج كموضوعات دراسية هي نقل المعرفة للطلاب.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المعلم هنا مجرد ناقل والمتعلم حافظ للمعلومات."
     },
@@ -1468,7 +1603,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 131,
         chapter: 1,
         question: "تصور المنهج كأهداف ومخرجات يعنى بالعملية التعليمية أكثر من النتائج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. هذا التصور يعنى بالنتائج والمخرجات ويهمل العملية والجوهر."
     },
@@ -1476,7 +1614,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 132,
         chapter: 1,
         question: "إهمال العمليات التي تتم بين الأهداف والمخرجات يعد خللاً في تحديد مفهوم المنهج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هذه العمليات هي جوهر المنهج ولا يمكن إغفالها."
     },
@@ -1484,7 +1625,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 133,
         chapter: 1,
         question: "تصور المنهج كموقف تعليمي يُحدث خلطاً بين مفهومي المنهج والتدريس.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التركيز على الموقف وما يفعله المعلم يجعله مرادفاً للتدريس."
     },
@@ -1492,7 +1636,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 134,
         chapter: 1,
         question: "خطة المنهج هي تصور عقلي لما ينبغي أن يكون عليه المنهج في مثاليته.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التخطيط هو أرقى مستويات المنهج لكنه يظل في حيز التجريد."
     },
@@ -1500,7 +1647,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 135,
         chapter: 1,
         question: "الخبرة (Experience) هي ناتج التفاعل بين الفرد وبيئته المادية فقط.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. التفاعل يشمل المواقف، المشكلات، الأشخاص، والظروف المحيطة."
     },
@@ -1508,7 +1658,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 136,
         chapter: 1,
         question: "تنتهي الخبرة التعليمية بانتهاء اليوم الدراسي داخل المدرسة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. الخبرة مستمرة لا تنتهي إلا بانتهاء حياة الفرد."
     },
@@ -1516,7 +1669,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 137,
         chapter: 1,
         question: "تؤثر الخبرة في عادات الفرد ومهاراته وميوله وتوجه سلوكه.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. الخبرة تُعدل السلوك وتضيف للخبرات السابقة وتوجه السلوك."
     },
@@ -1524,7 +1680,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 138,
         chapter: 1,
         question: "مفهوم الخبرة في المنهج يقتصر على تكامل المعلومات التاريخية والجغرافية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. الخبرة مجال شامل يضم مادة، طريقة، وسيلة، ونشاطاً."
     },
@@ -1532,7 +1691,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 139,
         chapter: 1,
         question: "الخبرة التعليمية تعتمد في تكاملها على العلاقات المنطقية بين مكوناتها.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التكامل يعتمد على الترابط المنطقي لجميع عناصر الخبرة."
     },
@@ -1540,7 +1702,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 140,
         chapter: 1,
         question: "وسعت بعض التعريفات دائرة اختصاص المنهج لتجعله مرادفاً للتربية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. عبارة \"داخل المدرسة وخارجها\" جعلت المنهج واسعاً جداً."
     },
@@ -1548,7 +1713,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 141,
         chapter: 1,
         question: "المنهج التعليمي يقتصر دوره على المؤسسة المدرسية فقط ولا علاقة له بالمجتمع.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. المنهج أداة المدرسة لتحقيق أهداف المجتمع وتطوره."
     },
@@ -1556,7 +1724,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 142,
         chapter: 1,
         question: "التعريف الإجرائي للمنهج لا يقدم تصوراً للتخطيط أو التنفيذ أو التطوير.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. العكس صحيح؛ التعريف الإجرائي يضبط هذه العمليات بدقة."
     },
@@ -1564,7 +1735,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 143,
         chapter: 1,
         question: "أشار تعريف أحمد المهدي إلى المنهج الصريح والضمني (الواعي وغير الواعي).",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هذا من أهم مميزات التعريف حيث شمل أنماط التفكير المختلفة."
     },
@@ -1572,7 +1746,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 144,
         chapter: 1,
         question: "المنهج الدراسي هو نفسه البرنامج الدراسي (Scholastic Program).",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. البرنامج مخطط عام يحدد المقررات والساعات والقبول."
     },
@@ -1580,7 +1757,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 145,
         chapter: 1,
         question: "البرنامج الدراسي يشمل تنظيم علاقة المدرسة بالبيئة ونظم الامتحانات.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. البرنامج أوسع تنظيمياً ويشمل الإدارة والجداول والبيئة."
     },
@@ -1588,7 +1768,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 146,
         chapter: 1,
         question: "المقرر الدراسي (Course) يتكون من موضوعات يلزم الطالب دراستها في فترة زمنية.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المقرر مرتبط بفترة محددة (فصل أو عام) ودرجة علمية."
     },
@@ -1596,7 +1779,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 147,
         chapter: 1,
         question: "الخطة الدراسية (Syllabus) تعني مجموعة الحقائق والمبادئ العلمية للمادة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. هذا تعريف المادة الدراسية، أما الخطة فهي توصيف للمقرر."
     },
@@ -1604,7 +1790,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 148,
         chapter: 1,
         question: "المحتوى الدراسي (Content) هو مضمون المنهج ويشمل المعارف والمهارات والقيم.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المحتوى هو كل الخبرات (معرفية، مهارية، وجدانية) المخططة."
     },
@@ -1612,7 +1801,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 149,
         chapter: 1,
         question: "الكتاب المدرسي هو الوعاء الذي يتضمن المادة الدراسية المقدمة للطلاب.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هو الشكل المطبوع والتقليدي لتقديم محتوى المنهج."
     },
@@ -1620,7 +1812,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 150,
         chapter: 1,
         question: "أسس بناء المنهج هي الأطر والمعايير التي يتم في ضوئها تقويم المنهج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. الأسس هي القواعد المتبعة عند البناء والمعايير للتقويم."
     },
@@ -1628,7 +1823,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 151,
         chapter: 1,
         question: "الأسس الفلسفية تتعلق بحقوق الأفراد وواجباتهم وتراث المجتمع وعقيدته.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. الفلسفة تعكس الهوية الفكرية والعقدية للمجتمع."
     },
@@ -1636,7 +1834,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 152,
         chapter: 1,
         question: "الأسس النفسية لا تهتم بمشكلات المتعلمين طالما تم تحقيق أهداف المادة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. الأسس النفسية تبرز حاجات المتعلمين ومشكلاتهم وتربطها بالمنهج."
     },
@@ -1644,7 +1845,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 153,
         chapter: 1,
         question: "التطور لغوياً يعني التغيير من طور إلى طور، واصطلاحاً يعني التحسين.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هذا هو التعريف اللغوي والاصطلاحي الدقيق للتطور."
     },
@@ -1652,7 +1856,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 154,
         chapter: 1,
         question: "التغيير يستلزم التطوير دائماً، في حين أن التطوير قد لا يؤدي لتغيير.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. العكس صحيح؛ التطوير يستلزم التغيير، أما التغيير فقد لا يؤدي لتطوير."
     },
@@ -1660,7 +1867,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 155,
         chapter: 1,
         question: "التطوير لا يتم إلا بإرادة الإنسان ورغبته الصادقة في التحسين.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التغيير قد يحدث بدون إرادة (عوامل خارجية)، أما التطوير فإرادي."
     },
@@ -1668,7 +1878,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 156,
         chapter: 1,
         question: "التطوير ينصب على جميع جوانب النظام دون المساس بالهيكل التنظيمي له.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التطوير يحسن الوظيفة والفعالية، أما التغيير الجذري فيغير الهيكل."
     },
@@ -1676,7 +1889,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 157,
         chapter: 1,
         question: "من أسس تطوير المنهج أن يستشرف حاجات المستقبل ومشكلاته.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. النظرة المستقبلية أساس جوهري في تطوير المناهج الحديثة."
     },
@@ -1684,7 +1900,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 158,
         chapter: 1,
         question: "المعوقات الفنية للتطوير تشمل نقص المباني المدرسية وغرف المناهج.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. هذه معوقات مادية، أما الفنية فتتعلق بإعداد المعلم والتوجيه."
     },
@@ -1692,7 +1911,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 159,
         chapter: 1,
         question: "منهج المواد المنفصلة يعتمد على استراتيجيات العرض في تدريس موضوعاته.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. يعتمد المعلم فيه على العرض والمحاضرة لنقل المعرفة."
     },
@@ -1700,7 +1922,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 160,
         chapter: 1,
         question: "المنهج المترابط جاء نتيجة للانتقادات الموجهة لمنهج المواد المنفصلة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. هدفه تحسين المنهج التقليدي من خلال ربط الموضوعات."
     },
@@ -1708,7 +1933,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 161,
         chapter: 1,
         question: "في منهج الدمج، يقوم أكثر من معلم بتدريس الموضوعات المدمجة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. يشترط منهج الدمج أن يقوم بتدريسه معلم واحد."
     },
@@ -1716,7 +1944,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 162,
         chapter: 1,
         question: "يسمى منهج \"المجالات الواسعة\" بهذا الاسم لأنه يجمع موضوعات متشابهة.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. اشتق اسمه من مزج الموضوعات في \"مجال\" واحد واسع."
     },
@@ -1724,7 +1955,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 163,
         chapter: 1,
         question: "التنظيمات المنهجية التقليدية تبحث في العلاقة الأفقية (التكامل) فقط.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. التكامل علاقة أفقية، والحلزوني هو الذي يركز على الرأسية."
     },
@@ -1732,7 +1966,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 164,
         chapter: 1,
         question: "منهج النشاط يركز على أن المتعلم لا يتعلم إلا إذا كان لديه مشكلة يحلها.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. يقوم على مبدأ الفاعلية والنشاط الذاتي لحل المشكلات."
     },
@@ -1740,7 +1977,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 165,
         chapter: 1,
         question: "الاستقامة في المنهج تعني عدم وضوح الأهداف لمن يتعامل مع التخطيط.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. الاستقامة تقتضي تماسك العناصر وترابطها لتحقيق الأهداف."
     },
@@ -1748,7 +1988,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 166,
         chapter: 1,
         question: "المنهج المدرسي منظومة فرعية من منظومة التعليم الكبرى.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المنهج جزء لا يتجزأ من النظام التعليمي الشامل."
     },
@@ -1756,7 +1999,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 167,
         chapter: 1,
         question: "الأسس المعرفية تهتم بالعلاقة العضوية بين المعرفة والقيم والمهارات.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. المعرفة في المنهج لا تنفصل عن القيم والمهارات المرتبطة بها."
     },
@@ -1764,7 +2010,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 168,
         chapter: 1,
         question: "تغيير الهيكل التنظيمي للنظام والمسلمات القيمية يسمى \"تطويراً جزئياً\".",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. هذا يسمى تغييراً جذرياً أو بناء النظام من جديد."
     },
@@ -1772,7 +2021,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 169,
         chapter: 1,
         question: "من مقترحات مواجهة معوقات التطوير زيادة الموازنة العامة للتعليم.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 0,
         explanation: "صواب. توفير الإمكانيات المادية هو أول خطوة لمواجهة المعوقات."
     },
@@ -1780,7 +2032,10 @@ window.QuestionBank = window.QuestionBank || {}; window.QuestionBank.teaching = 
         id: 170,
         chapter: 1,
         question: "الخبرة التعليمية المقصودة هي فقط ما يكتسبه المتعلم في النوادي والرفاق.",
-        answers: ["صواب", "خطأ"],
+        answers: [
+            "صواب",
+            "خطأ"
+        ],
         correctAnswer: 1,
         explanation: "خطأ. المنهج يركز على الخبرات المقصودة التي تضطلع بها المدرسة."
     }
