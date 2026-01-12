@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;    /* كحلي غامق */
-            --secondary: #e67e22;  /* برتقالي هادئ */
+            --primary: #2c3e50;
+            --secondary: #e67e22;
             --bg-light: #fdfefe;
             --bg-gray: #f4f6f6;
             --text-dark: #2c3e50;
-            --accent: #27ae60;     /* أخضر للنجاح/الإيجابية */
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --accent: #27ae60;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -41,7 +42,7 @@
             height: 100vh;
             overflow-y: auto;
             z-index: 100;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
         }
 
         aside h2 {
@@ -58,7 +59,7 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 10px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: none;
             color: white;
             text-align: right;
@@ -69,7 +70,8 @@
             font-size: 1rem;
         }
 
-        .nav-item:hover, .nav-item.active {
+        .nav-item:hover,
+        .nav-item.active {
             background: var(--secondary);
             color: white;
             font-weight: bold;
@@ -133,7 +135,7 @@
             margin-right: 25px;
             margin-bottom: 20px;
         }
-        
+
         li {
             margin-bottom: 10px;
         }
@@ -166,7 +168,7 @@
             border-radius: 10px;
             padding: 25px;
             transition: transform 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             border-top: 4px solid var(--primary);
         }
 
@@ -186,18 +188,44 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-            aside { width: 100%; height: auto; position: relative; padding: 10px; }
-            main { width: 100%; margin: 0; padding: 20px; }
-            .nav-item { display: inline-block; width: auto; margin: 5px; }
+            body {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 10px;
+            }
+
+            main {
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .nav-item {
+                display: inline-block;
+                width: auto;
+                margin: 5px;
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
+
 <body>
 
     <aside>
@@ -212,20 +240,24 @@
     <main>
         <div id="design-standards" class="content-section active">
             <h1>معايير التصميم الجيد للرسومات</h1>
-            <p class="info-box">للحكم على جودة الرسم التعليمي، يجب أن يستوفي ثلاثة أنواع من المعايير: معايير علمية، معايير فنية، ومعايير تربوية.</p>
+            <p class="info-box">للحكم على جودة الرسم التعليمي، يجب أن يستوفي ثلاثة أنواع من المعايير: معايير علمية،
+                معايير فنية، ومعايير تربوية.</p>
 
             <div class="grid-container">
                 <div class="card">
                     <div class="card-title">1. الدقة العلمية</div>
-                    <p>يجب أن يكون المحتوى صحيحاً وحديثاً وخالياً من الأخطاء العلمية. (مثلاً: رسم القلب يجب أن يوضح الصمامات في أماكنها الصحيحة تشريحياً).</p>
+                    <p>يجب أن يكون المحتوى صحيحاً وحديثاً وخالياً من الأخطاء العلمية. (مثلاً: رسم القلب يجب أن يوضح
+                        الصمامات في أماكنها الصحيحة تشريحياً).</p>
                 </div>
                 <div class="card">
                     <div class="card-title">2. البساطة (Simplicity)</div>
-                    <p>الابتعاد عن التعقيد وحذف التفاصيل التي لا تخدم الهدف. "أفضل الرسومات هي أبسطها" التي توصل الفكرة بأقل عدد من الخطوط.</p>
+                    <p>الابتعاد عن التعقيد وحذف التفاصيل التي لا تخدم الهدف. "أفضل الرسومات هي أبسطها" التي توصل الفكرة
+                        بأقل عدد من الخطوط.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">3. مناسبة الجمهور</div>
-                    <p>مراعاة خصائص المتعلمين (العمر، المستوى الثقافي). رسومات الأطفال تتميز بألوان زاهية وتفاصيل قليلة، عكس رسومات الكبار.</p>
+                    <p>مراعاة خصائص المتعلمين (العمر، المستوى الثقافي). رسومات الأطفال تتميز بألوان زاهية وتفاصيل قليلة،
+                        عكس رسومات الكبار.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">4. الإخراج الفني الجيد</div>
@@ -237,7 +269,7 @@
         <div id="elements" class="content-section">
             <h1>عناصر التصميم (Design Elements)</h1>
             <p>هي "المكونات" أو "اللبنات" التي يستخدمها المصمم لبناء الرسم التعليمي.</p>
-            
+
             <div class="grid-container">
                 <div class="card" style="border-top-color: #e74c3c;">
                     <div class="card-title">1. الخط (Line)</div>
@@ -249,7 +281,8 @@
                 </div>
                 <div class="card" style="border-top-color: #3498db;">
                     <div class="card-title">3. اللون (Color)</div>
-                    <p>في الرسم التعليمي، وظيفته <strong>تمييز العناصر</strong> وجذب الانتباه، وليس مجرد التجميل. (الألوان الحارة تبرز العناصر الهامة، والباردة للخلفيات).</p>
+                    <p>في الرسم التعليمي، وظيفته <strong>تمييز العناصر</strong> وجذب الانتباه، وليس مجرد التجميل.
+                        (الألوان الحارة تبرز العناصر الهامة، والباردة للخلفيات).</p>
                 </div>
                 <div class="card" style="border-top-color: #f1c40f;">
                     <div class="card-title">4. الملمس (Texture)</div>
@@ -264,17 +297,20 @@
 
         <div id="principles" class="content-section">
             <h1>أسس التصميم (Design Principles)</h1>
-            <p class="info-box">إذا كانت "العناصر" هي المكونات، فإن "الأسس" هي <span class="highlight">قوانين تنظيم</span> هذه المكونات لإنتاج تصميم ناجح.</p>
+            <p class="info-box">إذا كانت "العناصر" هي المكونات، فإن "الأسس" هي <span class="highlight">قوانين
+                    تنظيم</span> هذه المكونات لإنتاج تصميم ناجح.</p>
 
             <div class="grid-container">
                 <div class="card">
                     <div class="card-title">1. الاتزان (Balance)</div>
-                    <p>توزيع العناصر (الكتل، الألوان) بشكل متساوٍ بصرياً. قد يكون <strong>متماثلاً</strong> (رسمي وتقليدي) أو <strong>غير متماثل</strong> (أكثر حيوية).</p>
+                    <p>توزيع العناصر (الكتل، الألوان) بشكل متساوٍ بصرياً. قد يكون <strong>متماثلاً</strong> (رسمي
+                        وتقليدي) أو <strong>غير متماثل</strong> (أكثر حيوية).</p>
                 </div>
 
                 <div class="card">
                     <div class="card-title">2. مركز السيادة (Emphasis)</div>
-                    <p>أو "مركز الاهتمام". يجب أن يكون هناك جزء في الرسم يجذب عين المتعلم أولاً (عادة ما يكون الجزء المراد تعليمه)، ويتم إبرازه بالحجم أو اللون المختلف.</p>
+                    <p>أو "مركز الاهتمام". يجب أن يكون هناك جزء في الرسم يجذب عين المتعلم أولاً (عادة ما يكون الجزء
+                        المراد تعليمه)، ويتم إبرازه بالحجم أو اللون المختلف.</p>
                 </div>
 
                 <div class="card">
@@ -297,13 +333,14 @@
         <div id="selection" class="content-section">
             <h1>معايير اختيار الرسومات الجاهزة</h1>
             <p>عندما يختار المعلم رسماً جاهزاً (من كتاب أو الإنترنت)، يجب أن يطرح الأسئلة التالية:</p>
-            
+
             <ul style="font-size: 1.1rem; line-height: 2;">
                 <li>✅ <strong>هل يحقق الهدف؟</strong> هل الرسم مرتبط مباشرة بموضوع الدرس؟</li>
                 <li>✅ <strong>هل المحتوى دقيق؟</strong> هل المعلومات الواردة في الرسم حديثة وصحيحة؟</li>
                 <li>✅ <strong>هل هو مناسب للمستوى؟</strong> هل اللغة والرموز المستخدمة مفهومة للطلاب في هذا الصف؟</li>
                 <li>✅ <strong>هل هو جيد فنياً؟</strong> هل الخطوط واضحة؟ هل الألوان متناسقة ولا تسبب تشويشاً؟</li>
-                <li>✅ <strong>هل يثير التفكير؟</strong> هل يدفع الطالب للتساؤل والاستنتاج أم يعطيه المعلومات جاهزة فقط؟</li>
+                <li>✅ <strong>هل يثير التفكير؟</strong> هل يدفع الطالب للتساؤل والاستنتاج أم يعطيه المعلومات جاهزة فقط؟
+                </li>
             </ul>
         </div>
 
@@ -313,10 +350,14 @@
 
             <div class="info-box">
                 <ol style="margin-right: 20px;">
-                    <li><strong>طبيعة الهدف التعليمي:</strong> هل نحتاج لرسم تفصيلي أم مخطط بسيط؟ الهدف هو الذي يحدد نوع الرسم.</li>
-                    <li><strong>خصائص المتعلمين:</strong> الأطفال يحتاجون لرسوم بسيطة وألوان زاهية، الكبار يتقبلون الرسوم البيانية المعقدة.</li>
-                    <li><strong>الإمكانات المادية (الميزانية):</strong> هل تتوفر خامات وأدوات (ألوان، ورق، برامج كمبيوتر)؟</li>
-                    <li><strong>مهارة المعلم (المنتج):</strong> مدى إجادة المعلم لمهارات الرسم أو استخدام برامج التصميم.</li>
+                    <li><strong>طبيعة الهدف التعليمي:</strong> هل نحتاج لرسم تفصيلي أم مخطط بسيط؟ الهدف هو الذي يحدد نوع
+                        الرسم.</li>
+                    <li><strong>خصائص المتعلمين:</strong> الأطفال يحتاجون لرسوم بسيطة وألوان زاهية، الكبار يتقبلون
+                        الرسوم البيانية المعقدة.</li>
+                    <li><strong>الإمكانات المادية (الميزانية):</strong> هل تتوفر خامات وأدوات (ألوان، ورق، برامج
+                        كمبيوتر)؟</li>
+                    <li><strong>مهارة المعلم (المنتج):</strong> مدى إجادة المعلم لمهارات الرسم أو استخدام برامج التصميم.
+                    </li>
                     <li><strong>الوقت المتاح:</strong> الرسوم المعقدة تتطلب وقتاً طويلاً للإنتاج.</li>
                 </ol>
             </div>
@@ -350,4 +391,5 @@
         }
     </script>
 </body>
+
 </html>

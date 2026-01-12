@@ -3837,19 +3837,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ====================================
-// نافذة مناهج وطرق التدريس (لم يتم إضافة الأسئلة بعد)
+// نافذة الرسومات التعليمية
 // ====================================
-window.openTeachingModal = function () {
-    const modal = document.getElementById('teaching-modal');
+window.openDesignModal = function () {
+    const modal = document.getElementById('design-modal');
     if (modal) {
         modal.style.display = 'flex';
-        // إضافة كلاس للأنيميشن إذا أردت
         setTimeout(() => modal.classList.add('visible'), 10);
     }
 };
 
-window.closeTeachingModal = function () {
-    const modal = document.getElementById('teaching-modal');
+window.closeDesignModal = function () {
+    const modal = document.getElementById('design-modal');
     if (modal) {
         modal.classList.remove('visible');
         setTimeout(() => modal.style.display = 'none', 300);

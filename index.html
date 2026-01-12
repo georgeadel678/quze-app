@@ -49,13 +49,15 @@
 
             <div class="chapters-grid">
                 <!-- مادة أساسيات التصميم -->
-                <div class="chapter-card" onclick="selectSubject('design')">
+                <!-- مادة أساسيات التصميم -->
+                <div class="chapter-card" onclick="openDesignModal()">
                     <span class="chapter-icon">🎨</span>
                     <div class="chapter-title">الرسومات التعليمية</div>
                 </div>
 
                 <!-- مادة مناهج وطرق التدريس -->
-                <div class="chapter-card" onclick="openTeachingModal()"
+                <!-- مادة مناهج وطرق التدريس -->
+                <div class="chapter-card" onclick="selectSubject('teaching')"
                     style="background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);">
                     <span class="chapter-icon">📚</span>
                     <div class="chapter-title">مناهج وطرق التدريس</div>
@@ -352,12 +354,14 @@
         </div>
     </div>
 
-    <!-- نافذة مناهج وطرق التدريس -->
-    <div id="teaching-modal" class="modal">
+    <!-- نافذة مناهج وطرق التدريس - تم إزالتها -->
+
+    <!-- نافذة الرسومات التعليمية -->
+    <div id="design-modal" class="modal">
         <div class="modal-content">
             <h3 style="color: #2c3e50; margin-bottom: 1rem;">تنبيه ⚠️</h3>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #666;">لم يتم إضافة الأسئلة بعد</p>
-            <button onclick="closeTeachingModal()" class="btn btn-primary" style="width: 100%;">إغلاق</button>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #666;">تم انتهاء المادة</p>
+            <button onclick="closeDesignModal()" class="btn btn-primary" style="width: 100%;">إغلاق</button>
         </div>
     </div>
 
