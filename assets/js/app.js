@@ -2,7 +2,7 @@
    storage.js - إدارة التخزين المحلي
    ==================================== */
 // الإصدار الحالي للتطبيق - تغيير هذا الرقم سيقوم بمسح بيانات المستخدمين
-const APP_VERSION = 'v6_curriculum_methods_jan2026';
+const APP_VERSION = 'v7_growth_curriculum_jan2026';
 
 const Storage = {
     // التحقق من إصدار التطبيق ومسح البيانات القديمة
@@ -1683,7 +1683,7 @@ const Quiz = {
     },
 
     subjects: {
-        design: { name: "الرسومات التعليمية", path: "design" },
+        design: { name: "علم نفس النمو", path: "design" },
         teaching: { name: "مناهج وطرق التدريس", path: "teaching" }
     },
 
@@ -1730,14 +1730,15 @@ const Quiz = {
         let chapters = [];
 
         if (subjectKey === 'design') {
-            // New Structure: 1 to 6, single names
+            // New Structure: 1 to 7, single names
             chapters = [
                 { id: 1, title: 'الفصل الأول', icon: '📚' },
                 { id: 2, title: 'الفصل الثاني', icon: '📖' },
                 { id: 3, title: 'الفصل الثالث', icon: '📝' },
                 { id: 4, title: 'الفصل الرابع', icon: '🎤' },
                 { id: 5, title: 'الفصل الخامس', icon: '📻' },
-                { id: 6, title: 'الفصل السادس', icon: '🎨' } // New Chapter
+                { id: 6, title: 'الفصل السادس', icon: '🎨' },
+                { id: 7, title: 'الفصل السابع', icon: '🧠' } // New Chapter
             ];
         } else {
             // Teaching (Old Structure): 1&2, 3&4 ...

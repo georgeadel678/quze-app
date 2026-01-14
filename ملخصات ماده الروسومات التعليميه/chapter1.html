@@ -4,151 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شرح الفصل الأول: المنهج وأسسه</title>
+    <title>مراجعة شاملة: الفصل الأول - علم نفس النمو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
-
         :root {
-            --primary-color: #1a2332;
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-color: #2c3e50;
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-color: #ff6b6b;
-            --accent-gradient: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            --success-gradient: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
-            --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --bg-color: #f8f9fa;
-            --bg-pattern: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-color: #2d3436;
-            --text-light: #636e72;
-            --white: #ffffff;
-            --border-radius: 15px;
-            --sidebar-width: 300px;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.9;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
-            background: var(--bg-color);
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(245, 87, 108, 0.05) 0%, transparent 50%);
-            background-attachment: fixed;
             margin: 0;
             padding: 0;
-            scroll-behavior: smooth;
-            font-size: 18px;
-            font-weight: 500;
+            line-height: 1.8;
         }
 
-        /* --- Modern Sidebar Navigation --- */
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
         .sidebar {
-            height: 100vh;
-            width: var(--sidebar-width);
-            position: fixed;
-            top: 0;
-            right: 0;
-            background: linear-gradient(180deg, #1a2332 0%, #2c3e50 100%);
-            padding: 30px 0;
-            overflow-y: auto;
+            width: 280px;
+            background-color: var(--primary-color);
             color: white;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #764ba2, #667eea);
         }
 
         .sidebar h2 {
             text-align: center;
-            font-size: 1.3rem;
-            font-weight: 700;
             margin-bottom: 30px;
-            padding: 0 20px 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            background: linear-gradient(135deg, #667eea, #f5576c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-size: 1.5rem;
         }
 
-        .sidebar a {
-            padding: 12px 25px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.7);
+        .nav-btn {
             display: block;
-            transition: var(--transition);
-            border-right: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: none;
+            border: none;
+            color: #ecf0f1;
+            text-align: right;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
         }
 
-        .sidebar a::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
-            transition: var(--transition);
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.08);
-            border-right-color: var(--accent-color);
-            padding-right: 30px;
+        .nav-btn:hover,
+        .nav-btn.active {
+            background-color: var(--secondary-color);
             transform: translateX(-5px);
         }
 
-        .sidebar a:hover::before,
-        .sidebar a.active::before {
-            width: 100%;
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-right: 280px;
+            /* Width of sidebar */
+            padding: 40px;
         }
 
-        /* --- Main Content --- */
-        .main-content {
-            margin-right: var(--sidebar-width);
-            padding: 50px 60px;
-            max-width: 1200px;
-            animation: fadeIn 0.6s ease-in;
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: none;
+            /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+            border-right: 5px solid var(--secondary-color);
+        }
+
+        .section-card.active {
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 12px;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .box {
+            background-color: #e8f6f3;
+            border: 1px solid #d1f2eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .important-note {
+            background-color: #fdebd0;
+            border-right: 4px solid var(--accent-color);
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+
+        /* Citations */
+        .cite {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            vertical-align: super;
+            margin-right: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+                width: 80%;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 20px;
+            }
+
+            .toggle-btn {
+                display: block;
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                z-index: 2000;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .toggle-btn {
+                display: none;
+            }
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -156,877 +211,290 @@
                 transform: translateY(0);
             }
         }
-
-        section {
-            background: var(--white);
-            padding: 50px;
-            margin-bottom: 50px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
-            scroll-margin-top: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(245, 87, 108, 0.05));
-            border-radius: 50%;
-            transform: translate(50%, -50%);
-            pointer-events: none;
-        }
-
-        section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-3px);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #f5576c);
-            border-radius: 10px;
-        }
-
-        h2 {
-            color: var(--secondary-color);
-            font-size: 2rem;
-            font-weight: 800;
-            margin-top: 40px;
-            margin-bottom: 25px;
-            padding-right: 20px;
-            position: relative;
-        }
-
-        h2::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-
-        h3 {
-            color: #ff6b6b;
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
-            padding: 15px 20px;
-            border-radius: 10px;
-            border-right: 4px solid #ff6b6b;
-            box-shadow: var(--shadow-sm);
-        }
-
-        p {
-            margin-bottom: 18px;
-            text-align: justify;
-            line-height: 2;
-            color: var(--text-color);
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
-        ul,
-        ol {
-            margin-bottom: 25px;
-            padding-right: 30px;
-        }
-
-        li {
-            margin-bottom: 12px;
-            line-height: 1.9;
-            position: relative;
-            padding-right: 10px;
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
-        li::marker {
-            color: #667eea;
-            font-weight: 800;
-        }
-
-        /* --- Enhanced Boxes Styles --- */
-        .def-box {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border: none;
-            color: #155724;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
-            font-weight: 600;
-            border-right: 6px solid #28a745;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .def-box::before {
-            content: '📗';
-            position: absolute;
-            font-size: 60px;
-            opacity: 0.1;
-            left: 20px;
-            bottom: -10px;
-        }
-
-        .def-box:hover {
-            transform: translateX(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, #fffbea 0%, #fff3cd 100%);
-            border: none;
-            color: #856404;
-            padding: 20px 25px;
-            border-radius: 12px;
-            margin: 25px 0;
-            border-right: 6px solid #ffc107;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .highlight-box::before {
-            content: '💡';
-            position: absolute;
-            font-size: 50px;
-            opacity: 0.15;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .highlight-box:hover {
-            transform: translateX(-5px);
-        }
-
-        .term {
-            font-family: 'Courier New', Courier, monospace;
-            background: linear-gradient(135deg, #ffe0e0, #ffcccc);
-            padding: 4px 10px;
-            border-radius: 6px;
-            color: #c0392b;
-            font-weight: 700;
-            font-size: 0.9em;
-            border: 1px solid rgba(192, 57, 43, 0.2);
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(192, 57, 43, 0.1);
-        }
-
-        /* --- Modern Tables --- */
-        .comparison-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 30px 0;
-            font-size: 0.95rem;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            border: none;
-            padding: 16px 18px;
-            text-align: right;
-            vertical-align: top;
-            transition: var(--transition);
-        }
-
-        .comparison-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .comparison-table tr {
-            transition: var(--transition);
-        }
-
-        .comparison-table tbody tr:nth-child(odd) {
-            background-color: #f8f9fa;
-        }
-
-        .comparison-table tbody tr:nth-child(even) {
-            background-color: #fff;
-        }
-
-        .comparison-table tbody tr:hover {
-            background: linear-gradient(90deg, rgba(102, 126, 234, 0.1), transparent);
-            transform: scale(1.01);
-        }
-
-        /* --- Header Styling --- */
-        header {
-            text-align: center;
-            margin-bottom: 70px;
-            padding: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1), transparent);
-            pointer-events: none;
-        }
-
-        header h1 {
-            color: white !important;
-            font-size: 2.8rem !important;
-            border: none !important;
-            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
-            margin-bottom: 15px;
-        }
-
-        header h1::after {
-            display: none;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.95) !important;
-            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        /* --- Responsive Design --- */
-        @media screen and (max-width: 900px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding-bottom: 20px;
-            }
-
-            .sidebar a {
-                border-right: none;
-                border-bottom: 3px solid transparent;
-            }
-
-            .sidebar a:hover,
-            .sidebar a.active {
-                transform: translateX(0);
-                border-bottom-color: var(--accent-color);
-            }
-
-            .main-content {
-                margin-right: 0;
-                padding: 30px 20px;
-            }
-
-            section {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* --- Enhanced Back to Top Button --- */
-        #btn-back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            display: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 999;
-            font-size: 24px;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            transition: var(--transition);
-            animation: pulse 2s infinite;
-        }
-
-        #btn-back-to-top:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
-            }
-        }
-
-        /* --- Strong and Bold Enhancements --- */
-        strong {
-            color: #667eea;
-            font-weight: 800;
-        }
-
-        /* --- Link Enhancements --- */
-        a {
-            color: #667eea;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        /* --- Smooth Scrolling Indicator --- */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #764ba2, #667eea);
-        }
-
-        /* --- Dark Mode Styles --- */
-        body.dark-mode {
-            --bg-color: #0f172a;
-            --text-color: #e2e8f0;
-            --text-light: #cbd5e1;
-            --white: #1e293b;
-            --primary-color: #e2e8f0;
-            --secondary-color: #94a3b8;
-            background: #0f172a;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
-        }
-
-        body.dark-mode .sidebar {
-            background: linear-gradient(180deg, #0a0f1f 0%, #1e293b 100%);
-        }
-
-        body.dark-mode section {
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode section::before {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(245, 87, 108, 0.1));
-        }
-
-        body.dark-mode h1 {
-            color: #f1f5f9;
-        }
-
-        body.dark-mode h1::after {
-            background: linear-gradient(90deg, #667eea, #f5576c);
-        }
-
-        body.dark-mode h2 {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode h2::before {
-            background: linear-gradient(180deg, #667eea, #764ba2);
-        }
-
-        body.dark-mode h3 {
-            color: #fca5a5;
-            background: linear-gradient(135deg, #2d1f2f, #3d2434);
-            border-right-color: #f87171;
-        }
-
-        body.dark-mode p {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode li {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode .def-box {
-            background: linear-gradient(135deg, #1e3a2f 0%, #2d5a4a 100%);
-            color: #86efac;
-            border-right-color: #34d399;
-        }
-
-        body.dark-mode .def-box::before {
-            opacity: 0.05;
-        }
-
-        body.dark-mode .highlight-box {
-            background: linear-gradient(135deg, #3d2f1a 0%, #5a4a2d 100%);
-            color: #fde68a;
-            border-right-color: #fbbf24;
-        }
-
-        body.dark-mode .highlight-box::before {
-            opacity: 0.08;
-        }
-
-        body.dark-mode .term {
-            background: linear-gradient(135deg, #3d2634, #5a3d4a);
-            color: #fca5a5;
-            border-color: rgba(248, 113, 113, 0.3);
-        }
-
-        body.dark-mode .comparison-table th {
-            background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-        }
-
-        body.dark-mode .comparison-table tbody tr:nth-child(odd) {
-            background-color: #1e293b;
-        }
-
-        body.dark-mode .comparison-table tbody tr:nth-child(even) {
-            background-color: #2d3b4e;
-        }
-
-        body.dark-mode .comparison-table tbody tr:hover {
-            background: linear-gradient(90deg, rgba(102, 126, 234, 0.2), transparent);
-        }
-
-        body.dark-mode header {
-            background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-        }
-
-        body.dark-mode strong {
-            color: #a78bfa;
-        }
-
-        /* --- Dark Mode Toggle Button --- */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
-        }
-
-        body.dark-mode .dark-mode-toggle {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
-        }
-
-        body.dark-mode .dark-mode-toggle:hover {
-            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="sidebar">
-        <h2>فهرس الفصل الأول</h2>
-        <a href="#intro" class="active">1. تعريف المنهج ومفهومه اللغوي</a>
-        <a href="#evolution">2. تطور مفهوم المنهج</a>
-        <a href="#modern-concepts">3. التصورات الحديثة للمنهج</a>
-        <a href="#operational-def">4. التعريف الإجرائي للمنهج</a>
-        <a href="#related-concepts">5. المنهج والمفاهيم ذات الصلة</a>
-        <a href="#foundations">6. أسس بناء المنهج</a>
-        <a href="#development">7. تطوير المنهج (المفهوم والأسس)</a>
-        <a href="#obstacles">8. معوقات تطوير المنهج</a>
-        <a href="#types">9. أنواع المناهج</a>
-    </div>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ القائمة</button>
 
-    <div class="main-content">
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2>فصول المراجعة</h2>
+            <button class="nav-btn active" onclick="showSection('intro')">1. تعريف ومفاهيم أساسية</button>
+            <button class="nav-btn" onclick="showSection('trends')">2. الاتجاهات والسياقات</button>
+            <button class="nav-btn" onclick="showSection('topics')">3. موضوعات العلم</button>
+            <button class="nav-btn" onclick="showSection('demands')">4. مطالب وحاجات النمو</button>
+            <button class="nav-btn" onclick="showSection('stages')">5. تقسيم مراحل النمو</button>
+            <button class="nav-btn" onclick="showSection('relations')">6. العلاقة بالعلوم الأخرى</button>
+            <button class="nav-btn" onclick="showSection('goals')">7. أهداف العلم</button>
+            <button class="nav-btn" onclick="showSection('methods')">8. مناهج البحث</button>
+        </div>
 
-        <header style="text-align: center; margin-bottom: 50px;">
-            <h1>الفصل الأول: المنهج وأسسه</h1>
-            <p style="font-size: 1.1rem; color: #666;">شرح تفصيلي شامل لجميع المواضع الواردة في الكتاب الجامعي</p>
-        </header>
+        <div class="main-content">
 
-        <section id="intro">
-            <h2>1. تعريف المنهج والمفهوم اللغوي</h2>
-            <p>استُخدم مصطلح "منهج" بمعانٍ كثيرة منذ بدايته، ولفهم طبيعته يجب استعراض المفهوم اللغوي والأصل الاشتقاقي:
-            </p>
+            <div id="intro" class="section-card active">
+                <h1>أولاً: تعريف علم نفس النمو والمفاهيم الأساسية</h1>
+                <p>يتكون مصطلح "علم نفس النمو" من ثلاث كلمات محورية تم تحليلها كالتالي:</p>
 
-            <h3>المفهوم اللغوي (عربيًا)</h3>
-            <p>الأصل الثلاثي للكلمة هو (نَهَجَ) بفتح الحروف الثلاثة. ومن معانيها:</p>
-            <ul>
-                <li><strong>نهج الطريق:</strong> أي وضُح واستبان.</li>
-                <li><strong>نهج فلان الطريق:</strong> أي بيّنه ووضّحه.</li>
-                <li><strong>النهج:</strong> الطريق المستقيم.</li>
-                <li><strong>المنهاج:</strong> الطريق الواضح والخطة المرسومة.</li>
-            </ul>
-            <div class="highlight-box">
-                <strong>ملاحظة لغوية:</strong> صيغة "المنهاج" تشير لاسم الآلة، وصيغة "المنهج" تشير لاسم المكان. وكلاهما
-                يشير إلى الوظيفة (يحدث التعليم من خلاله) والوضوح (معالم الطريق واضحة) والاستقامة (الاعتدال وعدم
-                الاضطراب).
-            </div>
-            <p>في التربية، <strong>الوضوح</strong> يعني وضوح الأهداف (أين ينتهي الطريق)، و<strong>الاستقامة</strong>
-                تعني ترابط عناصر المنهج وتجانسها لتحقيق هدف واحد.</p>
+                <div class="box">
+                    <h3>1. كلمة (علم - Science)</h3>
+                    [cite_start]<p>نشاط إنساني يهدف لتحصيل المعرفة المجردة حول ظاهرة معينة، يقوم على أسس تجريبية
+                        (الملاحظة وصياغة الفروض) لإثباتها أو نفيها [cite: 26-28].</p>
+                </div>
 
-            <h3>الأصل اللاتيني</h3>
-            <p>كلمة منهج <span class="term">Curriculum</span> تعود لأصل لاتيني وتعني ميدان السباق <span
-                    class="term">Race Course</span> الذي يجري فيه المتسابقون. ومع الزمن تحول المعنى من "ميدان السباق"
-                إلى "مقرر دراسي" أو "محتوى المواد الدراسية".</p>
-        </section>
+                <div class="box">
+                    <h3>2. كلمة (نفس - Soul/Self)</h3>
+                    <p class="important-note">⚠️ يجب التفرقة بين "الروح" و "النفس":</p>
+                    <ul>
+                        [cite_start]<li><strong>الروح:</strong> من أمر الله وحده ولا يعلم مكنونها إلا هو (ويسألونك عن
+                            الروح قل الروح من أمر ربي)[cite: 29].</li>
+                        [cite_start]<li><strong>النفس:</strong> ذكرها الله في القرآن بصفات متعددة (أمارة بالسوء، لوامة،
+                            مطمئنة، خيرة، فاجرة)، وهي التي توجه سلوك الفرد نحو الخير أو الشر [cite: 29-33].</li>
+                    </ul>
+                </div>
 
-        <section id="evolution">
-            <h2>2. تطور مفهوم المنهج</h2>
-            <p>مر مفهوم المنهج بتطورات عديدة بتطور المجتمعات. في البداية، كانت التعريفات <strong>تقليدية وضيقة</strong>:
-            </p>
-            <div class="def-box">
-                التعريف القديم للمنهج: "مجموعة من المواد الدراسية أو المقررات التي يدرسها التلاميذ".
-            </div>
-            <p><strong>عيوب هذا المفهوم الضيق (التقليدي):</strong></p>
-            <ul>
-                <li>ركز على الجانب العقلي فقط (المعرفة) وأهمل النمو الشامل (وجداني، مهاري، اجتماعي).</li>
-                <li>اقتصرت المعرفة على الحفظ والتلقين لاجتياز الامتحانات، مما جعلها عرضة للنسيان.</li>
-                <li>عزل المدرسة عن المجتمع.</li>
-                <li>جعل وظيفة المعلم مقتصرة على نقل المعلومات، ودور المتعلم سلبيًا (الحفظ).</li>
-            </ul>
-        </section>
+                <div class="box">
+                    <h3>3. كلمة (النمو - Development)</h3>
+                    <ul>
+                        [cite_start]<li><strong>لغوياً:</strong> الزيادة والكثرة[cite: 34].</li>
+                        [cite_start]<li><strong>اصطلاحاً:</strong> سلسلة متتابعة ومتماسكة من التغيرات (عضوية، نفسية،
+                            اجتماعية) تحدث بصورة تدريجية تهدف إلى النضج[cite: 35].</li>
+                        [cite_start]<li><span class="highlight">تنبيه:</span> النمو لا يقتصر على الجانب العضوي فقط، بل
+                            يشمل الوظائف أيضاً (مثل نمو اليد + القدرة على الكتابة)[cite: 35].</li>
+                    </ul>
+                </div>
 
-        <section id="modern-concepts">
-            <h2>3. التصورات الحديثة للمنهج</h2>
-            <p>نتيجة قصور المفهوم التقليدي، ظهرت تصورات متعددة للمنهج، وهي:</p>
-
-            <h3>أ- تصور المنهج كموضوعات دراسية (المعرفة)</h3>
-            <p>وهو التصور السائد قديمًا وما زال موجودًا في "منهج المواد المنفصلة". يرى المنهج مرادفًا للمقرر الدراسي
-                <span class="term">Syllabus</span>. يركز على المحتوى المعرفي فقط.
-            </p>
-
-            <h3>ب- تصور المنهج كأهداف ومخرجات</h3>
-            <p>يرى أن المنهج هو "النتائج النهائية" أو "مخرجات التعلم المقصودة".</p>
-            <ul>
-                <li><strong>النقد:</strong> هذا التصور يهتم بالنتيجة ويهمل "العمليات" التي تحدث بين الأهداف والمخرجات
-                    (مثل طرق التدريس والأنشطة).</li>
-            </ul>
-
-            <h3>ج- تصور المنهج كموقف تعليمي</h3>
-            <p>يرى المنهج كـ "كل دراسة أو نشاط يكتسبه التلميذ تحت إشراف المدرسة".</p>
-            <ul>
-                <li><strong>النقد:</strong> يركز على العمليات ويهمل الأهداف، ويخلط بين مفهوم المنهج ومفهوم التدريس.</li>
-            </ul>
-
-            <h3>د- تصور المنهج كخطة تعليمية</h3>
-            <p>يعرف المنهج بأنه "خطة لتزويد الفرد بفرص تعليمية". يركز على التخطيط.</p>
-            <ul>
-                <li><strong>النقد:</strong> تصور مثالي وتجريدي (فلسفي) يهمل عمليتي التنفيذ والتقويم الفعلي.</li>
-            </ul>
-
-            <h3>هـ- تصور المنهج كخبرات (المفهوم الحديث والشامل)</h3>
-            <p>ظهر هذا المفهوم ليعالج القصور السابق. يعتمد على مصطلح <strong>الخبرة <span
-                        class="term">Experience</span></strong>.</p>
-            <div class="def-box">
-                الخبرة: هي ناتج التفاعل بين الفرد وبيئته. وهي عملية تأثير وتأثر تؤدي لتعديل السلوك.
-            </div>
-            <p><strong>مميزات استخدام مصطلح "الخبرة" في تعريف المنهج:</strong></p>
-            <ul>
-                <li><strong>الشمول:</strong> يتضمن المنهج المعلومات، المهارات، الاتجاهات، الأنشطة، وطرق التدريس ككل
-                    متكامل (مثل تركيبة الدواء لا يمكن فصل عناصرها).</li>
-                <li><strong>التفاعل والاستمرار:</strong> التعلم ناتج عن تفاعل مستمر، والخبرة الحالية تبنى على السابقة
-                    وتمهد للاحقة.</li>
-                <li><strong>اتساع المجال:</strong> يشمل الخبرات داخل المدرسة وخارجها (طالما تحت إشراف المدرسة).</li>
-            </ul>
-        </section>
-
-        <section id="operational-def">
-            <h2>4. التعريف الإجرائي للمنهج</h2>
-            <p>بعد استعراض المفاهيم السابقة التي غلب عليها الطابع الفلسفي، قدم الكتاب تعريفات إجرائية دقيقة تساعد في
-                التخطيط والتنفيذ:</p>
-
-            <h3>تعريف أحمد المهدي عبد الحليم:</h3>
-            <p>"مجموعة مشروعة وصادقة من المعتقدات والقيم والمعارف والمهارات... تدفع من يكتسبونها إلى القيام بأنماط معينة
-                في التفكير والسلوك... يعهد بها إلى مؤسسة ثقافية (المدرسة)...".</p>
-
-            <h3>التعريف الإجرائي الشامل (الخلاصة):</h3>
-            <div class="def-box">
-                "مجموعة مشروعة وصادقة من المعارف والمهارات والقيم... تختار في ضوء أهداف محددة... وتنظم كخبرات تعليمية
-                مقصودة... يخطط لها وينفذها ويقوم أثرها معلمون متخصصون... لتدفع المتعلمين لاتباع أنماط سلوكية معينة."
+                <div class="box">
+                    <h3>تعريف علم نفس النمو الشامل</h3>
+                    [cite_start]<p>هو الفرع الذي يدرس تطور ونمو الإنسان (جسمياً، عقلياً، انفعالياً، اجتماعياً) منذ لحظة
+                        التكوين (الإخصاب) وحتى الممات، بهدف اكتشاف القدرات وحسن استغلالها [cite: 46-56].</p>
+                </div>
             </div>
 
-            <h3>تحليل التعريف الإجرائي:</h3>
-            <ol>
-                <li><strong>أسس البناء:</strong> أشار للعوامل المؤثرة (معرفية، اجتماعية، نفسية).</li>
-                <li><strong>العناصر:</strong> حدد الأهداف، المحتوى، الطرق، الأنشطة، والتقويم.</li>
-                <li><strong>العمليات:</strong> شمل التخطيط، التنفيذ، والتقويم.</li>
-                <li><strong>دور المعلم:</strong> هو المنفذ والمخطط.</li>
-                <li><strong>التمييز:</strong> ميز بين المنهج المخطط (الوثيقة) والمنهج المنفذ (الواقع) والمنهج المحقق
-                    (الأثر).</li>
-            </ol>
-            <p><strong>الخلاصة:</strong> المنهج هو نسيج متكامل من الأهداف والمحتوى والأنشطة وطرق التدريس والتقويم، وليس
-                مجرد كتاب أو خطة.</p>
-        </section>
+            <div id="trends" class="section-card">
+                <h1>ثانياً: الاتجاهات الرئيسية في الدراسة</h1>
+                <p>توجد اتجاهات رئيسية لدراسة هذا العلم:</p>
 
-        <section id="related-concepts">
-            <h2>5. المنهج والمفاهيم ذات الصلة (إزالة اللبس)</h2>
-            <table class="comparison-table">
-                <tr>
-                    <th>المصطلح</th>
-                    <th>الفرق بينه وبين المنهج</th>
-                </tr>
-                <tr>
-                    <td><strong>البرنامج الدراسي <br> <span class="term">Scholastic Program</span></strong></td>
-                    <td>أعم من المنهج. هو المخطط العام لمرحلة كاملة (مثل برنامج إعداد المعلم) ويشمل المقررات، شروط
-                        القبول، الإدارة، واللوائح.</td>
-                </tr>
-                <tr>
-                    <td><strong>المقرر الدراسي <br> <span class="term">Course</span></strong></td>
-                    <td>مجموعة موضوعات تدرس في فترة محددة (فصل دراسي) للحصول على درجة. المنهج أوسع منه.</td>
-                </tr>
-                <tr>
-                    <td><strong>الخطة الدراسية <br> <span class="term">Syllabus</span></strong></td>
-                    <td>توصيف شامل للمقرر (اسم المعلم، الساعات، توزيع الموضوعات، المراجع). هي وثيقة تنظيمية فقط.</td>
-                </tr>
-                <tr>
-                    <td><strong>المادة الدراسية <br> <span class="term">Subject Matter</span></strong></td>
-                    <td>الحقائق والمفاهيم الخاصة بعلم معين (فيزياء، تاريخ). المنهج يقوم بترجمتها وتجسيدها تعليميًا.</td>
-                </tr>
-                <tr>
-                    <td><strong>المحتوى الدراسي <br> <span class="term">Content</span></strong></td>
-                    <td>هو مضمون المنهج (معارف، مهارات، قيم) المراد إكسابها للمتعلم. هو جزء من المنهج وليس المنهج كله.
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>الكتاب المدرسي <br> <span class="term">Text Book</span></strong></td>
-                    <td>الوعاء أو الشكل التقليدي الذي يضم المحتوى. هو أداة من أدوات المنهج وليس المنهج نفسه.</td>
-                </tr>
-            </table>
-        </section>
+                <ul>
+                    [cite_start]<li><strong>الاتجاه الأول (النمو العضوي/التكويني):</strong> يدرس الجسم (طول، وزن) والنمو
+                        الفسيولوجي للأجهزة والحواس [cite: 58-59].</li>
+                    [cite_start]<li><strong>الاتجاه الثاني (النمو الوظيفي/السلوكي):</strong> يدرس نمو الوظائف النفسية،
+                        الانفعالية، والاجتماعية، وتطور النشاط العقلي من الحسي إلى المجرد [cite: 62-63].</li>
+                </ul>
 
-        <section id="foundations">
-            <h2>6. أسس بناء المنهج</h2>
-            <p>يبنى المنهج على أربعة أسس رئيسية (معايير):</p>
+                <h3>سياقات تحليل النمو (العوامل البيئية):</h3>
+                <div class="box">
+                    <ol>
+                        [cite_start]<li><strong>السياق الاجتماعي:</strong> تأثير الأسرة، المدرسة، والأقران على تفكير
+                            وتطور الفرد [cite: 64-65].</li>
+                        [cite_start]<li><strong>السياق الثقافي:</strong> العادات، التقاليد، والقيم التي تؤثر على رعاية
+                            الطفل ونوع تعليمه[cite: 66].</li>
+                        [cite_start]<li><strong>السياق الاقتصادي الاجتماعي:</strong> الطبقة الاجتماعية، دخل الأسرة،
+                            وتعليم الوالدين يؤثرون على فرص الرعاية الصحية والتعليمية المتاحة للطفل[cite: 67].</li>
+                    </ol>
+                    [cite_start]<p class="important-note">يمكن تعويض انخفاض الوضع الاقتصادي من خلال الروابط الثقافية
+                        والعلاقات الاجتماعية المتينة[cite: 71].</p>
+                </div>
+            </div>
 
-            <h3>1. الأسس الفلسفية</h3>
-            <p>الأطر الفكرية التي تعكس عقيدة المجتمع وتراثه وحقوق الأفراد. (علاقة المنهج بفلسفة المجتمع).</p>
+            <div id="topics" class="section-card">
+                <h1>ثالثاً: موضوعات علم نفس النمو</h1>
+                [cite_start]<p>موضوع العلم هو دراسة سلوك الإنسان ونموه النفسي منذ لحظة الإخصاب إلى الممات[cite: 74].</p>
+                <h3>مجالات البحث:</h3>
+                <ul>
+                    [cite_start]<li>دراسة السلوك والنمو الطبيعي في إطار العوامل الوراثية والعضوية[cite: 77].</li>
+                    [cite_start]<li>دراسة السلوك في إطار العوامل البيئية (جغرافية، اجتماعية)[cite: 78].</li>
+                    [cite_start]<li>دراسة أساليب التوافق الشخصي والاجتماعي ومشكلاته[cite: 79].</li>
+                </ul>
+            </div>
 
-            <h3>2. الأسس الاجتماعية</h3>
-            <p>تتعلق بحاجات المجتمع، ثقافته، قيمه الدينية والأخلاقية والوطنية، والمشكلات الاقتصادية والتقنية.</p>
+            <div id="demands" class="section-card">
+                <h1>رابعاً وخامساً: مطالب وحاجات النمو</h1>
 
-            <h3>3. الأسس النفسية</h3>
-            <p>تتعلق بطبيعة <strong>المتعلم</strong>: خصائصه النفسية، مراحل نموه، قدراته، حاجاته، وميوله، ومراعاة نظريات
-                التعلم.</p>
+                <h3>1. مطالب النمو (Developmental Tasks)</h3>
+                [cite_start]<p>هي الأشياء أو المستويات التي <span class="highlight">يجب</span> على الفرد أن يتعلمها أو
+                    يحققها في مرحلة عمرية معينة لكي يكون ناجحاً وسعيداً [cite: 84-87].</p>
+                <ul>
+                    [cite_start]<li><strong>أمثلة:</strong> المشي في سن معينة، تعلم الكلام، تعلم القراءة[cite: 85].</li>
+                    [cite_start]<li><strong>الفائدة:</strong> تساعد في تقييم نمو الفرد (متقدم أو متأخر)[cite: 88].</li>
+                </ul>
+                <div class="box">
+                    <strong>مصادر مطالب النمو:</strong>
+                    <ul>
+                        [cite_start]<li>التاريخ الجنيني (البيولوجي): مثل تطور السمع والبصر[cite: 107].</li>
+                        [cite_start]<li>النمط الثقافي للمجتمع: مثل تعلم الكمبيوتر في العصر الحديث[cite: 112].</li>
+                        [cite_start]<li>الفرد نفسه: طموحاته ومجهوده الشخصي[cite: 113].</li>
+                    </ul>
+                </div>
 
-            <h3>4. الأسس المعرفية</h3>
-            <p>تتعلق بـ <strong>المادة الدراسية</strong>: طبيعة المعرفة، مصادرها، تطورها ومستجداتها، وعلاقتها بالعلوم
-                الأخرى.</p>
-        </section>
+                <h3>2. حاجات النمو (ماسلو - Maslow)</h3>
+                [cite_start]<p>الحاجات تترتب هرمياً، ولا تظهر الحاجات العليا إلا بعد إشباع الحاجات الدنيا[cite: 117].
+                </p>
+                <div class="box">
+                    [cite_start]<strong>ترتيب هرم ماسلو (من الأسفل للأعلى):</strong> [cite: 121-138]
+                    <ol>
+                        <li>الحاجات الفسيولوجية (طعام، شراب).</li>
+                        <li>الحاجة إلى الأمن.</li>
+                        <li>الحاجة إلى الحب.</li>
+                        <li>الحاجة إلى تقدير الذات.</li>
+                        <li>الحاجة إلى تحقيق الذات.</li>
+                    </ol>
+                </div>
+            </div>
 
-        <section id="development">
-            <h2>7. تطوير المنهج (المفهوم والأسس)</h2>
-            <h3>الفرق بين التغيير والتطوير</h3>
-            <ul>
-                <li><strong>التغيير:</strong> قد يكون للأفضل أو للأسوأ، قد يكون بإرادة الإنسان أو مفروضًا عليه، قد يكون
-                    جزئيًا.</li>
-                <li><strong>التطوير:</strong> عملية <strong>علمية هادفة</strong> تؤدي دائمًا للأفضل (تحسين الكفاءة)، تتم
-                    بإرادة الإنسان، وتكون شاملة لجميع الجوانب. التطوير يستلزم التغيير، ولكن ليس كل تغيير تطويرًا.</li>
-            </ul>
+            <div id="stages" class="section-card">
+                <h1>سادساً: تقسيم النمو إلى مراحل</h1>
+                [cite_start]<p>الهدف من التقسيم هو <strong>تسهيل الدراسة</strong>، لكن النمو في الواقع عملية متصلة لا
+                    توجد بينها فواصل قاطعة[cite: 145].</p>
 
-            <h3>تعريف تطوير المنهج</h3>
-            <p>عملية تحسين شاملة لعناصر المنهج (الأهداف، المحتوى، الطرق، الأنشطة، التقويم) لرفع كفاءته في تحقيق الأهداف
-                المنشودة.</p>
+                <div class="important-note">
+                    [cite_start]<strong>أهمية معرفة المراحل:</strong> معرفة التوقعات المناسبة من الطفل، وضع مناهج
+                    مناسبة، فهم الاضطرابات، ومراعاة الفروق الفردية [cite: 146-154].
+                </div>
 
-            <h3>أسس (مبادئ) تطوير المنهج</h3>
-            <ol>
-                <li>أن يبنى على نتائج التقويم (لا تطوير عشوائي).</li>
-                <li>أن يكون هادفًا ومرنًا ومستمرًا.</li>
-                <li>أن يكون شاملاً (لكل العناصر) ومتكاملاً وتعاونيًا.</li>
-                <li>مراعاة خصائص المتعلمين وحاجات المجتمع.</li>
-                <li>الاستفادة من التقدم العلمي والتكنولوجي والبحث التربوي.</li>
-                <li>استشراف المستقبل وحاجاته.</li>
-                <li>توفير الإمكانات البشرية والمادية اللازمة.</li>
-            </ol>
-        </section>
+                <h3>أسس تقسيم المراحل:</h3>
+                <ol>
+                    <li>
+                        [cite_start]<strong>الأساس الغددي العضوي:</strong> يعتمد على نشاط الغدد (الصنوبرية، التيموسية،
+                        التناسلية) [cite: 184-195]:
+                        <ul>
+                            <li>ما قبل الميلاد (9 شهور).</li>
+                            <li>المهد (أسبوعين).</li>
+                            <li>الرضاعة (سنتين).</li>
+                            <li>الطفولة المبكرة (3-6 سنوات).</li>
+                            <li>الطفولة المتأخرة، البلوغ، المراهقة، الرشد، وسط العمر، الشيخوخة.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        [cite_start]<strong>الأساس الاجتماعي:</strong> يعتمد على تطور علاقة الطفل بالبيئة (اللعب) [cite:
+                        196-201]:
+                        <ul>
+                            <li>مرحلة اللعب الانعزالي (بمفرده).</li>
+                            <li>مرحلة اللعب الانفرادي/المتوازي (بجانب الآخرين دون مشاركة).</li>
+                            <li>مرحلة اللعب الجماعي (مشاركة).</li>
+                            [cite_start]<li>*عيوبه: اعتمد على اللعب فقط وأهمل الجوانب الأخرى[cite: 202].</li>
+                        </ul>
+                    </li>
+                    [cite_start]<li><strong>الأساس التربوي:</strong> يناظر المراحل التعليمية (ما قبل المدرسة، الأساسي،
+                        الثانوي، الجامعي) [cite: 205-209].</li>
+                </ol>
+            </div>
 
-        <section id="obstacles">
-            <h2>8. معوقات تطوير المنهج</h2>
-            <p>تواجه عملية التطوير صعوبات تحد من فاعليتها:</p>
-            <ul>
-                <li><strong>معوقات مادية:</strong> نقص المباني، المعامل، الوسائل التكنولوجية، الميزانيات الضعيفة.</li>
-                <li><strong>معوقات فنية:</strong> نقص الكوادر المؤهلة (معلمين، موجهين، فنيين)، ونقص الدراسات والبحوث
-                    اللازمة.</li>
-                <li><strong>معوقات الاتجاهات الحديثة:</strong> مقاومة التغيير أو صعوبة مواكبة الاتجاهات المتسارعة (مثل
-                    التعلم الذاتي، التعليم الإلكتروني).</li>
-            </ul>
+            <div id="relations" class="section-card">
+                <h1>سابعاً: علاقة علم نفس النمو بالعلوم الأخرى</h1>
+                [cite_start]<p>علم نفس النمو يتأثر ويؤثر في العلوم الإنسانية الأخرى[cite: 213]:</p>
 
-            <h3>مقترحات لمواجهة المعوقات:</h3>
-            <ul>
-                <li>زيادة ميزانية التعليم.</li>
-                <li>إعداد كوادر فنية متخصصة.</li>
-                <li>توفير الإمكانيات قبل التعميم (التجريب أولاً).</li>
-                <li>المتابعة المستمرة من لجان متخصصة.</li>
-            </ul>
-        </section>
+                <div class="box">
+                    <ul>
+                        [cite_start]<li><strong>علم الأنثروبولوجيا:</strong> يوضح أثر <em>الثقافة</em> والعادات على
+                            تشكيل الشخصية والتربية [cite: 215-219].</li>
+                        [cite_start]<li><strong>علم النفس العام:</strong> يكتشف القوانين الأساسية للسلوك (التعلم،
+                            الإدراك) التي تطبق على البشر[cite: 221].</li>
+                        [cite_start]<li><strong>علم الوراثة:</strong> يفسر ماضي الفرد واستعداداته الفطرية وتأثيرها على
+                            حاضره ومستقبله[cite: 223].</li>
+                        [cite_start]<li><strong>علوم الإعلام:</strong> تدرس تأثير المؤسسات الإعلامية (إيجابي أو سلبي)
+                            على بلورة شخصية الطفل [cite: 225-228].</li>
+                        [cite_start]<li><strong>العلوم الطبية:</strong> توفر حقائق عن الحمل، الغدد، التغذية، وتأثير
+                            الأمراض والعقاقير على النمو[cite: 229].</li>
+                    </ul>
+                </div>
+            </div>
 
-        <section id="types">
-            <h2>9. أنواع المناهج</h2>
-            <p>توجد تنظيمات مختلفة للمناهج الدراسية، أهمها:</p>
+            <div id="goals" class="section-card">
+                <h1>ثامناً: أهداف علم نفس النمو</h1>
+                [cite_start]<p>للعلم أربعة أهداف رئيسية مترابطة[cite: 231]:</p>
+                <ol>
+                    [cite_start]<li><strong>الوصف:</strong> تحديد الظاهرة وبيان خصائصها بدقة (تحويل المجهول لمعلوم)
+                        [cite: 231-232].</li>
+                    [cite_start]<li><strong>الفهم:</strong> إدراك العلاقات بين الظواهر وتفسير "لماذا" تحدث (ربط الأسباب
+                        بالنتائج) [cite: 233-238].</li>
+                    [cite_start]<li><strong>التنبؤ:</strong> توقع النتائج المستقبلية بناءً على المعلومات الحالية (مثال:
+                        تمدد الحديد بالحرارة) [cite: 239-240].</li>
+                    [cite_start]<li><strong>الضبط (التحكم):</strong> التحكم في الظروف لتحقيق هدف معين (مثل التوجيه
+                        التعليمي الصحيح) [cite: 241-243].</li>
+                </ol>
+            </div>
 
-            <h3>1. منهج المواد الدراسية المنفصلة</h3>
-            <p>تنظم الخبرات في صورة مواد مستقلة (فيزياء، تاريخ، رياضيات). يركز على <strong>الترتيب المنطقي
-                    للمعرفة</strong> والأهداف المعرفية. (عيوبه: يضع حواجز بين العلوم، يهمل جوانب النمو الأخرى).</p>
+            <div id="methods" class="section-card">
+                <h1>تاسعاً: مناهج البحث في علم نفس النمو</h1>
+                [cite_start]<p>هي الطرق المنظمة التي يستخدمها الباحث لدراسة الظواهر[cite: 245].</p>
 
-            <h3>2. المنهج المترابط</h3>
-            <p>محاولة لتحسين المنهج المنفصل عن طريق إيجاد ربط بين الموضوعات المختلفة (دون دمجها كليًا).</p>
+                <h3>خطوات البحث العلمي:</h3>
+                [cite_start]<p>الإحساس بالمشكلة -> تحديدها -> جمع البيانات -> وضع الفروض -> اختبار الفروض -> النتائج
+                    [cite: 254-259].</p>
 
-            <h3>3. منهج الدمج</h3>
-            <p>إزالة الحواجز تمامًا بين موضوعين أو أكثر (من ميدانين مختلفين) ودمجهما في منهج واحد يدرسه معلم واحد.</p>
+                <h3>أهم المناهج المستخدمة:</h3>
+                <div class="box">
+                    <h4>1. [cite_start]المنهج الوصفي [cite: 273]</h4>
+                    <p>يهتم بوصف الظواهر وتحديد معايير النمو. وله طريقتان:</p>
+                    <ul>
+                        <li><strong>الطريقة الطولية:</strong> تتبع نفس المجموعة من الأطفال لفترة زمنية طويلة. (ميزتها:
+                            الدقة / عيبها: الجهد والتكلفة وطول الوقت) [cite_start][cite: 275].</li>
+                        <li><strong>الطريقة المستعرضة:</strong> دراسة مجموعات مختلفة في الأعمار في وقت واحد. (ميزتها:
+                            سريعة وتعطي معايير عامة) [cite_start][cite: 276].</li>
+                    </ul>
+                </div>
 
-            <h3>4. منهج المجالات الواسعة</h3>
-            <p>تجميع المواد المتشابهة في مجال واحد (مثل مجال "العلوم" بدلاً من فيزياء وكيمياء وأحياء). يهدف لإزالة
-                الحواجز وإظهار العلاقات بين المعارف وربطها بالحياة والمشكلات.</p>
+                <div class="box">
+                    <h4>2. [cite_start]المنهج التاريخي [cite: 277]</h4>
+                    <p>فهم الماضي لتفسير الحاضر والتنبؤ بالمستقبل (دراسة الوثائق والسجلات). يستخدم للتحقق من فروض مثل
+                        زيادة طول الأجسام عبر الأجيال.</p>
+                </div>
 
-            <h3>5. المنهج الحلزوني</h3>
-            <p>يركز على <strong>العلاقة الرأسية</strong> (الاستمرار والتتابع). تقدم المفاهيم وتكرر في كل صف دراسي ولكن
-                بمستوى أعمق وأوسع (تزداد اتساعًا وعمقًا كلما تقدم الطالب).</p>
+                <div class="box">
+                    <h4>3. [cite_start]المنهج التجريبي [cite: 282]</h4>
+                    <p>أدق المناهج لأنه يكشف عن <strong>العلاقات السببية</strong>. يعتمد على التجربة، ضبط المتغيرات،
+                        والتحكم في الشروط.</p>
+                </div>
 
-            <h3>6. منهج النشاط</h3>
-            <p>يقوم على <strong>فاعلية المتعلم</strong> ونشاطه الذاتي. لا يتعلم الطالب إلا إذا كان لديه سؤال أو مشكلة.
-                ينظم في اتجاهين: التركيز على ميول المتعلمين، أو التركيز على المواقف الاجتماعية الحياتية.</p>
-        </section>
+                <div class="box">
+                    <h4>4. [cite_start]المنهج التحليلي والمقارن [cite: 287]</h4>
+                    <p>مقارنة مجتمعات مختلفة أو أزمنة مختلفة، أو مقارنة مرحلة نمو بأخرى.</p>
+                </div>
 
-        <button type="button" id="btn-back-to-top">
-            &#8679;
-        </button>
+                <div class="box">
+                    <h4>5. [cite_start]المنهج الإحصائي [cite: 289]</h4>
+                    <p>استخدام القياس النفسي والأرقام للكشف عن الفروق الفردية ومعدلات النمو.</p>
+                </div>
+            </div>
 
-        <!-- Dark Mode Toggle Button -->
-        <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
-
+        </div>
     </div>
 
     <script>
-        // Script for scroll-to-top button and Sidebar active state
-        let mybutton = document.getElementById("btn-back-to-top");
-        let sections = document.querySelectorAll("section");
-        let navLinks = document.querySelectorAll(".sidebar a");
-
-        window.onscroll = function () {
-            scrollFunction();
-            highlightSidebar();
-        };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        mybutton.addEventListener("click", backToTop);
-
-        function backToTop() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-
-        function highlightSidebar() {
-            let scrollY = window.pageYOffset;
-
-            sections.forEach(current => {
-                const sectionHeight = current.offsetHeight;
-                const sectionTop = current.offsetTop - 100;
-                const sectionId = current.getAttribute("id");
-
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLinks.forEach(link => {
-                        link.classList.remove("active");
-                        if (link.getAttribute("href").includes(sectionId)) {
-                            link.classList.add("active");
-                        }
-                    });
-                }
+        function showSection(id) {
+            // Hide all sections
+            document.querySelectorAll('.section-card').forEach(el => {
+                el.classList.remove('active');
             });
-        }
+            // Show selected section
+            document.getElementById(id).classList.add('active');
 
-        // Dark Mode Toggle Functionality
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const bodyEl = document.body;
-
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            bodyEl.classList.add('dark-mode');
-            darkModeToggle.textContent = '☀️';
-        }
-
-        darkModeToggle.addEventListener('click', () => {
-            bodyEl.classList.toggle('dark-mode');
-
-            // Update icon
-            if (bodyEl.classList.contains('dark-mode')) {
-                darkModeToggle.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                darkModeToggle.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
+            // Update Navigation state
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Highlight current button (simple approximation based on onclick attribute)
+            const btns = document.getElementsByTagName('button');
+            for (let btn of btns) {
+                if (btn.getAttribute('onclick') === `showSection('${id}')`) {
+                    btn.classList.add('active');
+                }
             }
-        });
-    </script>
 
+            // Scroll to top of content on mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar(); // Close sidebar on selection
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+    </script>
 </body>
 
 </html>
