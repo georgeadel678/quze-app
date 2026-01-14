@@ -435,6 +435,23 @@
         </div>
     </div>
 
+    <!-- Chapter Password Modal -->
+    <div id="chapter-password-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px;">
+            <div style="font-size: 50px; margin-bottom: 20px;">🔒</div>
+            <h2 style="color: #2c3e50; font-size: 24px; font-weight: 700; margin-bottom: 10px;">محمية بكلمة مرور</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">هذا القسم يتطلب كلمة مرور للدخول</p>
+
+            <input type="password" id="chapter-password-input" class="form-input" placeholder="أدخل كلمة المرور"
+                style="width: 100%; margin-bottom: 1.5rem; text-align: center;">
+
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeChapterPasswordModal()" class="btn btn-secondary" style="flex: 1;">إلغاء</button>
+                <button onclick="verifyChapterPassword()" class="btn btn-primary" style="flex: 1;">تحقق</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
 
@@ -448,6 +465,7 @@
     <script src="assets/data/questions/design/chapter5.js?v=2"></script>
     <script src="assets/data/questions/design/chapter6.js?v=2"></script>
     <script src="assets/data/questions/design/chapter7.js?v=3"></script>
+    <script src="assets/data/questions/design/chapter8.js?v=1"></script>
     <script src="assets/data/questions/design/essay/chapter1.js?v=2"></script>
     <script src="assets/data/questions/design/essay/chapter2.js?v=2"></script>
     <script src="assets/data/questions/design/essay/chapter3.js?v=2"></script>
@@ -455,6 +473,7 @@
     <script src="assets/data/questions/design/essay/chapter5.js?v=2"></script>
     <script src="assets/data/questions/design/essay/chapter6.js?v=2"></script>
     <script src="assets/data/questions/design/essay/chapter7.js?v=3"></script>
+    <script src="assets/data/questions/design/essay/chapter8.js?v=1"></script>
     <!-- Teaching Subject Data -->
     <script src="assets/data/questions/teaching/chapter1.js?v=2"></script>
     <script src="assets/data/questions/teaching/chapter2.js?v=2"></script>

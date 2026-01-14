@@ -1438,7 +1438,52 @@ function translateFeedbackType(type) {
 // Expose functions to global scope
 window.openFeedbackModal = openFeedbackModal;
 window.closeFeedbackModal = closeFeedbackModal;
+window.closeFeedbackModal = closeFeedbackModal;
 window.submitFeedback = submitFeedback;
+
+/* ====================================
+   Chapter Password Logic
+   ==================================== */
+let targetChapterId = null;
+
+function openChapterPasswordModal(chapterId) {
+    targetChapterId = chapterId;
+    const modal = document.getElementById('chapter-password-modal');
+    const input = document.getElementById('chapter-password-input');
+    if (modal) {
+        modal.style.display = 'flex';
+        if (input) {
+            input.value = '';
+            input.focus();
+        }
+    }
+}
+
+function closeChapterPasswordModal() {
+    targetChapterId = null;
+    const modal = document.getElementById('chapter-password-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function verifyChapterPassword() {
+    const input = document.getElementById('chapter-password-input');
+    const password = input ? input.value : '';
+
+    if (password === 'عنغ') {
+        closeChapterPasswordModal();
+        if (targetChapterId) {
+            Quiz.selectChapter(targetChapterId);
+        }
+    } else {
+        alert('كلمة المرور غير صحيحة ❌');
+        if (input) input.value = '';
+    }
+}
+
+window.openChapterPasswordModal = openChapterPasswordModal;
+window.closeChapterPasswordModal = closeChapterPasswordModal;
+window.verifyChapterPassword = verifyChapterPassword;
+
 /* ====================================
    notes.js - إدارة الملاحظات
    ==================================== */
@@ -1738,7 +1783,8 @@ const Quiz = {
                 { id: 4, title: 'الفصل الرابع', icon: '🎤' },
                 { id: 5, title: 'الفصل الخامس', icon: '📻' },
                 { id: 6, title: 'الفصل السادس', icon: '🎨' },
-                { id: 7, title: 'الفصل السابع', icon: '🧠' } // New Chapter
+                { id: 7, title: 'الفصل السابع', icon: '🧠' },
+                { id: 8, title: 'أسئلة خاصة', icon: '🌟' }
             ];
         } else {
             // Teaching (Old Structure): 1&2, 3&4 ...
@@ -1754,7 +1800,11 @@ const Quiz = {
         chapters.forEach(ch => {
             const div = document.createElement('div');
             div.className = 'chapter-card';
-            div.onclick = () => this.selectChapter(ch.id);
+            if (ch.id === 8) {
+                div.onclick = () => openChapterPasswordModal(ch.id);
+            } else {
+                div.onclick = () => this.selectChapter(ch.id);
+            }
 
             div.innerHTML = `
                 <span class="chapter-icon">${ch.icon}</span>
@@ -1901,7 +1951,7 @@ const Quiz = {
 
         if (window.QuestionBank && window.QuestionBank[subjectKey]) {
             const bank = window.QuestionBank[subjectKey];
-            for (let i = 1; i <= 7; i++) {
+            for (let i = 1; i <= 8; i++) {
                 if (bank[`chapter${i}`]) {
                     window.questions = window.questions.concat(bank[`chapter${i}`]);
                 }
