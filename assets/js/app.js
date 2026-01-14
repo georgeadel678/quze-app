@@ -1455,6 +1455,13 @@ function openChapterPasswordModal(chapterId) {
         if (input) {
             input.value = '';
             input.focus();
+
+            // Add Enter key listener
+            input.onkeypress = (e) => {
+                if (e.key === 'Enter') {
+                    verifyChapterPassword();
+                }
+            };
         }
     }
 }
@@ -1470,9 +1477,10 @@ function verifyChapterPassword() {
     const password = input ? input.value : '';
 
     if (password === 'عنغ') {
+        const chapterToOpen = targetChapterId; // Capture before clearing
         closeChapterPasswordModal();
-        if (targetChapterId) {
-            Quiz.selectChapter(targetChapterId);
+        if (chapterToOpen) {
+            Quiz.selectChapter(chapterToOpen);
         }
     } else {
         alert('كلمة المرور غير صحيحة ❌');
