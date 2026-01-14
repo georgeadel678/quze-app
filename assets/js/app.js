@@ -1074,12 +1074,12 @@ function updateReviewButtonForCurrentChapter() {
         countText.textContent = `${wrongCount} سؤال تحتاج مراجعة`;
     }
 
-    // Show/hide chapter summary button (Teaching subject only, not for full curriculum)
+    // Show/hide chapter summary button (Growth subject only, not for full curriculum)
     if (summaryBtn) {
         const currentSubject = Quiz.state.currentSubject;
         const currentChapter = Quiz.selectedChapter;
 
-        if (currentSubject === 'teaching' && currentChapter !== 'full' && currentChapter) {
+        if (currentSubject === 'design' && currentChapter !== 'full' && currentChapter) {
             summaryBtn.style.display = 'block';
         } else {
             summaryBtn.style.display = 'none';
@@ -1156,9 +1156,9 @@ function openChapterSummary() {
     const currentChapter = Quiz.selectedChapter;
     const currentSubject = Quiz.state.currentSubject;
 
-    // Only works for teaching subject and specific chapters
-    if (currentSubject !== 'teaching' || currentChapter === 'full' || !currentChapter) {
-        alert('ملخص الفصل متاح فقط لفصول معينة في مادة مناهج وطرق التدريس');
+    // Only works for growth subject and specific chapters
+    if (currentSubject !== 'design' || currentChapter === 'full' || !currentChapter) {
+        alert('ملخص الفصل متاح فقط لفصول معينة في مادة علم نفس النمو');
         return;
     }
 
