@@ -1,440 +1,517 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الفصل السادس: تصنيف برامج الجرافيك</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>مراجعة الفصل السادس: المراهقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #121212;
-            --bg-card: #1e1e1e;
-            --primary: #bb86fc;    /* بنفسجي نيون */
-            --secondary: #03dac6;  /* تركواز نيون */
-            --text-main: #e0e0e0;
-            --text-muted: #b0b0b0;
-            --adobe-ai: #ff9a00;   /* لون إليستريتور */
-            --adobe-ps: #31a8ff;   /* لون فوتوشوب */
-            --border: #333;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--bg-dark);
+            --primary-color: #6c5ce7;
+            /* لون يعبر عن المرحلة الانتقالية */
+            --secondary-color: #a29bfe;
+            --accent-color: #d63031;
+            --bg-color: #dfe6e9;
+            --text-color: #2d3436;
+            --card-bg: #ffffff;
+            --sidebar-bg: #2d3436;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.7;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        /* Layout */
+        .container {
             display: flex;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Sidebar */
-        aside {
+        /* Sidebar Navigation */
+        .sidebar {
             width: 280px;
-            background: #000000;
-            border-left: 1px solid var(--border);
+            background-color: var(--sidebar-bg);
+            color: white;
             padding: 20px;
             position: fixed;
-            height: 100vh;
+            height: 100%;
             overflow-y: auto;
-            z-index: 100;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        aside h2 {
+        .sidebar h2 {
             text-align: center;
-            font-size: 1.4rem;
             margin-bottom: 30px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-            letter-spacing: 1px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            font-size: 1.3rem;
+            color: var(--secondary-color);
         }
 
-        .nav-item {
-            display: flex;
-            align-items: center;
+        .nav-btn {
+            display: block;
             width: 100%;
             padding: 15px;
             margin-bottom: 10px;
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #dfe6e9;
             text-align: right;
             cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-item:hover, .nav-item.active {
-            background: rgba(187, 134, 252, 0.1);
-            color: var(--primary);
-            border-color: var(--primary);
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background-color: rgba(255, 255, 255, 0.1);
             padding-right: 20px;
+            font-weight: bold;
+            color: #fff;
         }
 
-        .nav-item::before {
-            content: '#';
-            margin-left: 10px;
-            color: var(--secondary);
-            font-family: 'Roboto Mono', monospace;
+        .nav-btn:hover::before,
+        .nav-btn.active::before {
+            transform: scaleY(1);
         }
 
         /* Main Content */
-        main {
+        .main-content {
+            flex: 1;
             margin-right: 280px;
-            width: calc(100% - 280px);
             padding: 40px;
         }
 
-        .content-section {
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             display: none;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideIn 0.5s ease;
+            border-top: 5px solid var(--primary-color);
         }
 
-        .content-section.active {
+        .section-card.active {
             display: block;
         }
 
-        /* Typography */
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to left, var(--primary), var(--secondary));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 900;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #b2bec3;
+            padding-bottom: 10px;
         }
 
         h3 {
-            color: var(--text-main);
-            font-size: 1.5rem;
-            margin: 40px 0 20px 0;
-            border-right: 4px solid var(--secondary);
-            padding-right: 15px;
+            color: #2d3436;
+            margin-top: 30px;
+            background-color: #fab1a0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 2px 2px 0px #e17055;
         }
 
         p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-        }
-
-        /* Cards & Grids */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .tech-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tech-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .tech-card h4 {
-            font-size: 1.3rem;
             margin-bottom: 15px;
-            color: var(--secondary);
-            font-family: 'Roboto Mono', monospace;
+            text-align: justify;
         }
 
-        /* Comparison Table */
-        .compare-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 30px 0;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .compare-table th {
-            background: #2c2c2c;
-            color: var(--primary);
-            padding: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .compare-table td {
-            padding: 20px;
-            background: var(--bg-card);
-            border-bottom: 1px solid #2a2a2a;
-            color: var(--text-muted);
-            vertical-align: top;
-        }
-
-        .compare-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .compare-table td:first-child {
-            border-left: 1px solid #2a2a2a;
-            font-weight: bold;
-            color: var(--text-main);
-            width: 20%;
-        }
-
-        /* Code Snippet Style */
-        .tag {
-            display: inline-block;
-            padding: 4px 8px;
-            background: #333;
-            border-radius: 4px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--secondary);
-            margin-left: 5px;
-        }
-
-        /* Software Badge */
-        .sw-badge {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-            font-family: 'Roboto Mono', monospace;
-            margin-left: 10px;
-            color: #121212;
-        }
-
-        .ai-badge { background: var(--adobe-ai); }
-        .ps-badge { background: var(--adobe-ps); }
-
-        /* Feature List */
-        .feature-list li {
-            margin-bottom: 10px;
+        ul,
+        ol {
             padding-right: 20px;
-            position: relative;
-            list-style: none;
         }
 
-        .feature-list li::before {
-            content: '>';
-            position: absolute;
-            right: 0;
-            color: var(--primary);
-            font-family: 'Roboto Mono', monospace;
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Exam Highlights */
+        .exam-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .exam-note::before {
+            content: "💡 موضع امتحان:";
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Definitions Box */
+        .def-box {
+            background-color: #e8f8f5;
+            border-right: 5px solid #1abc9c;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th,
+        td {
+            border: 1px solid #dfe6e9;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f2f6;
+        }
+
+        /* Citations */
+        .cite {
+            font-size: 0.7em;
+            color: #aaa;
+            vertical-align: super;
+            margin-right: 2px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-            aside { width: 100%; height: auto; position: relative; border-left: none; border-bottom: 1px solid var(--border); }
-            main { width: 100%; margin: 0; padding: 20px; }
-            .tech-grid { grid-template-columns: 1fr; }
+            .sidebar {
+                transform: translateX(100%);
+                width: 85%;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 20px;
+            }
+
+            .toggle-btn {
+                display: block;
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                z-index: 2000;
+            }
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (min-width: 769px) {
+            .toggle-btn {
+                display: none;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <aside>
-        <h2>الفصل السادس<br><span style="font-size:0.7em; opacity:0.7">Software Classification</span></h2>
-        <div class="nav-item active" onclick="switchTab('intro')">1. تصنيف برامج الجرافيك</div>
-        <div class="nav-item" onclick="switchTab('bitmaps')">2. البرامج النقطية (Bitmaps)</div>
-        <div class="nav-item" onclick="switchTab('vectors')">3. البرامج المتجهة (Vectors)</div>
-        <div class="nav-item" onclick="switchTab('3d')">4. البرامج ثلاثية الأبعاد (3D)</div>
-        <div class="nav-item" onclick="switchTab('illustrator')">5. عملاق الفيكتور (Illustrator)</div>
-        <div class="nav-item" onclick="switchTab('photoshop')">6. عملاق البيكسل (Photoshop)</div>
-    </aside>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ الفصول</button>
 
-    <main>
-        <div id="intro" class="content-section active">
-            <h1>مقدمة وتصنيف البرامج</h1>
-            <p>مع التطور التكنولوجي الهائل، أصبح من الممكن إنتاج تصميمات جرافيكية معقدة بدقة وسهولة. يصنف الكتاب برامج إنتاج الرسومات التعليمية بناءً على طريقة معالجتها للبيانات إلى نوعين رئيسيين:</p>
-            
-            <div class="tech-grid">
-                <div class="tech-card" style="border-top: 4px solid var(--adobe-ps);">
-                    <h4>1. برامج ثنائية الأبعاد (2D)</h4>
-                    <p>وتنقسم بدورها إلى نوعين مختلفين تماماً في التكوين:</p>
-                    <ul class="feature-list">
-                        <li>البرامج النقطية <span class="tag">Bitmaps</span></li>
-                        <li>البرامج المتجهة <span class="tag">Vectors</span></li>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2>الفصل السادس: المراهقة</h2>
+            <button class="nav-btn active" onclick="showSection('intro')">1. المفاهيم الأساسية والتعريفات</button>
+            <button class="nav-btn" onclick="showSection('signs')">2. علامات البلوغ والمراحل</button>
+            <button class="nav-btn" onclick="showSection('conflicts')">3. الصراعات والمشكلات (هام)</button>
+            <button class="nav-btn" onclick="showSection('physical')">4. النمو الجسمي</button>
+            <button class="nav-btn" onclick="showSection('mental')">5. النمو العقلي (المعرفي)</button>
+            <button class="nav-btn" onclick="showSection('emotional')">6. النمو الانفعالي</button>
+            <button class="nav-btn" onclick="showSection('social')">7. النمو الاجتماعي</button>
+        </div>
+
+        <div class="main-content">
+
+            <div id="intro" class="section-card active">
+                <h1>أولاً: المفاهيم الأساسية والتعريفات</h1>
+                <p>تعتبر المراهقة مرحلة انتقالية فاصلة بين الطفولة والرشد، وهي مرحلة طبيعية ولكنها يصاحبها تغيرات سريعة
+                    جداً.</p>
+
+                <div class="def-box">
+                    <strong>تعريف المراهقة (Adolescence):</strong><br>
+                    مشتقة لغوياً من "راهق" أي اقترب من الشيء. اصطلاحاً: هي التدرج نحو النضج الجسمي والعقلي والنفسي
+                    والاجتماعي. [cite_start]هي الفترة التي لا يُعامل فيها الفرد كطفل (ليس له امتيازات الطفولة) ولم يصل
+                    بعد لدرجة الراشد [cite: 1065, 1085-1088].
+                </div>
+
+                <div class="exam-note">
+                    سؤال امتحان متكرر: الفرق بين المراهقة والبلوغ والشباب.
+                    <ul>
+                        <li><strong>البلوغ (Puberty):</strong> يعني الجانب <em>العضوي والفسيولوجي</em> (الجنسي) فقط. هو
+                            نضج الغدد التناسلية والقدرة على الإنجاب. [cite_start]البلوغ يسبق المراهقة ويعتبر أولى
+                            علاماتها[cite: 1076, 1092].</li>
+                        <li><strong>المراهقة:</strong> مفهوم أعم يشمل التغيرات النفسية والاجتماعية والعقلية بالإضافة
+                            للجسمية.</li>
+                        [cite_start]<li><strong>الشباب:</strong> يشير غالباً للجانب الاجتماعي ومرحلة الحماس والاندفاع
+                            نحو مجتمع الراشدين[cite: 1078].</li>
                     </ul>
                 </div>
-                
-                <div class="tech-card" style="border-top: 4px solid var(--adobe-ai);">
-                    <h4>2. برامج ثلاثية الأبعاد (3D)</h4>
-                    <p>وهي الجيل الأحدث الذي يتيح النمذجة والمحاكاة الواقعية.</p>
-                </div>
+
+                <h3>أوصاف أطلقها العلماء على المرحلة:</h3>
+                <ul>
+                    [cite_start]<li><strong>ستانلي هول (Stanley Hall):</strong> وصفها بأنها مرحلة "عواصف وتوتر وشدة"
+                        (Storm and Stress)[cite: 1083].</li>
+                    [cite_start]<li><strong>الولادة الثانية:</strong> الطفولة هي الميلاد الجسمي، والمراهقة هي "الميلاد
+                        النفسي" للفرد[cite: 1083].</li>
+                </ul>
             </div>
 
-            <div style="margin-top: 30px; background: #2a2a2a; padding: 20px; border-radius: 8px;">
-                <h4 style="color: var(--secondary); margin-bottom: 10px;">مصطلح تقني هام: المهشمات (Fractals)</h4>
-                <p style="margin: 0; font-size: 0.95rem;">ذكر الكتاب هذا المصطلح للإشارة إلى أشكال جيومترية وهمية ناتجة عن معادلات رياضية معقدة، تستخدم لمحاكاة الظواهر الطبيعية (مثل شكل السواحل، السحب، الجبال) وتكشف عن انتظام خفي ومدهش في الطبيعة.</p>
-            </div>
-        </div>
+            <div id="signs" class="section-card">
+                <h1>ثانياً: علامات البداية وتقسيم المراحل</h1>
 
-        <div id="bitmaps" class="content-section">
-            <h1>البرامج النقطية (Bitmaps / Raster)</h1>
-            <p>تسمى أيضاً البرامج "الراسترية". هي البرامج المتخصصة في التعامل مع الصور الفوتوغرافية.</p>
-
-            <div class="tech-card">
-                <h4>كيف تعمل؟ (مبدأ الخريطة)</h4>
-                <p>تتعامل مع الصورة كخريطة من النقاط <span class="tag">Map of Bits</span>. كل نقطة تسمى <span class="tag">Pixel</span>. البرنامج يتعامل مع كل بيكسل بشكل مستقل من خلال معلومتين أساسيتين:</p>
-                <ol class="feature-list" style="margin-right: 20px;">
-                    <li><strong>الموقع (Where?):</strong> أين تقع النقطة؟ (الإحداثيات س، ص بالنسبة لنقطة مرجعية Reference Point عادة تكون أعلى يسار الصفحة).</li>
-                    <li><strong>اللون (What Color?):</strong> ما هي القيمة اللونية للنقطة؟ (RGB أو CMYK).</li>
+                <h3>علمات دخول المراهقة (التحولات الثلاثة):</h3>
+                <ol>
+                    <li><strong>النمو الجسدي:</strong> قفزة سريعة في الطول والوزن (طفرة النمو).</li>
+                    <li><strong>النضج الجنسي:</strong>
+                        <ul>
+                            <li>الإناث: ظهور الدورة الشهرية (حوالي 13 سنة).</li>
+                            [cite_start]<li>الذكور: حدوث القذف المنوي الأول (الاحتلام) (حوالي 15 سنة)[cite: 1105].</li>
+                        </ul>
+                    </li>
+                    [cite_start]<li><strong>التغير النفسي:</strong> تأثير الهرمونات على المزاج والصورة الذاتية
+                        والعلاقات[cite: 1106].</li>
                 </ol>
+
+                <h3>مراحل المراهقة الثلاث (فترات متداخلة):</h3>
+                <table>
+                    <tr>
+                        <th>المرحلة</th>
+                        <th>العمر التقريبي</th>
+                        <th>أهم ما يميزها</th>
+                    </tr>
+                    <tr>
+                        <td>المراهقة الأولى (المبكرة)</td>
+                        <td>11 - 14 سنة</td>
+                        <td>طفرة النمو الجسدي والبلوغ الجنسي السريع.</td>
+                    </tr>
+                    <tr>
+                        <td>المراهقة المتوسطة</td>
+                        <td>14 - 18 سنة</td>
+                        <td>مرحلة التأقلم مع التغيرات واكتمال النضج الجنسي تقريباً.</td>
+                    </tr>
+                    <tr>
+                        <td>المراهقة المتأخرة</td>
+                        <td>18 - 21 سنة</td>
+                        [cite_start]<td>الاقتراب من الرشد، اتخاذ القرارات المصيرية، التوازن [cite: 1147-1150].</td>
+                    </tr>
+                </table>
             </div>
 
-            <h3 style="margin-top: 30px;">أمثلة على البرامج النقطية:</h3>
-            <div class="tech-grid">
-                <div class="tech-card">Adobe Photoshop</div>
-                <div class="tech-card">Corel Photo Paint</div>
-                <div class="tech-card">Paint Shop Pro</div>
+            <div id="conflicts" class="section-card">
+                <h1>ثالثاً: الصراعات النفسية والمشكلات (هام جداً)</h1>
+                <p>يتعرض المراهق لمجموعة من الصراعات الداخلية والخارجية تجعل هذه المرحلة مرحلة "أزمة":</p>
+
+                <div class="def-box">
+                    <ol>
+                        [cite_start]<li><strong>صراع الاستقلال والاعتمادية:</strong> يسعى للاستقلال (أنا كبرت)، لكنه في
+                            نفس الوقت يحتاج للمساندة المادية والمعنوية من الأهل (صراع فطام نفسي)[cite: 1135].</li>
+                        [cite_start]<li><strong>صراع الغرائز والقيم:</strong> الصراع بين الدوافع الجنسية المتفجرة (الهو)
+                            وبين الضغوط الدينية والاجتماعية (الأنا الأعلى) التي تمنع إشباعها[cite: 1134, 1136].</li>
+                        [cite_start]<li><strong>صراع الأجيال:</strong> الصراع بين المراهق والوالدين (الراشدين) حول
+                            السلطة، الحرية، وطريقة التفكير[cite: 1133].</li>
+                        [cite_start]<li><strong>صراع الطموح والواقع:</strong> طموحاته عالية وخيالية، بينما قدراته
+                            الواقعية قد تكون قاصرة، مما يسبب له الإحباط والتردد في اتخاذ القرارات (التعليم، المهنة،
+                            الزواج) [cite: 1138-1140].</li>
+                    </ol>
+                </div>
+
+                <div class="exam-note">
+                    قد تكون المشكلات ناتجة عن البيئة والثقافة وليست حتمية بيولوجياً. [cite_start]المجتمعات التي تتيح
+                    للمراهق العمل والمسؤولية مبكراً تقل فيها مشكلات المراهقة[cite: 1066, 1073].
+                </div>
             </div>
-        </div>
 
-        <div id="vectors" class="content-section">
-            <h1>البرامج المتجهة (Vectors)</h1>
-            <p>تختلف جذرياً عن البرامج النقطية. هي برامج تعتمد على "الرياضيات" في الرسم.</p>
+            <div id="physical" class="section-card">
+                <h1>رابعاً: النمو الجسمي والجنسي (المراهقة المبكرة)</h1>
+                <p>تحدث "طفرة" في النمو تجعل شكل المراهق يتغير جذرياً.</p>
 
-            <div class="tech-card" style="border-color: var(--primary);">
-                <h4>كيف تعمل؟ (مبدأ المتجهات)</h4>
-                <p>لا تعرف شيئاً اسمه "بيكسل". هي تتعامل مع العناصر كمعادلات رياضية، تحددها معلومتان:</p>
-                <ul class="feature-list">
-                    <li><strong>حدود الشكل:</strong> نقطة البداية ونقطة النهاية (للمتجه).</li>
-                    <li><strong>المحتوى:</strong> نوع التعبئة (Fill) سواء كان لوناً مصمتاً أو تدرجاً.</li>
+                <h3>أهم مظاهر النمو الجسمي:</h3>
+                <ul>
+                    [cite_start]<li><strong>انعدام التناسق (مؤقت):</strong> تنمو الأطراف (اليدين والقدمين) والأنف أسرع
+                        من باقي الجسم، مما قد يسبب ارتباكاً للمراهق وشعوراً بـ "القباحة" المؤقتة، ثم يعود التناسق
+                        لاحقاً[cite: 1158].</li>
+                    <li><strong>الفروق بين الجنسين (هام):</strong>
+                        <ul>
+                            <li><strong>البنات:</strong> يسبقن الذكور في طفرة البلوغ (10.5 - 13.5 سنة). [cite_start]تتسع
+                                منطقة الأرداف وتتراكم الدهون[cite: 1104, 1166].</li>
+                            [cite_start]<li><strong>الذكور:</strong> يتأخرون حوالي عامين (12.5 - 15 سنة) لكنهم يستمرون
+                                في النمو لفترة أطول ويتفوقون لاحقاً في الطول والقوة العضلية وعرض الكتفين[cite: 1163,
+                                1169].</li>
+                        </ul>
+                    </li>
+                    <li><strong>الجاذبية الجسمية:</strong> يصبح المراهق مهووساً بمظهره (حب الشباب، السمنة، النحافة).
+                        [cite_start]الجاذبية تعتبر معياراً للقبول الاجتماعي في هذه المرحلة، وأي نقص يسبب شعوراً بالدونية
+                        [cite: 1171-1172].</li>
                 </ul>
-                <p style="margin-top: 15px; color: var(--secondary);">✨ <strong>الميزة القاتلة:</strong> عند تكبير الرسم، يقوم البرنامج "بإعادة حساب المعادلة" فوراً، فتظهر الخطوط ناعمة وحادة جداً مهما كان حجم التكبير.</p>
             </div>
 
-            <h3 style="margin-top: 30px;">أمثلة على البرامج المتجهة:</h3>
-            <div class="tech-grid">
-                <div class="tech-card">Adobe Illustrator</div>
-                <div class="tech-card">Macromedia Flash (سابقاً)</div>
-                <div class="tech-card">Corel Draw</div>
-                <div class="tech-card">Macromedia Freehand</div>
-            </div>
-        </div>
+            <div id="mental" class="section-card">
+                <h1>خامساً: النمو العقلي (المعرفي)</h1>
+                <p>يتحول التفكير من "المحسوس" (الطفولة) إلى "المجرد" (Adolescence).</p>
 
-        <div id="3d" class="content-section">
-            <h1>برامج التصميم ثلاثي الأبعاد (3D)</h1>
-            <p>شهد العقد الأخير تحول أكثر من 100 ألف مصمم من الرسم ثنائي الأبعاد إلى ثلاثي الأبعاد. لماذا؟</p>
-
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4>1. رؤية تصميمية أفضل</h4>
-                    <p>تتيح لك الدوران حول المجسم ورؤيته من كل الزوايا، وكشف العيوب، وإجراء تحليلات هندسية (مثل تحليل الإجهادات).</p>
-                </div>
-                <div class="tech-card">
-                    <h4>2. الإنتاج الأوتوماتيكي للمساقط</h4>
-                    <p>بدلاً من رسم المسقط الأمامي والجانبي والأفقي يدوياً (مما يستغرق وقتاً طويلاً)، يمكنك بناء المجسم 3D مرة واحدة، والبرنامج يستخرج منه جميع المساقط (2D Views) بضغطة زر وبدقة 100%.</p>
-                </div>
-                <div class="tech-card">
-                    <h4>3. سهولة التعديل (Parametric)</h4>
-                    <p>التعديل في الـ 3D ليس "إعادة رسم". بل هو مجرد تغيير في الأرقام (تغيير قطر دائرة، طول ضلع)، وسيقوم البرنامج بتحديث كل المساقط المرتبطة فوراً.</p>
-                </div>
-                <div class="tech-card">
-                    <h4>4. تقليل دورة الإنتاج</h4>
-                    <p>يساعد على سرعة الوصول للمنتج النهائي وتسويقه (حيث يمكن عرض صورة واقعية للمنتج قبل تصنيعه فعلياً).</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="illustrator" class="content-section">
-            <h1><span class="sw-badge ai-badge">Ai</span> Adobe Illustrator</h1>
-            <p>العملاق الأول في مجال الرسوم التعليمية المتجهة (Vector).</p>
-
-            <div class="tech-card" style="border-top: 4px solid var(--adobe-ai);">
-                <h3>أبرز المميزات (كما ورد في الفصل):</h3>
-                <ul class="feature-list">
-                    <li><strong>الرسم البياني (Graph Tools):</strong> الميزة الأهم لمصممي الرسوم التعليمية. يوفر البرنامج 9 أنواع جاهزة من الرسوم البيانية، يمكن إنشاؤها وتعديل بياناتها بسهولة، وحتى تغيير نوعها بعد الإنشاء.</li>
-                    <li><strong>نظام الطبقات (Layers):</strong> لتنظيم العمل في شفافيات فوق بعضها.</li>
-                    <li><strong>المؤثرات (Filters):</strong> مجموعة ضخمة من الفلاتر لتشويه أو تعديل الأشكال.</li>
-                    <li><strong>التكامل:</strong> يعمل بسلاسة مع برامج أدوبي الأخرى (مثل استيراد البيانات من Excel).</li>
+                <h3>خصائص التفكير العقلي:</h3>
+                <ul>
+                    [cite_start]<li><strong>التفكير المجرد:</strong> القدرة على فهم مفاهيم معنوية لا وجود مادي لها (مثل:
+                        العدالة، الفضيلة، الديمقراطية)[cite: 1180, 1186].</li>
+                    [cite_start]<li><strong>الاستدلال والمنطق:</strong> القدرة على الاستنتاج، التحليل، التركيب، ووضع
+                        الفروض واختبارها (تفكير علمي) [cite: 1190-1191].</li>
+                    [cite_start]<li><strong>إدراك الزمن:</strong> يفهم بوضوح الفرق بين الماضي والحاضر والمستقبل، وكيف
+                        يؤثر الحاضر في المستقبل (التخطيط)[cite: 1180].</li>
+                    <li><strong>التخيل:</strong> يدرك الفرق بين الحقيقي والخيالي، وبين "ما هو كائن" و "ما يجب أن يكون"
+                        (المثالية والنقد).</li>
+                    [cite_start]<li><strong>الانتباه:</strong> يزداد مدى الانتباه والقدرة على استيعاب المشكلات
+                        المعقدة[cite: 1189].</li>
                 </ul>
             </div>
+
+            <div id="emotional" class="section-card">
+                <h1>سادساً: النمو الانفعالي</h1>
+                <p>تتسم الانفعالات بالحدة، التذبذب، وعدم التحكم (عواصف انفعالية).</p>
+
+                <h3>أهم المظاهر الانفعالية:</h3>
+                <div class="def-box">
+                    <ul>
+                        [cite_start]<li><strong>الحساسية الشديدة:</strong> يتأثر بسرعة بأي نقد، وتكون ردود فعله مبالغ
+                            فيها[cite: 1197].</li>
+                        <li><strong>التذبذب:</strong> يتقلب بين التدين الشديد والتمرد، بين الحب والكره، بين الحماس
+                            واليأس.</li>
+                        <li><strong>الشعور بالهوية:</strong> يبدأ البحث عن "من أنا؟" (الهوية)[cite_start]، وقد ينخفض
+                            تقدير الذات في البداية[cite: 1198, 1202].</li>
+                        [cite_start]<li><strong>الخجل والانطواء:</strong> يميل للعزلة أحياناً بسبب التغيرات الجسمية
+                            والشعور بأن الجميع يراقبه[cite: 1207].</li>
+                        <li><strong>أحلام اليقظة:</strong> وسيلة للهروب من الواقع وتحقيق الرغبات المحبطة.</li>
+                        <li><strong>الحب:</strong> تتجه المشاعر نحو الجنس الآخر.</li>
+                        [cite_start]<li><strong>تغير المخاوف:</strong> بدلاً من الخوف من الحيوانات والظلام (الطفولة)،
+                            يخاف المراهق من: الفشل في الدراسة، فقدان الأصدقاء، السخرية، والمكانة الاجتماعية [cite:
+                            1218-1219].</li>
+                    </ul>
+                </div>
+
+                [cite_start]<p><strong>الفروق بين الجنسين:</strong> الإناث يملن للاكتئاب ومشاعر الذنب، الذكور يميلون
+                    للعدوانية والتمرد[cite: 1222].</p>
+            </div>
+
+            <div id="social" class="section-card">
+                <h1>سابعاً: النمو الاجتماعي</h1>
+                <p>يحدث "فطام اجتماعي" حيث ينتقل الولاء من "الأسرة" إلى "جماعة الأصدقاء".</p>
+
+                <h3>الخصائص الاجتماعية:</h3>
+                <ul>
+                    <li><strong>جماعة الأقران (الشلة):</strong> تأثير الأصدقاء يصبح أقوى من تأثير الأهل. يقلدهم في
+                        الملابس، الكلام، وطريقة التفكير. [cite_start]الرفض من الجماعة يسبب أزمة كبرى [cite: 1230-1231].
+                    </li>
+                    [cite_start]<li><strong>التمرد على السلطة:</strong> يرفض توجيهات الكبار (الوالدين والمدرسين) لإثبات
+                        استقلاليته وشخصيته[cite: 1231].</li>
+                    <li><strong>الميل للجنس الآخر:</strong> تتغير المجموعات من نفس الجنس (في الطفولة) إلى مجموعات مختلطة
+                        أو اهتمام بالجنس المغاير.</li>
+                    [cite_start]<li><strong>الزعامة:</strong> تظهر الميول القيادية والرغبة في إثبات الوجود
+                        والمنافسة[cite: 1237].</li>
+                    [cite_start]<li><strong>المسؤولية الاجتماعية:</strong> ينمو الوعي الاجتماعي والاهتمام بمشكلات
+                        المجتمع والمشاركة في الأنشطة[cite: 1234].</li>
+                </ul>
+
+                <div class="exam-note">
+                    <strong>تطبيق تربوي:</strong> المراهق يحتاج إلى "القدوة" وليس "الأوامر". [cite_start]يجب على المربين
+                    منحه الثقة والمسؤولية، وتفهم رغبته في الاستقلال، ومشاركته في الأنشطة الاجتماعية لامتصاص طاقته [cite:
+                    1240-1243].
+                </div>
+            </div>
+
         </div>
-
-        <div id="photoshop" class="content-section">
-            <h1><span class="sw-badge ps-badge">Ps</span> Adobe Photoshop</h1>
-            <p>ملك برامج الجرافيك النقطي (Pixel Based)، ولا غنى عنه لأي مصمم.</p>
-
-            <table class="compare-table">
-                <tr>
-                    <td>التخصص</td>
-                    <td>معالجة الصور، الدمج، التلوين الرقمي، إنشاء الخلفيات.</td>
-                </tr>
-                <tr>
-                    <td>أدوات النصوص<br>(Text Tools)</td>
-                    <td>يدعم اللغة العربية بقوة. يتيح الكتابة داخل "إطارات"، ويوفر أدوات <strong>"تحوير النص" (Warp Text)</strong> لجعله مقوساً أو متموجاً.</td>
-                </tr>
-                <tr>
-                    <td>الأشكال الهندسية</td>
-                    <td>رغم أنه نقطي، أضافت الإصدارات الحديثة أدوات رسم أشكال (مستطيل، دائرة...) تحتفظ بخصائصها المتجهة (Shapes) لزيادة الدقة.</td>
-                </tr>
-                <tr>
-                    <td>الأنماط (Styles)</td>
-                    <td>قوالب جاهزة للتأثيرات (ظل، توهج، بروز) يمكن تطبيقها على أي طبقة بضغطة زر.</td>
-                </tr>
-                <tr>
-                    <td>أداة الإسالة<br>(Liquefy)</td>
-                    <td>أداة سحرية ذكرها الكتاب لأهميتها في <strong>رسم الكاريكاتير</strong>. تتيح تشويه الصورة (تكبير الأنف، تصغير العين) بمرونة عالية كأنك تتعامل مع سائل.</td>
-                </tr>
-            </table>
-        </div>
-
-    </main>
+    </div>
 
     <script>
-        function switchTab(tabId) {
+        function showSection(id) {
             // Hide all sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
+            document.querySelectorAll('.section-card').forEach(el => {
+                el.classList.remove('active');
             });
+            // Show selected section
+            document.getElementById(id).classList.add('active');
 
-            // Show target section
-            const activeSection = document.getElementById(tabId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            }
-
-            // Update Nav Buttons
-            const buttons = document.querySelectorAll('.nav-item');
-            buttons.forEach(btn => {
+            // Update Navigation state
+            document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
 
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Highlight current button
+            const btns = document.getElementsByTagName('button');
+            for (let btn of btns) {
+                if (btn.getAttribute('onclick') === `showSection('${id}')`) {
+                    btn.classList.add('active');
+                }
+            }
+
+            // Scroll to top on mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
         }
     </script>
 </body>
+
 </html>

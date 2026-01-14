@@ -1901,7 +1901,7 @@ const Quiz = {
 
         if (window.QuestionBank && window.QuestionBank[subjectKey]) {
             const bank = window.QuestionBank[subjectKey];
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 7; i++) {
                 if (bank[`chapter${i}`]) {
                     window.questions = window.questions.concat(bank[`chapter${i}`]);
                 }
